@@ -192,7 +192,7 @@ class Ghost : public ::GhostInterface {
   //
   // OUTPUT: register_a_ (First Lambda-Man's x-ordinate)
   // OUTPUT: register_b_ (First Lambda-Man's y-ordinate)
-  void INT1() {}
+  void INT1();
 
   // Stores the second Lambda-Man’s position in registers A (x-ordinate) and
   // B (y-ordinate). In the single Lambda-Man version of the game, the
@@ -200,7 +200,7 @@ class Ghost : public ::GhostInterface {
   //
   // OUTPUT: register_a_ (Second Lambda-Man's x-ordinate)
   // OUTPUT: register_b_ (Second Lambda-Man's y-ordinate)
-  void INT2() {}
+  void INT2();
 
   // Stores the ghost's index in register A.
   //

@@ -59,7 +59,7 @@ class GhostInterface : public Movement {
   void SetGame(Game* game) { game_ = game; }
   virtual int Step() = 0;
 
- private:
+ protected:
   Game* game_;
 };
 
@@ -85,11 +85,16 @@ class Game {
   //////////////////////////////////////////////////////////////////////////////
   // APIs for Ghost
   //////////////////////////////////////////////////////////////////////////////
-  Coordinate GetLambdaManRC() {
+  Coordinate GetFirstLambdaManRC() {
     if (lman_ == nullptr) {
       return CoordinateUtil::Null();
     }
     return lman_->GetRC();
+  }
+
+  Coordinate GetSecondLambdaManRC() {
+    // TODO(imos): Implement second lambda-man.
+    return CoordinateUtil::Null();
   }
 
  private:
