@@ -3,6 +3,7 @@ cc_library(
     SOURCES "sim.cc"
     DEPENDENCIES
         "//base"
+        "//util:coordinate"
 )
 
 cc_test(

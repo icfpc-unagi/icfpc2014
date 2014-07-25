@@ -4,6 +4,7 @@ cc_library(
     DEPENDENCIES
         "//base"
         "//base:string-printf"
+        "//sim"
 )
 
 # cc_test(

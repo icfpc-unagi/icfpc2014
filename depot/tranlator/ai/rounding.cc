@@ -1,10 +1,9 @@
-#include"lib.cpp"
-#include "list.b"
+#include "tranlator/lib.cpp"
 
 // step
 P step(P ai, P game) {
 	int d;
-	d = toi(fst(ai));
+	// d = firstInt(ai);
 	if (d == 3) {
 		d = 0;
 	} else {

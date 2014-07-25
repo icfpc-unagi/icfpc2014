@@ -8,6 +8,26 @@ using namespace std;
 constexpr int kFruits = 2;
 constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
                                   1000, 1000, 2000, 2000, 3000, 3000, 5000};
+constexpr int dr[4] = {-1, 0, 1, 0};
+constexpr int dc[4] = {0, 1, 0, -1};
+
+bool Movement::Move() {
+  switch (d_) {
+    case 0:
+      r_--;
+      return true;
+    case 1:
+      c_++;
+      return true;
+    case 2:
+      r_++;
+      return true;
+    case 3:
+      c_--;
+      return true;
+  }
+  return false;
+}
 
 void Game::ParseMaze(std::istream& is) {
   string line;
@@ -21,13 +41,13 @@ void Game::ParseMaze(std::istream& is) {
     for (int i = 0; i < line.size(); ++i) {
       switch (line[i]) {
         case '\\':  // Lambda-Man
-          lman_->Initialize(maze_.size(), i, 0);
+          lman_->Initialize(maze_.size(), i, 2 /* face down */);
           break;
         case '=':  // Ghost
           ghosts_.emplace_back(
               ghost_factories_[ghost_index % ghost_factories_.size()]
                   ->Create());
-          ghosts_.back()->Initialize(maze_.size(), i, 0);
+          ghosts_.back()->Initialize(maze_.size(), i, 2 /* face down */);
           ghost_index++;
           break;
         case '%':  // Fruit
@@ -64,8 +84,9 @@ int Game::Start() {
   int flight_mode = 0;  // remaining ticks
   int utc_lman_next_move = 127;
   vector<int> utc_ghosts_next_moves(ghosts_.size());
-  for (int i = 0; i < ghosts_.size(); ++i)
+  for (int i = 0; i < ghosts_.size(); ++i) {
     utc_ghosts_next_moves[i] = 130 + 2 * i;
+  }
   vector<bool> ghosts_invisible_(ghosts_.size(), false);
   // True if Lambda-Man ate something since the last move
   bool eating = false;
@@ -74,13 +95,49 @@ int Game::Start() {
   while (tick_ < end_of_lives) {
     // *** 1. moves
     if (tick_ == utc_lman_next_move) {
-      lman_->Step();
+      lman_->SetDirection(lman_->Step());
+      if (!lman_->Move()) LOG(WARNING) << "Lambda-Man hit a wall ('A`)";
       utc_lman_next_move += eating ? 137 : 127;
       eating = false;  // Reset eating state
     }
     for (int i = 0; i < ghosts_.size(); ++i) {
       if (tick_ == utc_ghosts_next_moves[i]) {
-        ghosts_[i]->Step();
+        // Check if the ghost has options
+        int prev_d = ghosts_[i]->GetDirection();
+        auto pos = ghosts_[i]->GetRC();
+        int ways = 0;
+        int oneway = 2;  // turn around if there is no option else
+        for (int j = 3; j < 6; ++j) {
+          int way = (prev_d + j) % 4;
+          if (GetSymbolSafe(make_pair(pos.first + dr[way], pos.second + dc[way])) != '#') {
+            ways++;
+            oneway = way;
+          }
+        }
+        if (ways >= 2) {  // has options
+          int d = ghosts_[i]->Step();
+          bool moved = false;
+          if (d < 0 || 4 <= d) {
+            LOG(WARNING) << "Ghost[" << i << "] returned invalid direction";
+          } else if (d == (prev_d + 2) % 4) {
+            LOG(WARNING) << "Ghost[" << i << "] chose the opposite direction";
+          } else  if (ghosts_[i]->Move()) {
+            moved = true;
+          } else {
+            LOG(WARNING) << "Ghost[" << i << "] chose a bad direction to a wall";
+          }
+          if (!moved) {  // auto move instead
+            for (int j = 0; j < 4; ++j) {
+              ghosts_[i]->SetDirection((prev_d + j) % 4);
+              if (ghosts_[i]->Move()) break;
+            }
+          }
+        } else if (ways == 1 || GetSymbolSafe(make_pair(pos.first + dr[oneway], pos.second + dc[oneway])) != '#') {
+          ghosts_[i]->SetDirection(oneway);
+          CHECK(ghosts_[i]->Move()) << "Ghost[" << i << "] auto move failed";
+        } else {
+          // surrounded on all four sides by walls
+        }
         utc_ghosts_next_moves[i] += (65 + i) * (flight_mode == 0 ? 2 : 3);
       }
     }

@@ -7,15 +7,21 @@
 #include <glog/logging.h>
 
 #include "base/string-printf.h"
+#include "sim/sim.h"
 
 namespace ghost {
 
-class Ghost {
+class Ghost : public ::GhostInterface {
  public:
   typedef uint8_t Value;
 
   Ghost();
   virtual ~Ghost();
+
+  int Step() override {
+    Run();
+    return direction_;
+  }
 
   virtual void Run() = 0;
   void ResetTick() {
@@ -171,7 +177,14 @@ class Ghost {
   // the beginning of the game cycle.
   //
   // INPUT: register_a_ (ghost's new direction)
-  void INT0() {}
+  void INT0() {
+    if (4 <= register_a_) {
+      LOG(ERROR) << "ghost called INT0 with a bad direction: " << register_a_;
+      error_ = true;
+      return;
+    }
+    direction_ = register_a_;
+  }
 
   // Stores the first Lambda-Man’s position in registers A (x-ordinate) and
   // B (y-ordinate). In the single Lambda-Man version of the game, the first
@@ -179,7 +192,7 @@ class Ghost {
   //
   // OUTPUT: register_a_ (First Lambda-Man's x-ordinate)
   // OUTPUT: register_b_ (First Lambda-Man's y-ordinate)
-  void INT1() {}
+  void INT1();
 
   // Stores the second Lambda-Man’s position in registers A (x-ordinate) and
   // B (y-ordinate). In the single Lambda-Man version of the game, the
@@ -187,7 +200,7 @@ class Ghost {
   //
   // OUTPUT: register_a_ (Second Lambda-Man's x-ordinate)
   // OUTPUT: register_b_ (Second Lambda-Man's y-ordinate)
-  void INT2() {}
+  void INT2();
 
   // Stores the ghost's index in register A.
   //
@@ -266,6 +279,8 @@ class Ghost {
   bool halt_;
   int tick_;
   vector<Value> memory_;
+
+  int direction_;
 };
 
 }  // namespace ghost

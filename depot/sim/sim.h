@@ -1,9 +1,11 @@
 #ifndef SIM_SIM_H_
 #define SIM_SIM_H_
+
 #include <memory>
-#include <vector>
 #include <string>
-#include "sim.h"
+#include <vector>
+
+#include "util/coordinate.h"
 
 // Game map data
 typedef vector<string> Maze;
@@ -14,13 +16,17 @@ class Game;
 class Movement {
  public:
   virtual ~Movement() {}
+  // Accessors
+  Coordinate GetRC() const { return Coordinate(r_, c_); }
+  int GetDirection() const { return d_; }
+
+  // Following are for internal use
   void SetRC(int r, int c) {
     r_ = r;
     c_ = c;
   }
-  pair<int, int> GetRC() const { return std::make_pair(r_, c_); }
+
   void SetDirection(int d) { d_ = d; }
-  int GetDirection() const { return d_; }
   void Initialize(int r, int c, int d) {
     initial_r = r;
     initial_c = c;
@@ -32,6 +38,7 @@ class Movement {
     c_ = initial_c;
     d_ = initial_d;
   }
+  bool Move();
 
  private:
   int r_;
@@ -52,12 +59,12 @@ class LambdaMan : public Movement {
 };
 
 // Ghost CPU interface
-class Ghost : public Movement {
+class GhostInterface : public Movement {
  public:
   void SetGame(Game* game) { game_ = game; }
   virtual int Step() = 0;
 
- private:
+ protected:
   Game* game_;
 };
 
@@ -65,7 +72,7 @@ class Ghost : public Movement {
 class GhostFactory {
  public:
   virtual ~GhostFactory() {}
-  virtual Ghost* Create();
+  virtual GhostInterface* Create();
 };
 
 // Game Mechanics
@@ -80,23 +87,42 @@ class Game {
   // Returns the final score
   int Start();
 
+  //////////////////////////////////////////////////////////////////////////////
   // APIs for Ghost
+  //////////////////////////////////////////////////////////////////////////////
+  Coordinate GetFirstLambdaManRC() {
+    if (lman_ == nullptr) {
+      return CoordinateUtil::Null();
+    }
+    return lman_->GetRC();
+  }
+
+  Coordinate GetSecondLambdaManRC() {
+    // TODO(imos): Implement second lambda-man.
+    return CoordinateUtil::Null();
+  }
 
  private:
-  char GetSymbol(const pair<int, int>& rc) {
+  char GetSymbol(const Coordinate& rc) {
     return maze_[rc.first][rc.second];
   }
-  void Eat(const pair<int, int>& rc) { maze_[rc.first][rc.second] = ' '; }
+  char GetSymbolSafe(const Coordinate& rc) {
+    if (rc.first < 0 || maze_.size() <= rc.first || rc.second < 0 || maze_[rc.first].size() <= rc.second) {
+      return '#';
+    }
+    return GetSymbol(rc);
+  }
+  void Eat(const Coordinate& rc) { maze_[rc.first][rc.second] = ' '; }
 
   vector<GhostFactory*> ghost_factories_;
-  vector<std::unique_ptr<Ghost>> ghosts_;
+  vector<std::unique_ptr<GhostInterface>> ghosts_;
   LambdaMan* lman_;
   // The current state of the world
   // NOTE: Only pills and power pills will be cosumed to be empty.
   //       Fruit and Lambda-Man symbols indicate their locations but not their
   // states.
   Maze maze_;
-  vector<pair<int, int>> fruit_locations_;
+  vector<Coordinate> fruit_locations_;
   int total_pills_;
   int life_;
   int score_;
