@@ -1,5 +1,5 @@
 #include <memory>
-#include <cassert>
+//#include <cassert>
 #include <iostream>
 #include <string>
 
@@ -35,8 +35,16 @@ struct Var {
 
   Var (const Var& v) {
     type = v.type;
-    data_int = v.data_int;
-    data_P = v.data_P;
+    switch (type) {
+      case TYPE_INT:
+	data_int = v.data_int;
+	break;
+      case TYPE_P:
+	data_P = v.data_P;
+	break;
+      default:
+	LOG(FATAL) << "Var: undefined type";
+    }
   }
 
   Var (int n) {
@@ -110,12 +118,13 @@ P secondP(P p) {
 
 
 std::string Var::to_string() {
-  if (type == TYPE_INT) {
-    return std::to_string(data_int);
-  } else if (type == TYPE_P) {
-    return data_P.to_string();
-  } else {
-    assert(false);
+  switch (type) {
+    case TYPE_INT:
+      return std::to_string(data_int);
+    case TYPE_P:
+      return data_P.to_string();
+    default:
+      LOG(FATAL) << "Var: undefined type";
   }
 }
 
