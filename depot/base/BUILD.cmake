@@ -10,3 +10,8 @@ cc_library(
         "#glog"
         "#gflags"
 )
+
+cc_library(
+    NAME "string-printf"
+    SOURCES "string-printf.cc"
+)

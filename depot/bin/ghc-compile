@@ -1,0 +1,136 @@
+#!/usr/bin/php
+<?php
+
+if ($argc != 2) {
+  fprintf(STDERR, "Usage: ghc-compile <file>\n");
+  exit(1);
+}
+
+$LABELS = array();
+$COMMANDS = array();
+
+function AddLabel($lineno, $program_counter, $line) {
+  $line = trim($line);
+  if (preg_match('%^\\s*([\\w\\d_]+):\\s*$%', $line, $match)) {
+    $GLOBALS['LABELS'][$match[1]] = $program_counter;
+    $GLOBALS['COMMANDS'][$lineno] = "Label: $match[1]";
+  } else {
+    fprintf(STDERR, "Syntax error in line $lineno:\n  " . $line);
+    exit(2);
+  }
+}
+
+function AddCommand($lineno, $program_counter, $line) {
+  $line = trim(preg_replace('%[\\s,]+%', "\t", $line));
+  $GLOBALS['COMMANDS'][$lineno] = array(
+      'pc' => $program_counter,
+      'args' => explode("\t", $line));
+}
+
+function ResolveName($lineno, $name) {
+  if (preg_match('%\d+%', $name)) {
+    return $name;
+  }
+  if (preg_match('%^([a-h]|pc)$%i', $name)) {
+    return 'register_' . strtolower($name) . '_';
+  }
+  if (!isset($GLOBALS['LABELS'][$name])) {
+    fprintf(STDERR, "No such label: $name in line $lineno.\n");
+    exit(2);
+  }
+  return $GLOBALS['LABELS'][$name];
+}
+
+function ParseArgument($lineno, $argument) {
+  if (preg_match('%^\[([\w\d_]+)\]$%', $argument, $match)) {
+    return 'Memory(' . ResolveName($lineno, $match[1]) . ')';
+  }
+  return ResolveName($lineno, $argument);
+}
+
+function OutputCommand($lineno, $original, $command) {
+  if (is_array($command)) {
+    $pc = $command['pc'];
+    $args = $command['args'];
+    $function = strtoupper(array_shift($args));
+    echo "pc" . sprintf('%03d', $pc) . ": if (Tick()) return;\n";
+    echo "    register_pc_ = $pc;\n";
+    echo '    VLOG(1) << "' . addslashes($original) . '"' . ";\n";
+    $goto = NULL;
+    $suffix = NULL;
+    switch ($function) {
+      case 'JGT':
+      case 'JLT':
+      case 'JEQ':
+        $goto = ResolveName($lineno, array_shift($args));
+        if (!is_numeric($goto)) {
+          fprintf(STDERR, "goto target must be a number: $goto\n");
+          exit(2);
+        }
+        $goto = sprintf("pc%03d", $goto);
+        break;
+      case 'INT';
+        $id = array_shift($args);
+        if (!is_numeric($id)) {
+          fprintf(STDERR, "INT ID must be a number: $id\n");
+          exit(2);
+        }
+    }
+    foreach ($args as $argno => $arg) {
+      $args[$argno] = ParseArgument($lineno, $arg);
+    }
+    if ($id !== NULL) { $function .= $id; }
+    $term = $function . '(' . implode(', ', $args) . ')';
+    if ($goto !== NULL) {
+      echo "    if ($term) goto $goto;\n";
+    } else {
+      echo "    $term;\n";
+    }
+  } else {
+    $command = trim($command);
+    echo "    // $command\n";
+  }
+}
+
+$data = str_replace(array("\r\n", "\r"), "\n", file_get_contents($argv[1]));
+$data = explode("\n", $data);
+$program_counter = 0;
+foreach ($data as $lineno => $line) {
+  $line = explode(';', $line);
+  $line = trim($line[0]);
+  $data[$lineno] = "[$program_counter] $line";
+  if ($line == '') {
+    continue;
+  }
+  if (strpos($line, ':') !== FALSE) {
+    AddLabel($lineno, $program_counter, $line);
+  } else {
+    AddCommand($lineno, $program_counter, $line);
+    $program_counter++;
+  }
+}
+
+echo <<<'EOM'
+#include "ghost/ghost.h"
+
+#include <glog/logging.h>
+
+namespace ghost {
+
+class Fickle : public Ghost {
+  void Run() override {
+    ResetTick();
+
+EOM;
+
+foreach ($COMMANDS as $lineno => $command) {
+  OutputCommand($lineno, $data[$lineno], $command);
+}
+
+echo <<<'EOM'
+  }
+};
+
+}  // namespace ghost
+
+EOM;
