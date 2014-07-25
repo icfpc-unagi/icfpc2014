@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sudo sh -c 'cd /code; git pull'

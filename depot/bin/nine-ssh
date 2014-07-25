@@ -1,0 +1,66 @@
+#!/bin/bash
+
+source gbash.sh || exit 1
+
+DEFINE_string host 'icfpc.sx9.jp' 'Host name to launch a ninelet.'
+DEFINE_int port '0' 'Port number to access.'
+DEFINE_bool tty true 'Use pseudo-tty.'
+
+gbash::init_google "$@"
+set -- "${GBASH_ARGV[@]}"
+set -e -u
+
+AssertCommandsExist ssh
+
+if [[ "${FLAGS_host}" =~ ^[0-9]*$ ]]; then
+  FLAGS_host="cluster$(printf '%02d' "${FLAGS_host}")"
+fi
+if [[ ! "${FLAGS_host}" =~ \. ]]; then
+  FLAGS_host="${FLAGS_host}.sx9.jp"
+fi
+
+cat << EOM >"${TMPDIR}/ninelet.pem"
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAskETK3YIlqGp/RCN3eL7vYYrDy0W/Uaxl3L0V7pX+ZTso2GA
+rZMHLRfu0js4dPP1qTYG36bGaaBfQlaKzQFE1Y+qmsZeJ3l4YKYvl2qKlRkxiWy7
+1LT+hMGu7t4dpNy2t4YqvwtRJe35EbUAyqOaCtO3CX7tCbAn7zQlxJr7HX3Jnd5f
+49GS3zuYQlgWHPeMKEm3ekj+8gJxij8HuUpNpKEFGlR2isi2Mjl+iDRPu4MTAtFb
+4i6wsqftJtjk4S0wp6rUwXJKS7MizvTPEwPWFEBSSN2lEj6bQPenazKMSfrjSwA6
+cN98R6l9Uegg5SV5+iPo96a0k27f5/RzyPBIZwIDAQABAoIBABDtvTRTcV1c3Rf7
+in2YIPBO3agDUDudiyAm+q2aNOCvFAowKFhTrkrKCxRMK4Bv6tS3HNAAtrcxU9qo
+/WWayT6+9iTc0fRNxPDo13w50g925Q14Fh6NUd6pxkNJNOeDTpb/Vu/t0zcW8qCL
+4BdekjKVCL0OINTatfAxs6SIU3DpaIbfJSoSWGHPbRxi068uPXbZfBi30ZP47J2N
+nJjuTTLfPoLBcFZS/DTt66TYaaMi9vCKWZ5Mb1SxW5OD5hm2zU6PRLwjqTmZQ+fa
+vY5r81qTw92WSkWhwngoS67OtzaJh6oQ0C4EEH08h5WCsMEYgXacp+rvvgFA2JZR
+aURC7gECgYEA67O35GmbAVdtrDWVSINxNmgqLQylrDxF2enU88GLvHbZMPls6ct2
+y+DiR8r8EVozmx4ZPG/xusPSGtxc8ijXi5uFHDu2g1K19iIOmR3i0Zz9z8IWwuHc
+YAIuEjk17HnCjA3iFc2Iq6/EgNHYv0ZTT3aU58qRBp8iSi3gZVtjP/cCgYEAwZrc
+8D1b+qe64bFJtdNbslU5vlPPpnYgmVWg8NHI2DSCA23nbC5m3s32cyuc/rpLGvUe
+XkSUlc3m68GfFwN8LwcF/yCzAFb+l+Y1njfdKQ0DZYO6DnMDyk17HHiiN54skala
+7L92dwneNQNBzBOU25QWohkG1WYyg6nfbPXu/xECgYEAyA6wxRTF1iupEQQiA3xd
+eXqMYdRcQoaeG0oX0BW1T2/pBWKQCRkDaiUkqx8lOG1BZCX18ZBqssVG7jmgQoJc
+AUktgDtGvMxVWeaqUVhGjvgbjl4FB8DBVlRDWoBovqDSeiHGhg8ANAlqVpTGzgMY
+71eNJ/iNg/tKFYA++IjLAx0CgYEAsk+3fWyF8m3ZKVTn1pc7tRvZevomHeJeU9sR
+x7rviHGT7SSkKHb0N/DqM1jP16ws0D9CIQB4+SAStsA1jjSfg5CsbTXopz94bN6S
+M46wGsbpge24xuYXb5O895QDk8YStnWMUNBmg2yLQ7gkOZkvWK0jy1fRe2oMzEcA
+iJJZ9IECgYAxFPanCQAlA26gO9Uto94Sd4MP1Cy7cgUK41htC79F8EN+ioeZXE6T
+grftR/+zt/RNXc7lBkD96h58FcIkeHwhQ1gAjjqo5QqaVLmKVRHK+0uBWiUpfJPG
+XBC20CeYmovkIeeNqCs3gkvLQt54u0xkdNvlZwY+AUEXmjtIoOoq7Q==
+-----END RSA PRIVATE KEY-----
+EOM
+chmod 600 "${TMPDIR}/ninelet.pem"
+if (( FLAGS_tty )); then
+  tty_flag=-t
+else
+  tty_flag=-T
+fi
+if [ "${FLAGS_port}" -eq 0 ]; then
+  ssh -q ${tty_flag} -i "${TMPDIR}/ninelet.pem" \
+      -o StrictHostKeyChecking=no \
+      ninelet@"${FLAGS_host}" -- "$@"
+else
+  ssh -q ${tty_flag} -i "${TMPDIR}/ninelet.pem" \
+      -o StrictHostKeyChecking=no \
+      -p "${FLAGS_port}" \
+      ninelet@"${FLAGS_host}" -- "$@"
+fi

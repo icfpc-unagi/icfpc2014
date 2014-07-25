@@ -1,0 +1,76 @@
+#!/bin/bash
+
+set -e -u
+
+# Check if the current user is root.
+test "$(whoami)" = 'root'
+
+# Create user: ninelet if it does not exists.
+id ninelet >/dev/null 2>/dev/null || \
+    useradd --home-dir=/home/ninelet --create-home --uid=20610 \
+            --user-group --shell=/bin/bash ninelet
+
+# Install docker.
+apt-get update -qq && apt-get -y install docker.io
+mkdir -p /usr/local/bin
+if [ ! -f /usr/local/bin/docker ]; then
+  ln -s /usr/bin/docker.io /usr/local/bin/docker
+fi
+
+NINELET_PUBLIC_KEY+='ssh-rsa '
+NINELET_PUBLIC_KEY+='AAAAB3NzaC1yc2EAAAADAQABAAABAQCyQRMrdgiWoan9EI3d4v'
+NINELET_PUBLIC_KEY+='u9hisPLRb9RrGXcvRXulf5lOyjYYCtkwctF+7SOzh08/WpNgbf'
+NINELET_PUBLIC_KEY+='psZpoF9CVorNAUTVj6qaxl4neXhgpi+XaoqVGTGJbLvUtP6Ewa'
+NINELET_PUBLIC_KEY+='7u3h2k3La3hiq/C1El7fkRtQDKo5oK07cJfu0JsCfvNCXEmvsd'
+NINELET_PUBLIC_KEY+='fcmd3l/j0ZLfO5hCWBYc94woSbd6SP7yAnGKPwe5Sk2koQUaVH'
+NINELET_PUBLIC_KEY+='aKyLYyOX6INE+7gxMC0VviLrCyp+0m2OThLTCnqtTBckpLsyLO'
+NINELET_PUBLIC_KEY+='9M8TA9YUQFJI3aUSPptA96drMoxJ+uNLADpw33xHqX1R6CDlJX'
+NINELET_PUBLIC_KEY+='n6I+j3prSTbt/n9HPI8Ehn '
+NINELET_PUBLIC_KEY+='ninelet'
+
+cat << EOM | docker build --tag=ninelet -
+FROM ubuntu:14.04
+MAINTAINER Kentaro Imajo <docker@imoz.jp>
+ENV DEBIAN_FRONTEND noninteractive
+RUN useradd --home-dir=/home/ninelet --create-home --uid=20610 --user-group --shell=/bin/bash ninelet
+RUN apt-get update -qq && apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
+RUN echo source /code/depot/bin/export_path >/etc/profile.d/Z00-code.sh
+RUN mkdir -p /home/ninelet/.ssh
+RUN echo '${NINELET_PUBLIC_KEY}' >/home/ninelet/.ssh/authorized_keys
+RUN echo 'StrictHostKeyChecking no' >/home/ninelet/.ssh/config
+RUN echo 'Defaults secure_path = "/code/depot/bin:/sbin:/bin:/usr/sbin:/usr/local/bin:/usr/bin"' >/etc/sudoers.d/00-secure_path
+RUN echo 'ninelet ALL=(ALL) NOPASSWD:ALL' >/etc/sudoers.d/90-ninelet
+RUN echo 'PATH="/code/depot/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' >/etc/environment
+RUN apt-get update -qq && apt-get install -y fakeroot
+RUN apt-get update -qq && fakeroot apt-get install -y fuse
+RUN apt-get update -qq && apt-get install -y openjdk-7-jdk
+RUN apt-get update -qq && apt-get install -y curl php5-cli
+RUN apt-get update -qq && apt-get install -y ruby1.9.3 rubygems-integration
+RUN apt-get update -qq && apt-get install -y clang-3.5 clang-format-3.5
+RUN apt-get update -qq && apt-get install -y mono-mcs
+RUN apt-get update -qq && apt-get install -y haskell-platform && cabal update
+
+RUN apt-get update -qq && apt-get install -y man xz-utils
+RUN apt-get update -qq && apt-get install -y python-pip && pip install awscli
+RUN ln -s /cloud/rw/dropbox/icfpc/2014 /dropbox
+RUN ln -s /cloud/rw/dunsparce/icfpc /work
+EXPOSE 22
+CMD /bin/bash
+EOM
+
+mkdir -p /home/ninelet/.ssh
+NINELET_COMMAND=(
+    sudo ninelet-run --user=ninelet '$SSH_ORIGINAL_COMMAND')
+NINELET_AUTHORIZED_KEY='command="'"${NINELET_COMMAND[*]}"'",'
+NINELET_AUTHORIZED_KEY+='no-port-forwarding,no-x11-forwarding,'
+NINELET_AUTHORIZED_KEY+='no-agent-forwarding '
+NINELET_AUTHORIZED_KEY+="${NINELET_PUBLIC_KEY}"
+echo "${NINELET_AUTHORIZED_KEY}" >/home/ninelet/.ssh/ninelet.pub
+cat /home/ninelet/.ssh/*.pub > /home/ninelet/.ssh/authorized_keys
+
+# Allow ninelet to use docker.
+echo 'Defaults secure_path = "/code/depot/bin:/sbin:/bin:/usr/sbin:/usr/local/bin:/usr/bin"' \
+    >/etc/sudoers.d/00-secure_path
+echo 'ninelet ALL=(root) NOPASSWD:/code/depot/bin/ninelet-run' \
+    >/etc/sudoers.d/90-ninelet

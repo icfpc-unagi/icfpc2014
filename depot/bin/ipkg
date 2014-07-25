@@ -1,0 +1,53 @@
+#!/bin/bash
+
+source gbash.sh || exit 1
+
+DEFINE_bool silent false 'Suprress messages.'
+DEFINE_string host '54.199.96.56' 'Host name to launch a ninelet.'
+DEFINE_string alias '' 'Alias name of a package.'
+
+gbash::init_google "$@"
+set -- "${GBASH_ARGV[@]}"
+set -e -u
+
+AssertCommandsExist curl php aws split
+
+if [ $# -eq 0 ]; then
+  echo "Usage: ipkg command [options]" >&2
+  echo "Commands:" >&2
+  echo "  put file" >&2
+  echo "    Puts file to Amazon S3." >&2
+  exit 1
+fi
+
+export AWS_ACCESS_KEY_ID=AKIAIHJHWC3N5FS4F5AA
+export AWS_SECRET_ACCESS_KEY=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
+export IPKG_HOST=http://package.imoz.jp.s3-website-us-east-1.amazonaws.com
+
+ValidateAliasName() {
+  local alias="${1}"
+  if [[ ! "${alias}" =~ ^[a-z][a-z0-9\-]*/[a-z0-9\-]+$ ]]; then
+    echo "Bad alias name: ${alias}" >&2
+    exit 1
+  fi
+}
+
+if [ "${FLAGS_alias}" != '' ]; then
+  ValidateAliasName "${FLAGS_alias}"
+fi
+
+command="$1"
+export IPKG_LIBRARY="$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)/ipkg.files"
+shift
+case "${command}" in
+  "put" ) source "${IPKG_LIBRARY}/put.sh" ;;
+  "get" ) source "${IPKG_LIBRARY}/get.sh" ;;
+  "archive" ) source "${IPKG_LIBRARY}/archive.sh" ;;
+  "run" ) source "${IPKG_LIBRARY}/run.sh" ;;
+  * )
+    echo "No such command: ${command}" >&2
+    exit 2
+    ;;
+esac
+
+exit 0

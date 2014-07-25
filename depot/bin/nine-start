@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e -u
+
+# Check if the current user is root.
+test "$(whoami)" = 'root'
+
+if [ ! -d /cloud ]; then mkdir -p /cloud; fi
+if ! mountpoint -qq /cloud; then
+  if ! which sshfs; then
+    apt-get update -qq && apt-get install -y sshfs
+  fi
+  sshfs cloud-family@imoz.jp:/ /cloud -o sshfs_sync,allow_other
+fi
+
+nine-upgrade
+nine-setup

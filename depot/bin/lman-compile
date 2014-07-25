@@ -1,0 +1,70 @@
+#!/usr/bin/php
+<?php
+
+if ($argc != 2) {
+  fprintf(STDERR, "Usage: lman-compile <file>\n");
+  exit(1);
+}
+
+$LABELS = array();
+$COMMANDS = array();
+
+function AddLabel($lineno, $program_counter, $line) {
+  $line = trim($line);
+  if (preg_match('%^\\s*([\\w\\d_]+):\\s*$%', $line, $match)) {
+    $GLOBALS['LABELS'][$match[1]] = $program_counter;
+    $GLOBALS['COMMANDS'][$lineno] = "Label: $match[1]";
+  } else {
+    fprintf(STDERR, "Syntax error in line $lineno:\n  " . $line);
+    exit(2);
+  }
+}
+
+function AddCommand($lineno, $program_counter, $line) {
+  $line = trim(preg_replace('%\\s+%', "\t", $line));
+  $GLOBALS['COMMANDS'][$lineno] = explode("\t", $line);
+}
+
+function OutputCommand($lineno, $command) {
+  if (is_array($command)) {
+    $args = array();
+    foreach ($command as $argno => $arg) {
+      if ($argno == 0) {
+        $args[] = strtoupper($arg);
+      } else if (preg_match('%^\\d+$%', $arg)) {
+        $args[] = $arg;
+      } else {
+        if (!isset($GLOBALS['LABELS'][$arg])) {
+          fprintf(STDERR, "No such label: $arg in line $lineno:\n  " .
+                          implode(' ', $command));
+          exit(2);
+        }
+        $args[] = $GLOBALS['LABELS'][$arg];
+      }
+    }
+    echo '  ' . implode(' ', $args) . "\n";
+  } else {
+    $command = trim($command);
+    echo "; $command\n";
+  }
+}
+
+$data = str_replace(array("\r\n", "\r"), "\n", file_get_contents($argv[1]));
+$program_counter = 0;
+foreach (explode("\n", $data) as $lineno => $line) {
+  $line = explode(';', $line);
+  $line = trim($line[0]);
+  if ($line == '') {
+    continue;
+  }
+  if (strpos($line, ':') !== FALSE) {
+    AddLabel($lineno, $program_counter, $line);
+  } else {
+    AddCommand($lineno, $program_counter, $line);
+    $program_counter++;
+  }
+}
+
+foreach ($COMMANDS as $lineno => $command) {
+  OutputCommand($lineno, $command);
+}

@@ -1,0 +1,85 @@
+#!/bin/bash
+
+source gbash.sh || exit 1
+
+DEFINE_bool 'detach' false 'Detach ninelet and expose the SSH port.'
+DEFINE_int 'port' 0 'Port number to bind.'
+DEFINE_int 'memory' 4000 'Memory limit in MB.'
+DEFINE_int 'cpu' 100 'CPU shares (relative weight).'
+DEFINE_string 'user' '' 'Log-in user.'
+DEFINE_bool 'tty' true 'Use a pseudo tty.'
+DEFINE_bool 'interactive' true 'Use interactive mode.'
+DEFINE_bool 'fifo' false 'Use fifo.'
+
+gbash::init_google "$@"
+set -- "${GBASH_ARGV[@]}"
+set -e -u
+
+# Check if the current user is root.
+RequireRootPrivilege
+AssertCommandsExist docker
+
+RunDocker() {
+  local flags=()
+
+  if [ "${FLAGS_user}" != '' ]; then
+    flags+=(
+        --user="${FLAGS_user}"
+        --workdir="/home/${FLAGS_user}"
+        --env=HOME="/home/${FLAGS_user}"
+    )
+  fi
+
+  if [ "${FLAGS_port}" -ne 0 ]; then
+    flags+=(--publish="${FLAGS_port}:22")
+  fi
+  if (( FLAGS_detach )); then
+    flags+=(
+        --detach
+        --name="ninelet${FLAGS_port}"
+        --hostname="ninelet${FLAGS_port}"
+    )
+  else
+    flags+=(--rm)
+    if (( FLAGS_interactive )); then
+      flags+=(--interactive)
+    fi
+    if (( FLAGS_tty )); then
+      flags+=(--tty)
+    fi
+  fi
+
+  mkdir "${TMPDIR}/fifo"
+
+  local command=("$@")
+  if (( FLAGS_fifo )); then
+    mkfifo --mode=0666 "${TMPDIR}/fifo/stdout"
+    mkfifo --mode=0666 "${TMPDIR}/fifo/stderr"
+    mkfifo --mode=0666 "${TMPDIR}/fifo/exit"
+    cat "${TMPDIR}/fifo/stdout" &
+    cat "${TMPDIR}/fifo/stderr" >&2 &
+    ( cat "${TMPDIR}/fifo/exit" && kill -TERM $$ ) &
+    command=(bash -c "$(Escape "$@") 1>/fifo/stdout 2>/fifo/stderr
+                      echo >/fifo/exit")
+  fi
+
+  docker run \
+      "${flags[@]}" \
+      --cpu-shares="${FLAGS_cpu}" \
+      --memory="${FLAGS_memory}m" \
+      --volume=/code:/code:ro \
+      --volume=/cloud:/cloud:rw \
+      --volume=/mnt:/mnt:rw \
+      --volume=/ebs:/ebs:rw \
+      --volume="${TMPDIR}/fifo":/fifo:rw \
+      --env=PATH=/code/depot/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+      ninelet \
+      "${command[@]}"
+}
+
+if (( FLAGS_detach )); then
+  docker rm --force "ninelet${FLAGS_port}" >/dev/null 2>/dev/null || true
+  RunDocker /usr/sbin/sshd -D
+else
+  RunDocker "$@"
+fi

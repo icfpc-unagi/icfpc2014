@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Set up a ninelet. This file should be placed in:
+# http://package.imoz.jp/bootstrap.sh
+#
+# Usage:
+#   apt-get update && apt-get install -y curl
+#   curl -o- http://package.imoz.jp/bootstrap | bash
+
+set -e -u
+
+if ! which git; then sudo apt-get -qq update && sudo apt-get install -y git; fi
+if [ -d /code ]; then sudo rm -rf /code; fi
+sudo git clone --depth=1 'https://github.com/imos/icfpc2014' /code
+
+if [ "$(uname)" == 'Darwin' ]; then
+  sudo mkdir -p /etc/paths.d
+  sudo sh -c 'echo /code/depot/bin/export_path >/etc/paths.d/code'
+else
+  sudo mkdir -p /etc/profile.d
+  sudo sh -c 'echo source /code/depot/bin/export_path >/etc/profile.d/Z00-code.sh'
+fi
+
+if ! which export_path >/dev/null 2>/dev/null; then
+  sudo sh << EOM
+echo 'PATH="/code/depot/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"' >/etc/environment
+EOM
+fi
+
+sudo mkdir -p /mnt/local /mnt/ebs

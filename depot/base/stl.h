@@ -1,0 +1,19 @@
+#ifndef BASE_STL_H_
+#define BASE_STL_H_
+
+#include <stdint.h>
+#include <algorithm>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
+
+using std::map;
+using std::max;
+using std::min;
+using std::set;
+using std::sort;
+using std::string;
+using std::vector;
+
+#endif  // BASE_STL_H_
