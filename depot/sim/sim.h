@@ -46,7 +46,7 @@ class Movement {
 class LambdaMan : public Movement {
  public:
   virtual void Init() = 0;
-  virtual void Step() = 0;
+  virtual int Step() = 0;
 
  private:
 };
@@ -55,7 +55,7 @@ class LambdaMan : public Movement {
 class Ghost : public Movement {
  public:
   void SetGame(Game* game) { game_ = game; }
-  virtual void Step() = 0;
+  virtual int Step() = 0;
 
  private:
   Game* game_;
