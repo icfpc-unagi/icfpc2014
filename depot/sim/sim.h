@@ -102,11 +102,10 @@ class Game {
   }
 
  private:
-  char GetSymbol(const Coordinate& rc) {
-    return maze_[rc.first][rc.second];
-  }
+  char GetSymbol(const Coordinate& rc) { return maze_[rc.first][rc.second]; }
   char GetSymbolSafe(const Coordinate& rc) {
-    if (rc.first < 0 || maze_.size() <= rc.first || rc.second < 0 || maze_[rc.first].size() <= rc.second) {
+    if (rc.first < 0 || maze_.size() <= rc.first || rc.second < 0 ||
+        maze_[rc.first].size() <= rc.second) {
       return '#';
     }
     return GetSymbol(rc);

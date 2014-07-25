@@ -109,7 +109,8 @@ int Game::Start() {
         int oneway = 2;  // turn around if there is no option else
         for (int j = 3; j < 6; ++j) {
           int way = (prev_d + j) % 4;
-          if (GetSymbolSafe(make_pair(pos.first + dr[way], pos.second + dc[way])) != '#') {
+          if (GetSymbolSafe(make_pair(pos.first + dr[way],
+                                      pos.second + dc[way])) != '#') {
             ways++;
             oneway = way;
           }
@@ -121,10 +122,11 @@ int Game::Start() {
             LOG(WARNING) << "Ghost[" << i << "] returned invalid direction";
           } else if (d == (prev_d + 2) % 4) {
             LOG(WARNING) << "Ghost[" << i << "] chose the opposite direction";
-          } else  if (ghosts_[i]->Move()) {
+          } else if (ghosts_[i]->Move()) {
             moved = true;
           } else {
-            LOG(WARNING) << "Ghost[" << i << "] chose a bad direction to a wall";
+            LOG(WARNING) << "Ghost[" << i
+                         << "] chose a bad direction to a wall";
           }
           if (!moved) {  // auto move instead
             for (int j = 0; j < 4; ++j) {
@@ -132,7 +134,9 @@ int Game::Start() {
               if (ghosts_[i]->Move()) break;
             }
           }
-        } else if (ways == 1 || GetSymbolSafe(make_pair(pos.first + dr[oneway], pos.second + dc[oneway])) != '#') {
+        } else if (ways == 1 ||
+                   GetSymbolSafe(make_pair(pos.first + dr[oneway],
+                                           pos.second + dc[oneway])) != '#') {
           ghosts_[i]->SetDirection(oneway);
           CHECK(ghosts_[i]->Move()) << "Ghost[" << i << "] auto move failed";
         } else {
