@@ -53,7 +53,7 @@ int Game::Start() {
     // initlal status
     tick_ = 0;
     score_ = 0;
-    life_ = 3;  // TODO: confirm inital life
+    life_ = 3;
     vector<bool> fruit_appeared(fruit_locations_.size(), false);
     int flight_mode = 0;  // remaining ticks
     int utc_lman_next_move = 127;

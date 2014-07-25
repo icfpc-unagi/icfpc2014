@@ -51,10 +51,13 @@ private:
 // Ghost CPU interface
 class Ghost : public Movement {
 public:
+    SetGame(Game* game) { game_ = game; }
     virtual void Step() = 0;
 private:
+    Game* game_;
 };
 
+// To create a ghost class above
 class GhostFactory {
 public:
     virtual ~GhostFactory() {}
