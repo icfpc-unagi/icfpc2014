@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 
+#include <glog/logging.h>
+
 struct Var;
 
 //std::string Var::to_string();
@@ -80,12 +82,12 @@ P::P(P a, P d) {
 //}
 
 int var2int (Var v) {
-  assert(v.type == TYPE_INT);
+  CHECK(v.type == TYPE_INT);
   return v.data_int;
 }
 
 struct P var2P (Var v) {
-  assert(v.type == TYPE_P);
+  CHECK(v.type == TYPE_P);
   return v.data_P;
 }
 
