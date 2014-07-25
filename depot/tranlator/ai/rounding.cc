@@ -3,7 +3,7 @@
 // step
 P step(P ai, P game) {
 	int d;
-	d = firstInt(ai);
+	// d = firstInt(ai);
 	if (d == 3) {
 		d = 0;
 	} else {
