@@ -52,7 +52,7 @@ class LambdaMan : public Movement {
 };
 
 // Ghost CPU interface
-class Ghost : public Movement {
+class GhostInterface : public Movement {
  public:
   void SetGame(Game* game) { game_ = game; }
   virtual int Step() = 0;
@@ -65,7 +65,7 @@ class Ghost : public Movement {
 class GhostFactory {
  public:
   virtual ~GhostFactory() {}
-  virtual Ghost* Create();
+  virtual GhostInterface* Create();
 };
 
 // Game Mechanics
@@ -89,7 +89,7 @@ class Game {
   void Eat(const pair<int, int>& rc) { maze_[rc.first][rc.second] = ' '; }
 
   vector<GhostFactory*> ghost_factories_;
-  vector<std::unique_ptr<Ghost>> ghosts_;
+  vector<std::unique_ptr<GhostInterface>> ghosts_;
   LambdaMan* lman_;
   // The current state of the world
   // NOTE: Only pills and power pills will be cosumed to be empty.

@@ -12,7 +12,8 @@ Ghost::Ghost()
       register_f_(),
       register_g_(),
       register_h_(),
-      memory_(256) {}
+      memory_(256),
+      direction_(-1) {}
 Ghost::~Ghost() {}
 
 }  // namespace ghost

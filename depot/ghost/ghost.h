@@ -7,15 +7,21 @@
 #include <glog/logging.h>
 
 #include "base/string-printf.h"
+#include "sim/sim.h"
 
 namespace ghost {
 
-class Ghost {
+class Ghost : public ::GhostInterface {
  public:
   typedef uint8_t Value;
 
   Ghost();
   virtual ~Ghost();
+
+  int Step() override {
+    Run();
+    return direction_;
+  }
 
   virtual void Run() = 0;
   void ResetTick() {
@@ -266,6 +272,8 @@ class Ghost {
   bool halt_;
   int tick_;
   vector<Value> memory_;
+
+  int direction_;
 };
 
 }  // namespace ghost
