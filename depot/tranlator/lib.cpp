@@ -1,3 +1,15 @@
+/*
+P P(int, int)
+P P(int, P)
+P P(P, int)
+P P(P, P)
+int firstInt(P)
+int secondInt(P)
+P firstP(P)
+P secondP(P)
+int atom(P)
+*/
+
 #include <memory>
 //#include <cassert>
 #include <iostream>
@@ -112,6 +124,18 @@ int secondInt(P v) {
 P secondP(P v) {
   return *v.toPair().cdr;
 }
+
+int atom(P v) {
+  switch (v.type) {
+    case TYPE_INT:
+      return 1;
+    case TYPE_PAIR:
+      return 0;
+    default:
+      LOG(FATAL) << "atom: undefined type";
+  }
+}
+      
 
 std::string P::to_string() {
   switch (type) {
