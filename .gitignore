@@ -21,3 +21,19 @@
 *.app
 
 build/
+
+depot/sim/sim.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+
+depot/sim/sim.xcodeproj/xcuserdata/sulume.xcuserdatad/xcschemes/sim.xcscheme
+
+depot/sim/sim.xcodeproj/xcuserdata/sulume.xcuserdatad/xcschemes/xcschememanagement.plist
+
+depot/sim/sim.xcodeproj/xcuserdata/sulume.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+
+depot/sim/sim.xcodeproj/project.xcworkspace/xcuserdata/sulume.xcuserdatad/UserInterfaceState.xcuserstate
+
+depot/sim/sim.xcodeproj/project.xcworkspace/xcshareddata/sim.xccheckout
+
+depot/sim/sim.xcodeproj/project.pbxproj
+
+depot/sim/sim/sim.xcodeproj/project.xcworkspace/contents.xcworkspacedata
