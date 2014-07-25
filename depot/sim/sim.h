@@ -25,7 +25,6 @@ class Movement {
     r_ = r;
     c_ = c;
   }
-
   void SetDirection(int d) { d_ = d; }
   void Initialize(int r, int c, int d) {
     initial_r = r;
