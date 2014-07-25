@@ -1,9 +1,11 @@
 #ifndef SIM_SIM_H_
 #define SIM_SIM_H_
+
 #include <memory>
-#include <vector>
 #include <string>
-#include "sim.h"
+#include <vector>
+
+#include "util/coordinate.h"
 
 // Game map data
 typedef vector<string> Maze;
@@ -18,7 +20,7 @@ class Movement {
     r_ = r;
     c_ = c;
   }
-  pair<int, int> GetRC() const { return std::make_pair(r_, c_); }
+  Coordinate GetRC() const { return Coordinate(r_, c_); }
   void SetDirection(int d) { d_ = d; }
   int GetDirection() const { return d_; }
   void Initialize(int r, int c, int d) {
@@ -80,13 +82,21 @@ class Game {
   // Returns the final score
   int Start();
 
+  //////////////////////////////////////////////////////////////////////////////
   // APIs for Ghost
+  //////////////////////////////////////////////////////////////////////////////
+  Coordinate GetLambdaManRC() {
+    if (lman_ == nullptr) {
+      return CoordinateUtil::Null();
+    }
+    return lman_->GetRC();
+  }
 
  private:
-  char GetSymbol(const pair<int, int>& rc) {
+  char GetSymbol(const Coordinate& rc) {
     return maze_[rc.first][rc.second];
   }
-  void Eat(const pair<int, int>& rc) { maze_[rc.first][rc.second] = ' '; }
+  void Eat(const Coordinate& rc) { maze_[rc.first][rc.second] = ' '; }
 
   vector<GhostFactory*> ghost_factories_;
   vector<std::unique_ptr<GhostInterface>> ghosts_;
@@ -96,7 +106,7 @@ class Game {
   //       Fruit and Lambda-Man symbols indicate their locations but not their
   // states.
   Maze maze_;
-  vector<pair<int, int>> fruit_locations_;
+  vector<Coordinate> fruit_locations_;
   int total_pills_;
   int life_;
   int score_;

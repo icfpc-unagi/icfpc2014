@@ -177,7 +177,14 @@ class Ghost : public ::GhostInterface {
   // the beginning of the game cycle.
   //
   // INPUT: register_a_ (ghost's new direction)
-  void INT0() {}
+  void INT0() {
+    if (4 <= register_a_) {
+      LOG(ERROR) << "ghost called INT0 with a bad direction: " << register_a_;
+      error_ = true;
+      return;
+    }
+    direction_ = register_a_;
+  }
 
   // Stores the first Lambda-Man’s position in registers A (x-ordinate) and
   // B (y-ordinate). In the single Lambda-Man version of the game, the first
