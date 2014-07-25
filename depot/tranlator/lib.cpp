@@ -3,12 +3,13 @@ P P(int, int)
 P P(int, P)
 P P(P, int)
 P P(P, P)
-int firstInt(P)
-int secondInt(P)
-P firstP(P)
-P secondP(P)
+int toi(P)
+P top(int)
+P fst(P)
+P snd(P)
 int atom(P)
 */
+#pragma once
 
 #include <memory>
 //#include <cassert>
@@ -109,20 +110,21 @@ Pair::Pair(P a, P d) {
   this->cdr = cdr;
 }
 
-int firstInt(P v) {
-  return v.toPair().car->toInt();
+int toi(P v) {
+  return v.toInt();
 }
 
-P firstP(P v) {
-  return *v.toPair().car;
+P top(int n) {
+  P res(n);
+  return res;
 }
 
-int secondInt(P v) {
-  return v.toPair().cdr->toInt();
+P fst(P v) {
+  return * v.toPair().car;
 }
 
-P secondP(P v) {
-  return *v.toPair().cdr;
+P snd(P v) {
+  return * v.toPair().cdr;
 }
 
 int atom(P v) {
@@ -170,8 +172,8 @@ int main() {
   while(true){
     std::cout << "state: " << state.to_string() << std::endl;
     P ret = step(state, game);
-    state = firstP(ret);
-    std::cout << "move: " << secondInt(ret) << std::endl;
+    state = fst(ret);
+    std::cout << "move: " << toi(snd(ret)) << std::endl;
   }
   return 0;
 }
