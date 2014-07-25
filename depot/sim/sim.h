@@ -1,14 +1,14 @@
-#ifndef DEPOT_SIM_H_
-#define DEPOT_SIM_H_
+#ifndef SIM_SIM_H_
+#define SIM_SIM_H_
 #include <memory>
 #include <vector>
 #include <string>
 #include "sim.h"
 
-using namespace std;
-
 // Game map data
 typedef vector<string> Maze;
+
+class Game;
 
 // Includes utilities
 class Movement {
@@ -18,7 +18,7 @@ class Movement {
     r_ = r;
     c_ = c;
   }
-  pair<int, int> GetRC() const { return make_pair(r_, c_); }
+  pair<int, int> GetRC() const { return std::make_pair(r_, c_); }
   void SetDirection(int d) { d_ = d; }
   int GetDirection() const { return d_; }
   void Initialize(int r, int c, int d) {
@@ -54,7 +54,7 @@ class LambdaMan : public Movement {
 // Ghost CPU interface
 class Ghost : public Movement {
  public:
-  SetGame(Game* game) { game_ = game; }
+  void SetGame(Game* game) { game_ = game; }
   virtual void Step() = 0;
 
  private:
@@ -89,7 +89,7 @@ class Game {
   void Eat(const pair<int, int>& rc) { maze_[rc.first][rc.second] = ' '; }
 
   vector<GhostFactory*> ghost_factories_;
-  vector<unique_ptr<Ghost>> ghosts_;
+  vector<std::unique_ptr<Ghost>> ghosts_;
   LambdaMan* lman_;
   // The current state of the world
   // NOTE: Only pills and power pills will be cosumed to be empty.
@@ -103,4 +103,4 @@ class Game {
   int tick_;
 };
 
-#endif  // DEPOT_SIM_H_
+#endif  // SIM_SIM_H_

@@ -9,7 +9,7 @@ int main() {
   Game game;
   game.AddGhostFactory(nullptr);
   game.SetLambdaMan(nullptr);
-  ifstream mazefile(FLAGS_maze);
+  std::ifstream mazefile(FLAGS_maze);
   game.ParseMaze(mazefile);
 
   int score = game.Start();
