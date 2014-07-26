@@ -9,6 +9,14 @@ P debug_tree(){
   gomi = debug(list);
   tree = list_to_tree(list);
   gomi = debug(tree);
+  gomi = debug(read_tree(tree,0));
+  gomi = debug(read_tree(tree,1));
+  gomi = debug(read_tree(tree,2));
+  gomi = debug(read_tree(tree,3));
+  gomi = debug(read_tree(tree,4));
+  gomi = debug(read_tree(tree,5));
+  tree = write_tree(tree,3,100);
+  gomi = debug(tree);
   return 0;
 }
 

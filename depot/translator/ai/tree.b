@@ -1,4 +1,8 @@
 // vi:filetype=cpp:
+
+// P read_tree(P tree, int n)
+// P write_tree(P tree, int n, P value)
+// P list_to_tree(P list)
 #include "translator/lib.h"
 
 // readTree :: Integer -> Tree a -> Maybe a
@@ -41,7 +45,7 @@ P read_tree1(int n, int k, P tr) {
   }
   return res;
 }
-P read_tree(int n, P tr) {
+P read_tree(P tr, int n) {
   return read_tree1(n, 1, tr);
 }
 
@@ -92,8 +96,7 @@ P write_tree1(int n, int k, P v, P tr) {
   }
   return res;
 }
-
-P write_tree(int n, P v, P tr) {
+P write_tree(P tr, int n, P v) {
   return write_tree1(n, 1, v, tr);
 }
 
@@ -106,7 +109,7 @@ P list_to_tree1(P ys, int n) {
   if (atom(ys)) {  // []
     res = top(0);
   } else {
-    res = write_tree(n, fst(ys), list_to_tree1(snd(ys), n+1));
+    res = write_tree(list_to_tree1(snd(ys), n+1), n, fst(ys));
   }
   return res;
 }
