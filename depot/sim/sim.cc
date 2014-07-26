@@ -95,7 +95,7 @@ int Game::Start() {
         for (int c = 0; c < width; ++c) {
           Coordinate rc(r, c);
           char symbol = GetSymbol(rc);
-          if (symbol == '=' || symbol == '\\') symbol = ' ';
+          if (symbol == '=' || symbol == '\\' || symbol == '%') symbol = ' ';
           if (lman_->GetRC() == rc) {
             symbol =  '\\';
           }
@@ -108,7 +108,7 @@ int Game::Start() {
               break;
             }
           }
-          ss << symbol;
+          ss << ' ' << symbol;
         }
         ss << '\n';
       }

@@ -7,11 +7,13 @@
 #include "lman/lman.h"
 #include "ghost/ai/fickle.h"
 
-DEFINE_string(maze, "", "Text file that contains maze map");
+DEFINE_string(maze, "depot/sim/world-classic.txt", "Text file that contains maze map");
+DECLARE_bool(logtostderr);
 
 int main(int argc, char** argv) {
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
+  FLAGS_logtostderr = true;
   
   if (FLAGS_maze.empty()) {
     std::cerr << "Usage: simulate_foobar --maze=<filename> --ghosts=<ghost>[,<ghost>]" << std::endl;
