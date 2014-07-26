@@ -121,13 +121,13 @@ class Game : public GameInterface {
   //////////////////////////////////////////////////////////////////////////////
   // APIs for LambdaMan
   //////////////////////////////////////////////////////////////////////////////
-  int GetVitality() {
+  int GetVitality() override {
     return vitality_;
   }
-  int GetLives() const {
+  int GetLives() const override {
     return life_;
   }
-  int GetScore() const {
+  int GetScore() const override {
     return score_;
   }
   int GetNumberOfGhosts() const {
