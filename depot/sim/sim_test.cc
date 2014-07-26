@@ -1,6 +1,7 @@
 #include "sim/sim.h"
 #include <sstream>
 #include <glog/logging.h>
+#include <gflags/gflags.h>
 #include <gtest/gtest.h>
 
 DECLARE_bool(print_state);
