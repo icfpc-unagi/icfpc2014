@@ -206,7 +206,7 @@ class Ghost : public ::GhostInterface {
   // Stores the ghost's index in register A.
   //
   // OUTPUT: register_a_ (this ghost's index)
-  void INT3() {}
+  void INT3();
 
   // For the ghost with index read from register A, stores its starting
   // position in registers A (x-ordinate) and B (y-ordinate). If A is not a
@@ -234,7 +234,7 @@ class Ghost : public ::GhostInterface {
   // INPUT: register_a_ (ghost index)
   // OUTPUT: register_a_ (indexed ghost's current vitality)
   // OUTPUT: register_b_ (indexed ghost's current direction)
-  void INT6() {}
+  void INT6();
 
   // Stores the current contents of map square with index read from registers A
   // (x-ordinate) and B (y-ordinate) in register A. If the co-ordinates lie

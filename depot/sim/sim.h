@@ -62,14 +62,22 @@ class LambdaMan : public Movement {
 // Ghost CPU interface
 class GhostInterface : public Movement {
  public:
-  GhostInterface() {}
+  GhostInterface() : game_(nullptr) {}
 
-  void SetGame(Game* game) { game_ = game; }
+  void Init(Game* game, int ghost_index, int ghost_vitality) {
+    game_ = game;
+    ghost_index_ = ghost_index;
+    ghost_vitality_ = ghost_vitality;
+  }
   virtual int Step() = 0;
 
+  int GetGhostIndex() { return ghost_index_; }
+  int GetGhostVitality() { return ghost_vitality_; }
+
  protected:
-  int ghost_index_;
   Game* game_;
+  int ghost_index_;
+  int ghost_vitality_;
 };
 
 // To create a ghost class above
@@ -127,6 +135,20 @@ class Game {
       return CoordinateUtil::Null();
     }
     return ghosts_[ghost_index]->GetRC();
+  }
+
+  int GetGhostVitality(int ghost_index) {
+    if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
+      return -1;
+    }
+    return ghosts_[ghost_index]->GetGhostVitality();
+  }
+
+  int GetGhostDirection(int ghost_index) {
+    if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
+      return -1;
+    }
+    return ghosts_[ghost_index]->GetDirection();
   }
 
  private:
