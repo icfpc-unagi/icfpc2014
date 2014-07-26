@@ -41,7 +41,7 @@ class Movement {
   bool CanMove(const Game& game, int d) const;
   bool Move();
 
- private:
+ protected:
   int r_;
   int c_;
   int d_;  // direction
@@ -59,7 +59,7 @@ class LambdaMan : public Movement {
   virtual void Main() = 0;
   virtual int Step() = 0;
 
- private:
+ protected:
   Game* game_;
 };
 
@@ -112,6 +112,19 @@ class Game {
       return out_of_area;
     }
     return GetSymbol(rc);
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
+  // APIs for LambdaMan
+  //////////////////////////////////////////////////////////////////////////////
+  int GetVitality() {
+    return vitality_;
+  }
+  int GetLives() {
+    return life_;
+  }
+  int GetScore() {
+    return score_;
   }
 
   //////////////////////////////////////////////////////////////////////////////

@@ -17,9 +17,13 @@ int LambdaManImpl::Step() {
 }
 
 P LambdaManImpl::EncodeWorld() {
-  P m;  // TODO
-  P l;  // TODO
-  P g;  // TODO
-  P f;  // TODO
+  // TODO: Map
+  P m;
+  // LambdaMan's status
+  P l = P(game_->GetVitality(), P(P(c_, r_), P(d_, P(game_->GetLives(), game_->GetScore()))));
+  // TODO: ghosts' status
+  P g;
+  // TODO: fruits
+  P f;
   return P(m, P(l, P(g, f)));
 }
