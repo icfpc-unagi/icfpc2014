@@ -1,0 +1,22 @@
+; Keep track of how long we have spent travelling in each direction.
+; Try to go in the direction we've travelled in least.
+
+               ; Count of time spent going in direction 0 is in memory address 0, and so on.
+mov a,255      ; A is the min value.
+mov b,0        ; B is the corresponding direction.
+mov c,255      ; C is the candidate direction for the new min.
+               ; Start of loop.
+inc c          ; Pick new direction.
+jgt 7,[c],a    ; Jump if count of direction C is above best so far.
+               ; We have a new min.
+mov a,[c]      ; Save new min.
+mov b,c        ; Save direction.
+jlt 3,c,3      ; Jump target. Loop back if we have not tried all 4 directions.
+
+mov a,b        ; Actually set desired direction.
+int 0
+
+int 3          ; Get our ghost index in A.
+int 6          ; Get out current direction in B.
+inc [b]        ; Increment corresponding count.
+hlt            ; Stop.

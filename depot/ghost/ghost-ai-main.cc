@@ -1,6 +1,5 @@
 #include "ghost/ai/ai.h"
 #include "ghost/ghost-ai-manager.h"
-#include "sim/sim.h"
 
 #include <gflags/gflags.h>
 #include <glog/logging.h>

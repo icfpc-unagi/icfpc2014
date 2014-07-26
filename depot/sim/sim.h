@@ -5,10 +5,7 @@
 #include <string>
 #include <vector>
 
-#include <gtest/gtest_prod.h>
-
 #include "util/coordinate.h"
-#include "ghost/ghost-ai-manager.h"
 
 // Game map data
 typedef vector<string> Maze;
@@ -97,10 +94,10 @@ class GhostFactory {
 // Game Mechanics
 class Game {
  public:
-  Game() : ghost_factories_(ghost::GetGhostAiManager()->GetGhostFactories()) {}
-  ~Game() {}
-
   // Configurations
+  void AddGhostFactory(GhostFactory* ghost_factory) {
+    ghost_factories_.push_back(ghost_factory);
+  }
   void SetLambdaMan(LambdaMan* lman) { lman_ = lman; }
   void ParseMaze(std::istream& is);
   // Returns the final score
@@ -161,12 +158,6 @@ class Game {
   }
 
  private:
-  // For test.
-  void SetGhostFactory(GhostFactory* ghost_factory) {
-    ghost_factories_.clear();
-    ghost_factories_.push_back(ghost_factory);
-  }
-
   void Eat(const Coordinate& rc) { maze_[rc.first][rc.second] = ' '; }
 
   vector<GhostFactory*> ghost_factories_;
@@ -183,9 +174,6 @@ class Game {
   int vitality_;
   int score_;
   int tick_;
-
-  FRIEND_TEST(SimulatorTest, ParseMaze);
-  FRIEND_TEST(SimulatorTest, RunGame);
 };
 
 #endif  // SIM_SIM_H_

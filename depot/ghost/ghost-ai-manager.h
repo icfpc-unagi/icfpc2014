@@ -7,15 +7,14 @@
 
 #include <glog/logging.h>
 
-class GhostFactory;
-class GhostInterface;
+#include "sim/sim.h"
 
 namespace ghost {
 
 class GhostAiManager {
  public:
-  GhostAiManager();
-  virtual ~GhostAiManager();
+  GhostAiManager() {}
+  virtual ~GhostAiManager() {}
 
   void RegisterGhostFactory(
       const string& name, ::GhostFactory* ghost_factory) {
@@ -30,7 +29,7 @@ class GhostAiManager {
     return names;
   }
 
-  vector<::GhostFactory*> GetGhostFactories();
+  vector<::GhostFactory*> GetGhosts(int num_ghosts);
 
  private:
   map<string, std::unique_ptr<::GhostFactory>> ghost_factory_;
