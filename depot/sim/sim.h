@@ -133,6 +133,9 @@ class Game : public GameInterface {
   int GetNumberOfGhosts() const {
     return ghosts_.size();
   }
+  const Maze& GetMaze() const {
+    return maze_;
+  }
 
   //////////////////////////////////////////////////////////////////////////////
   // APIs for Ghost

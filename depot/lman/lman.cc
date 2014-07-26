@@ -26,18 +26,38 @@ P LambdaManImpl::MakeList(const vector<P>& t) {
 }
 
 P LambdaManImpl::EncodeWorld() const {
-  // TODO: Map
-  P m;
+  // Map
+  const auto& maze = game_->GetMaze();
+  vector<P> ms;
+  for (int r = 0; r < maze.size(); ++r) {
+    vector<P> line;
+    for (int c = 0; c < maze[r].size(); ++c) {
+      int cell;
+      switch (maze[r][c]) {
+        case '#': cell = 0; break;
+        case ' ': cell = 1; break;
+        case '.': cell = 2; break;
+        case 'o': cell = 3; break;
+        case '%': cell = 4; break;
+        case '\\':cell = 5; break;
+        case '=': cell = 6; break;
+      }
+      line.push_back(cell);
+    }
+    ms.push_back(MakeList(line));
+  }
+  P m = MakeList(ms);
   // LambdaMan's status
   P l = P(game_->GetVitality(), P(P(c_, r_), P(d_, P(game_->GetLives(), game_->GetScore()))));
-  // TODO: ghosts' status
-  vector<P> g;
+  // ghosts' status
+  vector<P> gs;
   for (int i = 0; i < game_->GetNumberOfGhosts(); ++i) {
-    g.push_back(EncodeGhost(i));
+    gs.push_back(EncodeGhost(i));
   }
+  P g = MakeList(gs);
   // TODO: fruits
-  P f;
-  return P(m, P(l, P(MakeList(g), f)));
+  P f(0);
+  return P(m, P(l, P(g, f)));
 }
 
 P LambdaManImpl::EncodeGhost(int ghost_index) const {
