@@ -9,7 +9,7 @@ DEFINE_string(maze, "example_maze.txt", "Text file that contains maze map");
 
 class FakeLambdaMan : public LambdaMan {
 public:
-  void Init() override {}
+  void Main() override {}
   int Step() override {
     return rand() % 4;
   }

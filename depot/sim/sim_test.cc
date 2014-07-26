@@ -5,8 +5,8 @@
 
 class MockLambdaMan : public LambdaMan {
 public:
-  void Init() override {
-    LOG(INFO) << "Init";
+  void Main() override {
+    LOG(INFO) << "Main";
   }
   int Step() override {
     LOG(INFO) << "Step";

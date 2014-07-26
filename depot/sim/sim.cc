@@ -103,7 +103,7 @@ int Game::Start() {
   bool eating = false;
   
   // AI init
-  lman_->Init();
+  lman_->Init(this);
   for (int i = 0; i < ghosts_.size(); ++i) {
     ghosts_[i]->Init(this, i);
   }
@@ -283,13 +283,13 @@ int Game::Start() {
 
     // *** 5. pills
     if (total_pills_ == 0) {
-      LOG(INFO) << "Game is over: All pills have been eaten";
+      LOG(INFO) << "Game over: You won!";
       break;
     }
 
     // *** 6. game over
     if (life_ == 0) {
-      LOG(INFO) << "Game is over: Lambda-Man has died";
+      LOG(INFO) << "Game over: Lambda-Man has died";
       break;
     }
 

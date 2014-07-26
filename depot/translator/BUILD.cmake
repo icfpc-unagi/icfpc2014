@@ -5,9 +5,9 @@ cc_library(
         "//base"
 )
 
-cc_library(
-    NAME "main"
-    SOURCES "main.cc"
-    DEPENDENCIES
-        "//base"
-)
+# cc_library(
+#     NAME "main"
+#     SOURCES "main.cc"
+#     DEPENDENCIES
+#         "//base"
+# )

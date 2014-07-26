@@ -56,10 +56,14 @@ class Movement {
 // Lambda-Man interface
 class LambdaMan : public Movement {
  public:
-  virtual void Init() = 0;
+  void Init(Game* game) {
+    game_ = game;
+  }
+  virtual void Main() = 0;
   virtual int Step() = 0;
 
  private:
+  Game* game_;
 };
 
 // Ghost CPU interface
