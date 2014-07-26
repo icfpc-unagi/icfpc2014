@@ -13,11 +13,20 @@ namespace ghost {
 
 class GhostAiManager {
  public:
-  GhostAiManager();
+  GhostAiManager() {}
+  virtual ~GhostAiManager() {}
+
   void RegisterGhostFactory(
       const string& name, ::GhostFactory* ghost_factory) {
-    ghost_factory_.emplace(
-        name, std::unique_ptr<::GhostFactory>(ghost_factory));
+    ghost_factory_[name].reset(ghost_factory);
+  }
+
+  vector<string> GetGhostAiNames() {
+    vector<string> names;
+    for (const auto& name_and_ghost_factory : ghost_factory_) {
+      names.push_back(name_and_ghost_factory.first);
+    }
+    return names;
   }
 
  private:

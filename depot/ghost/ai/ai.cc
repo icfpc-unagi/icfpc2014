@@ -4,7 +4,7 @@
 
 namespace ghost {
 
-void Register() {
+void RegisterAi() {
   GetGhostAiManager()->RegisterGhostFactory(
       "fickle", new fickleGhostFactory);
 }

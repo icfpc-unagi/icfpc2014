@@ -3,7 +3,7 @@
 
 namespace ghost {
 
-void Register();
+void RegisterAi();
 
 }  // namespace ghost
 
