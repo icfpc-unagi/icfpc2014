@@ -9,10 +9,7 @@ gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
 set -e -u
 
-cd ~/code
-git reset --hard
-git clean -f -d
-git pull
+icfpc-pull
 
 FindAi() {
   local character="$1"
@@ -48,6 +45,7 @@ for ghost in "${ghosts[@]}"; do
   FindAi ghost "${ghost}"
 done
 
+cd ~/code
 ./depot/lman/ai/generator
 ./depot/ghost/ai/generator
 
