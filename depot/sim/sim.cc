@@ -92,7 +92,7 @@ int Game::Start() {
   score_ = 0;
   life_ = 3;
   vector<bool> fruit_appeared(fruit_locations_.size(), false);
-  int flight_mode = 0;  // remaining ticks
+  vitality_ = 0;  // remaining ticks
   int utc_lman_next_move = 127;
   vector<int> utc_ghosts_next_moves(ghosts_.size());
   for (int i = 0; i < ghosts_.size(); ++i) {
@@ -105,7 +105,7 @@ int Game::Start() {
   // AI init
   lman_->Init();
   for (int i = 0; i < ghosts_.size(); ++i) {
-    ghosts_[i]->Init(this, i, flight_mode);
+    ghosts_[i]->Init(this, i);
   }
 
   // main loop
@@ -138,7 +138,7 @@ int Game::Start() {
         }
         ss << '\n';
       }
-      LOG(INFO) << "The world state (score=" << score_ << "):\n" << ss.str();
+      LOG(INFO) << "The world state (utc=" << tick_ << ",score=" << score_ << "):\n" << ss.str();
       state_changed = false;
     }
 
@@ -208,15 +208,15 @@ int Game::Start() {
         } else {
           // surrounded on all four sides by walls
         }
-        utc_ghosts_next_moves[i] += (65 + i) * (flight_mode == 0 ? 2 : 3);
+        utc_ghosts_next_moves[i] += (65 + i) * (vitality_ == 0 ? 2 : 3);
         state_changed = true;
       }
     }
 
     // *** 2. actions
     // flight mode deactivating
-    if (flight_mode > 0) {
-      if (--flight_mode == 0) {
+    if (vitality_ > 0) {
+      if (--vitality_ == 0) {
         for (int i = 0; i < ghosts_.size(); ++i) {
           ghosts_invisible_[i] = false;
         }
@@ -242,7 +242,7 @@ int Game::Start() {
       // check power pill
       Eat(pos);
       // Activates flight mode
-      flight_mode = flight_mode_duration;
+      vitality_ = flight_mode_duration;
       // Gets all ghosts to turn around
       for (int i = 0; i < ghosts_.size(); ++i) {
         ghosts_[i]->SetDirection((ghosts_[i]->GetDirection() + 2) % 4);
@@ -262,7 +262,7 @@ int Game::Start() {
     // *** 4. life losing
     for (int i = 0; i < ghosts_.size(); ++i) {
       if (!ghosts_invisible_[i] && ghosts_[i]->GetRC() == pos) {
-        if (flight_mode == 0) {
+        if (vitality_ == 0) {
           // Ghost eats Lambda-Man
           // Loses a life
           life_--;

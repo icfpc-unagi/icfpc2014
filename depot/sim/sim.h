@@ -64,10 +64,10 @@ class GhostInterface : public Movement {
  public:
   GhostInterface() : game_(nullptr) {}
 
-  void Init(Game* game, int ghost_index, int ghost_vitality) {
+  void Init(Game* game, int ghost_index) {
     game_ = game;
     ghost_index_ = ghost_index;
-    ghost_vitality_ = ghost_vitality;
+    ghost_vitality_ = 0;
   }
   virtual int Step() = 0;
 
@@ -167,6 +167,7 @@ class Game {
   vector<Coordinate> fruit_locations_;
   int total_pills_;
   int life_;
+  int vitality_;
   int score_;
   int tick_;
 };
