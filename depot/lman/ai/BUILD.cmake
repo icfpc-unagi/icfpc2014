@@ -1,11 +1,4 @@
 cc_library(
-    NAME "ai"
-    SOURCES "ai.cc"
-    DEPENDENCIES
-        ":chokudai-10"
-)
-
-cc_library(
     NAME "chokudai-10"
     SOURCES "chokudai-10.cc"
     DEPENDENCIES
@@ -15,3 +8,9 @@ cc_library(
         "//translator:lib"
 )
 
+cc_library(
+    NAME "ai"
+    SOURCES "ai.cc"
+    DEPENDENCIES
+        ":chokudai-10"
+)

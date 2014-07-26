@@ -2,6 +2,9 @@
 
 set -e -u
 
+export TMPDIR="$(mktemp -d "${TMPDIR:-/tmp}/gbash.XXXXXX")"
+trap "rm -rf ${TMPDIR}" EXIT
+
 AI_DIR="$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)"
 DEPOT_DIR="${AI_DIR%/depot/*}/depot"
 
@@ -56,6 +59,15 @@ class ${identifier}LambdaMan : public LambdaMan {
   }
 };
 
+class ${identifier}LambdaManFactory : public ::LambdaManFactory {
+ public:
+  virtual ~${identifier}LambdaManFactory() {}
+
+  std::unique_ptr<::LambdaManInterface> Create() {
+    return std::unique_ptr<::LambdaManInterface>(new ${identifier}LambdaMan());
+  }
+};
+
 }  // namespace lman
 
 #endif  // LMAN_AI_${upper_identifier}_H_
@@ -76,4 +88,36 @@ cc_library(
 
 EOM
 
+  echo '#include "lman/ai/'"${name}"'.h"' >>"${TMPDIR}/ai.cc.include"
+  echo '  (*lambda_man_factories)["'"${name}"'"].reset(' \
+      >> ${TMPDIR}/ai.cc.body
+  echo '      new '$identifier$'LambdaManFactory);' >>"${TMPDIR}/ai.cc.body"
+
+  echo '        ":'"$name"'"' >>"${TMPDIR}/ai.BUILD"
 done
+
+cat << EOM >>BUILD.cmake
+cc_library(
+    NAME "ai"
+    SOURCES "ai.cc"
+    DEPENDENCIES
+EOM
+cat "${TMPDIR}/ai.BUILD" >> BUILD.cmake
+echo ')' >>BUILD.cmake
+
+echo '#include "lman/ai/ai.h"' >ai.cc
+cat "${TMPDIR}/ai.cc.include" >>ai.cc
+cat << EOM >>ai.cc
+
+namespace lman {
+
+void RegisterAi(
+    map<string, std::unique_ptr<LambdaManFactory>>* lambda_man_factories) {
+
+EOM
+cat "${TMPDIR}/ai.cc.body" >>ai.cc
+cat << EOM >>ai.cc
+}
+
+}  // namespace lman
+EOM
