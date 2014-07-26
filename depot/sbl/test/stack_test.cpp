@@ -1,5 +1,5 @@
 #include "translator/lib.h"
-#include "stack.b"
+#include "sbl/stack.cpp"
 
 void test() {
   P s;

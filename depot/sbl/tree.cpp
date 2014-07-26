@@ -3,7 +3,7 @@
 // P read_tree(P tree, int n)
 // P write_tree(P tree, int n, P value)
 // P list_to_tree(P list)
-#include "translator/lib.h"
+#pragma once
 
 // readTree :: Integer -> Tree a -> Maybe a
 // readTree n tr = readTree1 n 1 tr

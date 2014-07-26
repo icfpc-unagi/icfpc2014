@@ -1,7 +1,9 @@
 // vi:filetype=cpp:
 
-#include "stack.b"
-#include "list.b"
+#pragma once
+
+#include "stack.cpp"
+#include "list.cpp"
 
 P create_queue() {
   return P(create_stack(), create_stack());

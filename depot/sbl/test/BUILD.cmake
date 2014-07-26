@@ -1,4 +1,4 @@
-file(GLOB ai_sources "${PACKAGE_DIRECTORY}/*.cc")
+file(GLOB ai_sources "${PACKAGE_DIRECTORY}/*.cpp")
 
 foreach(ai_source ${ai_sources})
   string(REGEX REPLACE "^.*/" "" ai_source "${ai_source}")
@@ -14,7 +14,7 @@ foreach(ai_source ${ai_sources})
 
   cc_binary(
       NAME "${ai_target}"
-      SOURCES "../translator/main_run.cc"
+      SOURCES "../../translator/main_run.cc"
       DEPENDENCIES
           ":lib${ai_target}"
   )

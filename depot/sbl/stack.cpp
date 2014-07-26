@@ -1,5 +1,7 @@
 // vi:filetype=cpp:
 
+#pragma once
+
 P create_stack() {
   return top(0);
 }
