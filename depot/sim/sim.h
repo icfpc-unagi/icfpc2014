@@ -71,7 +71,7 @@ class GhostInterface : public Movement {
 class GhostFactory {
  public:
   virtual ~GhostFactory() {}
-  virtual GhostInterface* Create();
+  virtual GhostInterface* Create() = 0;
 };
 
 // Game Mechanics

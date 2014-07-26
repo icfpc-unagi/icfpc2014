@@ -38,8 +38,9 @@ void Game::ParseMaze(std::istream& is) {
   total_pills_ = 0;
   while (true) {
     getline(is, line);
+    cout << line << endl;
     if (line.empty() || !is.good()) break;
-    CHECK(maze_.empty() || maze_.back().size() != line.size())
+    CHECK(maze_.empty() || maze_.back().size() == line.size())
         << "Input maze format error";
     for (int i = 0; i < line.size(); ++i) {
       switch (line[i]) {
@@ -93,6 +94,9 @@ int Game::Start() {
   vector<bool> ghosts_invisible_(ghosts_.size(), false);
   // True if Lambda-Man ate something since the last move
   bool eating = false;
+  
+  // AI init
+  lman_->Init();
 
   // main loop
   bool state_changed = true;
