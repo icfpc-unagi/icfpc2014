@@ -2,6 +2,7 @@
 
 source gbash.sh || exit 1
 
+DEFINE_bool 'expand' true 'Expand includes.'
 DEFINE_string 'output' '/dev/stdout' 'File to output.'
 
 gbash::init_google "$@"
@@ -11,4 +12,9 @@ set -e -u
 pushd "$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)"/../bcompiler >/dev/null
 javac -d "${TMPDIR}" -encoding UTF-8 *.java
 popd >/dev/null
-java -cp "${TMPDIR}" BCompiler $(bfiles "$@") >"${FLAGS_output}"
+
+if (( FLAGS_expand )); then
+  java -cp "${TMPDIR}" BCompiler $(bfiles "$@") >"${FLAGS_output}"
+else
+  java -cp "${TMPDIR}" BCompiler "$@" >"${FLAGS_output}"
+fi
