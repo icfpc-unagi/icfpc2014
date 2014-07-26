@@ -38,6 +38,7 @@ bool Movement::Move() {
 }
 
 void Game::ParseMaze(std::istream& is) {
+  CHECK(is.good());
   string line;
   int ghost_index = 0;
   total_pills_ = 0;
@@ -103,6 +104,9 @@ int Game::Start() {
   
   // AI init
   lman_->Init();
+  for (int i = 0; i < ghosts_.size(); ++i) {
+    ghosts_[i]->Init(this, i, flight_mode);
+  }
 
   // main loop
   bool state_changed = true;
