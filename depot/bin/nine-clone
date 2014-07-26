@@ -1,0 +1,3 @@
+#!/bin/bash
+
+rm -rf ~/code; cp -R /code ~/code
