@@ -18,7 +18,7 @@ constexpr int dr[4] = {-1, 0, 1, 0};
 constexpr int dc[4] = {0, 1, 0, -1};
 
 bool Movement::CanMove(const Game& game, int d) const {
-  return game.GetSymbolSafe(Coordinate(r_ + dr[d], c_ + dc[d])) != '#';
+  return game.GetSymbolSafe(Coordinate(r_ + dr[d], c_ + dc[d]), '#') != '#';
 }
 
 bool Movement::Move() {
@@ -158,8 +158,9 @@ int Game::Start() {
         int oneway = 2;  // turn around if there is no option else
         for (int j = 3; j < 6; ++j) {
           int way = (prev_d + j) % 4;
-          if (GetSymbolSafe(make_pair(pos.first + dr[way],
-                                      pos.second + dc[way])) != '#') {
+          if (GetSymbolSafe(
+                  Coordinate(pos.first + dr[way], pos.second + dc[way]),
+                  '#') != '#') {
             ways++;
             oneway = way;
           }
@@ -189,11 +190,13 @@ int Game::Start() {
               }
             }
           }
-        } else if (ways == 1 ||
-                   GetSymbolSafe(make_pair(pos.first + dr[oneway],
-                                           pos.second + dc[oneway])) != '#') {
-          CHECK(ghosts_[i]->CanMove(*this, oneway)) << i << ':' << ghosts_[i]->GetRC().first
-          << ',' << ghosts_[i]->GetRC().second << "->" << oneway;
+        } else if (
+            ways == 1 ||
+            GetSymbolSafe(Coordinate(pos.first + dr[oneway],
+                                     pos.second + dc[oneway]), '#') != '#') {
+          CHECK(ghosts_[i]->CanMove(*this, oneway))
+              << i << ':' << ghosts_[i]->GetRC().first
+              << ',' << ghosts_[i]->GetRC().second << "->" << oneway;
           ghosts_[i]->SetDirection(oneway);
           CHECK(ghosts_[i]->Move()) << "Ghost[" << i << "] auto move failed";
         } else {

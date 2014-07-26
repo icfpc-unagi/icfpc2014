@@ -52,7 +52,7 @@ void Ghost::INT6() {
 }
 
 void Ghost::INT7() {
-  char symbol = game_->GetSymbol(Coordinate(register_b_, register_a_));
+  char symbol = game_->GetSymbolSafe(Coordinate(register_b_, register_a_), '?');
   switch (symbol) {
     // 0: Wall (#)
     case '#': register_a_ = 0; break;
