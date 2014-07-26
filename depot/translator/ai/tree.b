@@ -88,7 +88,7 @@ P write_tree1(int n, int k, P v, P tr) {
   if (n < k) {
     res = P(write_tree2(n, k, v, fst(tr)), snd(tr));
   } else {
-    res = P(fst(tr), write_tree2(n-k, k*2, v, snd(tr)));
+    res = P(fst(tr), write_tree1(n-k, k*2, v, snd(tr)));
   }
   return res;
 }
@@ -106,7 +106,7 @@ P list_to_tree1(P ys, int n) {
   if (atom(ys)) {  // []
     res = top(0);
   } else {
-    res = write_tree(n, toi(fst(ys)), list_to_tree1(toi(snd(ys)), n+1));
+    res = write_tree(n, fst(ys), list_to_tree1(snd(ys), n+1));
   }
   return res;
 }
