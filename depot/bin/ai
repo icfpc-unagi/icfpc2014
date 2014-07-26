@@ -4,6 +4,7 @@ source gbash.sh || exit 1
 
 DEFINE_string lman 'chokudai-10' 'LambaMan AIs.'
 DEFINE_string ghosts 'chokudai' 'Ghost AIs.'
+DEFINE_string maze 'world-classic' 'Maze.'
 
 gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
@@ -45,6 +46,15 @@ for ghost in "${ghosts[@]}"; do
   FindAi ghost "${ghost}"
 done
 
+if [ -f "/cloud/ro/dropbox/icfpc/2014/maze/${FLAGS_maze}.txt" ]; then
+  maze="/cloud/ro/dropbox/icfpc/2014/maze/${FLAGS_maze}.txt"
+elif [ -f "/code/maze/${FLAGS_maze}.txt" ]; then
+  maze="/code/maze/${FLAGS_maze}.txt"
+else
+  echo "no such maze: ${FLAGS_maze}" >&2
+  exit 2
+fi
+
 cd ~/code
 ./depot/lman/ai/generator
 ./depot/ghost/ai/generator
@@ -52,4 +62,4 @@ cd ~/code
 make build/flame-binary/depot/sim/sim_main
 
 ./build/flame-binary/depot/sim/sim_main \
-    --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" "$@"
+    --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" --maze="${maze}" "$@"
