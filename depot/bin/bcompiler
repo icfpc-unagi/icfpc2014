@@ -1,0 +1,14 @@
+#!/bin/bash
+
+source gbash.sh || exit 1
+
+DEFINE_string 'output' '/dev/stdout' 'File to output.'
+
+gbash::init_google "$@"
+set -- "${GBASH_ARGV[@]}"
+set -e -u
+
+pushd "$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)"/../bcompiler >/dev/null
+javac -d "${TMPDIR}" -encoding UTF-8 *.java
+popd >/dev/null
+java -cp "${TMPDIR}" BCompiler "$@" >"${FLAGS_output}"
