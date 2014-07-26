@@ -16,6 +16,16 @@ cc_library(
 )
 
 cc_library(
+    NAME "ghost-interface"
+    SOURCES "ghost-interface.cc"
+    DEPENDENCIES
+        ":game-interface"
+        ":character"
+        "//base"
+        "//util:coordinate"
+)
+
+cc_library(
     NAME "sim"
     SOURCES "sim.cc"
     DEPENDENCIES

@@ -5,9 +5,10 @@
 #include <string>
 #include <vector>
 
-#include "util/coordinate.h"
-#include "sim/game-interface.h"
 #include "sim/character.h"
+#include "sim/game-interface.h"
+#include "sim/ghost-interface.h"
+#include "util/coordinate.h"
 
 class Game;
 
@@ -22,34 +23,6 @@ class LambdaMan : public Character {
 
  protected:
   GameInterface* game_;
-};
-
-// Ghost CPU interface
-class GhostInterface : public Character {
- public:
-  GhostInterface() : game_(nullptr) {}
-
-  void Init(GameInterface* game, int ghost_index) {
-    game_ = game;
-    ghost_index_ = ghost_index;
-    ghost_vitality_ = 0;
-  }
-  virtual int Step() = 0;
-
-  int GetGhostIndex() { return ghost_index_; }
-  int GetGhostVitality() { return ghost_vitality_; }
-
- protected:
-  GameInterface* game_;
-  int ghost_index_;
-  int ghost_vitality_;
-};
-
-// To create a ghost class above
-class GhostFactory {
- public:
-  virtual ~GhostFactory() {}
-  virtual std::unique_ptr<GhostInterface> Create() = 0;
 };
 
 // Game Mechanics
