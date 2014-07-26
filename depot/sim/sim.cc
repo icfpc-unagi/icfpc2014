@@ -220,7 +220,6 @@ int Game::Start() {
           // surrounded on all four sides by walls
         }
         utc_ghosts_next_moves[i] += (65 + i) * (vitality_ == 0 ? 2 : 3);
-        state_changed = true;
       }
     }
 
