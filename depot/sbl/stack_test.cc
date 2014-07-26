@@ -1,7 +1,7 @@
 #include "translator/lib.h"
 #include "stack.b"
 
-void run() {
+void test() {
   P s;
   s = create_stack();
   s = push_stack(s, top(1));
@@ -13,4 +13,8 @@ void run() {
     debug(top_stack(s));
     s = pop_stack(s);
   }
+}
+
+void run() {
+  test();
 }

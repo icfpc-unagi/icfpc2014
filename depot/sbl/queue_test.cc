@@ -1,7 +1,7 @@
 #include "translator/lib.h"
 #include "queue.b"
 
-void run() {
+void test(){
   P q;
   q = create_queue();
   q = push_queue(q, top(100));
@@ -23,5 +23,9 @@ void run() {
     q = pop_queue(q);
     debug(q);
   }
+}
+
+void run() {
+  test();
 }
 

@@ -1,3 +1,5 @@
+// vi:filetype=cpp:
+
 #include "stack.b"
 #include "list.b"
 
