@@ -148,8 +148,9 @@ int Game::Start() {
     // *** 1. moves
     if (tick_ == utc_lman_next_move) {
       int d = lman_[0]->Step();
-      CHECK(0 <= d && d < 4) << d;
-      if (lman_[0]->CanMove(*this, d)) {
+      if (0 <= d && d < 4) {
+        LOG(WARNING) << "Lambda-Man responded wrong direction " << d;
+      } else if (lman_[0]->CanMove(*this, d)) {
         lman_[0]->SetDirection(d);
         CHECK(lman_[0]->Move());
       } else {
