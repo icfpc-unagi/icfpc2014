@@ -1,20 +1,20 @@
-#include "tree.b"
+#include "list.b"
 
 
-P debug_tree(){
+P debug_list(){
   P list;
-  P tree;
   P gomi;
   list = P(3, P(1, P(4, P(1, P(5, P(9, 0))))));
   gomi = debug(list);
-  tree = list_to_tree(list);
-  gomi = debug(tree);
+  gomi = debug(length(list));
+  list = reverse_list(list);
+  gomi = debug(list);
   return 0;
 }
 
 P run() {
   P gomi;
-  gomi = debug_tree();
+  gomi = debug_list();
   return gomi;
 }
 

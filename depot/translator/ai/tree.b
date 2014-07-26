@@ -106,7 +106,7 @@ P list_to_tree1(P ys, int n) {
   if (atom(ys)) {  // []
     res = top(0);
   } else {
-    res = write_tree(n, toi(fst(ys)), list_to_tree1(toi(snd(ys)), n+1));
+    res = write_tree(n, fst(ys), list_to_tree1(snd(ys), n+1));
   }
   return res;
 }
