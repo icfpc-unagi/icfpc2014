@@ -4,17 +4,10 @@
 #include <glog/logging.h>
 
 #include "sim/sim.h"
+#include "lman/lman.h"
 #include "ghost/ai/fickle.h"
 
 DEFINE_string(maze, "example_maze.txt", "Text file that contains maze map");
-
-class FakeLambdaMan : public LambdaMan {
-public:
-  void Main() override {}
-  int Step() override {
-    return rand() % 4;
-  }
-};
 
 int main(int argc, char** argv) {
   google::ParseCommandLineFlags(&argc, &argv, true);
@@ -22,7 +15,7 @@ int main(int argc, char** argv) {
 
   Game game;
   game.AddGhostFactory(new ghost::fickleGhostFactory);
-  game.SetLambdaMan(new FakeLambdaMan);
+  game.SetLambdaMan(new LambdaManImpl);
   std::ifstream mazefile(FLAGS_maze);
   game.ParseMaze(mazefile);
 
