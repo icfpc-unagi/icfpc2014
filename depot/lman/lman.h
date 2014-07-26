@@ -16,7 +16,9 @@ public:
   int Step() override;
   
 private:
-  P EncodeWorld();
+  static P MakeList(const vector<P>& t);
+  P EncodeWorld() const;
+  P EncodeGhost(int ghost_index) const;
   
   P state_;
 };

@@ -120,50 +120,53 @@ class Game {
   int GetVitality() {
     return vitality_;
   }
-  int GetLives() {
+  int GetLives() const {
     return life_;
   }
-  int GetScore() {
+  int GetScore() const {
     return score_;
+  }
+  int GetNumberOfGhosts() const {
+    return ghosts_.size();
   }
 
   //////////////////////////////////////////////////////////////////////////////
   // APIs for Ghost
   //////////////////////////////////////////////////////////////////////////////
-  Coordinate GetFirstLambdaManRC() {
+  Coordinate GetFirstLambdaManRC() const {
     if (lman_ == nullptr) {
       return CoordinateUtil::Null();
     }
     return lman_->GetRC();
   }
 
-  Coordinate GetSecondLambdaManRC() {
+  Coordinate GetSecondLambdaManRC() const {
     // TODO(imos): Implement second lambda-man.
     return CoordinateUtil::Null();
   }
 
-  Coordinate GetGhostInitialRC(int ghost_index) {
+  Coordinate GetGhostInitialRC(int ghost_index) const {
     if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
       return CoordinateUtil::Null();
     }
     return ghosts_[ghost_index]->GetInitialRC();
   }
 
-  Coordinate GetGhostRC(int ghost_index) {
+  Coordinate GetGhostRC(int ghost_index) const {
     if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
       return CoordinateUtil::Null();
     }
     return ghosts_[ghost_index]->GetRC();
   }
 
-  int GetGhostVitality(int ghost_index) {
+  int GetGhostVitality(int ghost_index) const {
     if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
       return -1;
     }
     return ghosts_[ghost_index]->GetGhostVitality();
   }
 
-  int GetGhostDirection(int ghost_index) {
+  int GetGhostDirection(int ghost_index) const {
     if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
       return -1;
     }
