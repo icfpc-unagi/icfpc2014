@@ -9,5 +9,7 @@ foreach(ai_source ${ai_sources})
       SOURCES "${ai_source}"
       DEPENDENCIES
           "//base"
+          "//translator:lib"
+          "//translator:main"
   )
 endforeach()

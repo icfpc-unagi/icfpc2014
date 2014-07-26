@@ -25,9 +25,7 @@ struct P;
 struct Pair {
   std::shared_ptr<P> car, cdr;
 
-  Pair(){
-    car = NULL; cdr = NULL;
-  }
+  Pair() {}
 
   //Pair(int a, int d);
   //Pair(int a, P d);
@@ -50,15 +48,15 @@ struct P {
     type = v.type;
     switch (type) {
       case TYPE_UNDEFINED:
-	break;
+        break;
       case TYPE_INT:
-	data_int = v.data_int;
-	break;
+        data_int = v.data_int;
+        break;
       case TYPE_PAIR:
-	data_Pair = v.data_Pair;
-	break;
+        data_Pair = v.data_Pair;
+        break;
       default:
-	LOG(FATAL) << "P: undefined type";
+        LOG(FATAL) << "P: undefined type";
     }
   }
 
@@ -105,31 +103,24 @@ struct P {
   std::string to_string();
 };
 
-Pair::Pair(P a, P d) {
-  std::shared_ptr<P> car(new P(a));
-  std::shared_ptr<P> cdr(new P(d));
-  this->car = car;
-  this->cdr = cdr;
-}
-
-int toi(P v) {
+inline int toi(P v) {
   return v.toInt();
 }
 
-P top(int n) {
+inline P top(int n) {
   P res(n);
   return res;
 }
 
-P fst(P v) {
+inline P fst(P v) {
   return * v.toPair().car;
 }
 
-P snd(P v) {
+inline P snd(P v) {
   return * v.toPair().cdr;
 }
 
-int atom(P v) {
+inline int atom(P v) {
   switch (v.type) {
     case TYPE_INT:
       return 1;
@@ -140,8 +131,7 @@ int atom(P v) {
   }
 }
       
-
-std::string P::to_string() {
+inline std::string P::to_string() {
   switch (type) {
     case TYPE_UNDEFINED:
       return "(undefined)";
@@ -154,7 +144,7 @@ std::string P::to_string() {
   }
 }
 
-std::string Pair::to_string() {
+inline std::string Pair::to_string() {
   std::string ret;
   ret += "(";
   ret += car->to_string();
@@ -164,28 +154,15 @@ std::string Pair::to_string() {
   return ret;
 }
 
-P debug(P v) {
+inline P debug(P v) {
   P undef;
   std::cerr << v.to_string() << std::endl;
   return undef;
 }
 
-P debug(int n) {
+inline P debug(int n) {
   return debug(top(n));
 }
 
-
 P init(P, P);
 P step(P, P);
-
-int main() {
-  P game, nazo;
-  P state = init(game, nazo);
-  while(true){
-    std::cout << "state: " << state.to_string() << std::endl;
-    P ret = step(state, game);
-    state = fst(ret);
-    std::cout << "move: " << toi(snd(ret)) << std::endl;
-  }
-  return 0;
-}
