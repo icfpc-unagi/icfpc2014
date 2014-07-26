@@ -173,7 +173,7 @@ P split_list(P xs, int n) {
     res = split_list(snd(xs), n-1);
     res = P(
 	P(fst(xs), fst(res)),
-	P(snd(res))
+	snd(res)
 	);
   }
   return res;
