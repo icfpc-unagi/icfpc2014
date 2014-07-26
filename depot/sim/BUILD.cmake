@@ -49,6 +49,16 @@ cc_binary(
     SOURCES "sim_main.cc"
     DEPENDENCIES
         ":sim"
-        "//lman:chokudai-ai-ver8"
+        "//lman:lman"
+        "//translator/ai:libchokudai-ai-ver8"
+        "//ghost/ai:fickle"
+)
+
+cc_library(
+    NAME "libsim_main"
+    SOURCES "sim_main.cc"
+    DEPENDENCIES
+        ":sim"
+        "//lman:lman"
         "//ghost/ai:fickle"
 )

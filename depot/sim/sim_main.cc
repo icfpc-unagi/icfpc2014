@@ -7,11 +7,16 @@
 #include "lman/lman.h"
 #include "ghost/ai/fickle.h"
 
-DEFINE_string(maze, "example_maze.txt", "Text file that contains maze map");
+DEFINE_string(maze, "", "Text file that contains maze map");
 
 int main(int argc, char** argv) {
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
+  
+  if (FLAGS_maze.empty()) {
+    std::cerr << "Usage: simulate_foobar --maze=<filename> --ghosts=<ghost>[,<ghost>]" << std::endl;
+    return 1;
+  }
 
   Game game;
   game.SetLambdaMan(new LambdaManImpl);

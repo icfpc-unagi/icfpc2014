@@ -18,4 +18,12 @@ foreach(ai_source ${ai_sources})
       DEPENDENCIES
           ":lib${ai_target}"
   )
+
+  cc_binary(
+      NAME "simulate_${ai_target}"
+      SOURCES "../dummy.cc"
+      DEPENDENCIES
+          ":lib${ai_target}"
+          "//sim:libsim_main"
+  )
 endforeach()
