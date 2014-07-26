@@ -53,6 +53,7 @@ RUN apt-get update -qq && apt-get install -y haskell-platform && cabal update
 
 RUN apt-get update -qq && apt-get install -y man xz-utils
 RUN apt-get update -qq && apt-get install -y python-pip && pip install awscli
+RUN apt-get update -qq && apt-get install -y cmake
 RUN ln -s /cloud/rw/dropbox/icfpc/2014 /dropbox
 RUN ln -s /cloud/rw/dunsparce/icfpc /work
 EXPOSE 22
