@@ -3,6 +3,9 @@ cc_library(
     SOURCES "sbl.cc"
     DEPENDENCIES
         ":tree"
+        ":list"
+        ":stack"
+        ":queue"
 )
 
 cc_library(
