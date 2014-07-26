@@ -20,5 +20,4 @@ cc_library(
     DEPENDENCIES
         ":chokudai"
         ":fickle"
-        "//ghost:ghost-ai-manager"
 )
