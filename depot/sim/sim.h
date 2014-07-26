@@ -37,6 +37,7 @@ class Movement {
     c_ = initial_c;
     d_ = initial_d;
   }
+  bool CanMove(const Game& game, int d) const;
   bool Move();
 
  private:
@@ -85,6 +86,15 @@ class Game {
   void ParseMaze(std::istream& is);
   // Returns the final score
   int Start();
+  
+  char GetSymbol(const Coordinate& rc) const { return maze_[rc.first][rc.second]; }
+  char GetSymbolSafe(const Coordinate& rc) const {
+    if (rc.first < 0 || maze_.size() <= rc.first || rc.second < 0 ||
+        maze_[rc.first].size() <= rc.second) {
+      return '#';
+    }
+    return GetSymbol(rc);
+  }
 
   //////////////////////////////////////////////////////////////////////////////
   // APIs for Ghost
@@ -102,14 +112,6 @@ class Game {
   }
 
  private:
-  char GetSymbol(const Coordinate& rc) { return maze_[rc.first][rc.second]; }
-  char GetSymbolSafe(const Coordinate& rc) {
-    if (rc.first < 0 || maze_.size() <= rc.first || rc.second < 0 ||
-        maze_[rc.first].size() <= rc.second) {
-      return '#';
-    }
-    return GetSymbol(rc);
-  }
   void Eat(const Coordinate& rc) { maze_[rc.first][rc.second] = ' '; }
 
   vector<GhostFactory*> ghost_factories_;

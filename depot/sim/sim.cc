@@ -4,7 +4,7 @@
 #include <sstream>
 #include <glog/logging.h>
 
-DEFINE_bool(print_state, false, "");
+DEFINE_bool(print_state, true, "");
 
 using namespace std;
 
@@ -13,6 +13,10 @@ constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
                                   1000, 1000, 2000, 2000, 3000, 3000, 5000};
 constexpr int dr[4] = {-1, 0, 1, 0};
 constexpr int dc[4] = {0, 1, 0, -1};
+
+bool Movement::CanMove(const Game& game, int d) const {
+  return game.GetSymbolSafe(Coordinate(r_ + dr[d], c_ + dc[d])) != '#';
+}
 
 bool Movement::Move() {
   switch (d_) {
@@ -38,7 +42,6 @@ void Game::ParseMaze(std::istream& is) {
   total_pills_ = 0;
   while (true) {
     getline(is, line);
-    cout << line << endl;
     if (line.empty() || !is.good()) break;
     CHECK(maze_.empty() || maze_.back().size() == line.size())
         << "Input maze format error";
@@ -66,8 +69,6 @@ void Game::ParseMaze(std::istream& is) {
   }
   LOG_IF(FATAL, fruit_locations_.size() > kFruits) << "# of fruits must be "
                                                    << kFruits;
-  LOG_IF(WARNING, fruit_locations_.size() < kFruits) << "# of fruits must be "
-                                                     << kFruits;
 }
 
 int Game::Start() {
@@ -128,14 +129,19 @@ int Game::Start() {
         }
         ss << '\n';
       }
-      LOG(INFO) << "The world state:\n" << ss.str();
+      LOG(INFO) << "The world state (score=" << score_ << "):\n" << ss.str();
       state_changed = false;
     }
 
     // *** 1. moves
     if (tick_ == utc_lman_next_move) {
-      lman_->SetDirection(lman_->Step());
-      if (!lman_->Move()) LOG(WARNING) << "Lambda-Man hit a wall ('A`)";
+      int d = lman_->Step();
+      lman_->SetDirection(d);
+      if (lman_->CanMove(*this, d)) {
+        CHECK(lman_->Move());
+      } else {
+        LOG(WARNING) << "Lambda-Man hit a wall ('A`)";
+      }
       utc_lman_next_move += eating ? 137 : 127;
       eating = false;  // Reset eating state
       state_changed = true;
@@ -162,7 +168,9 @@ int Game::Start() {
             LOG(WARNING) << "Ghost[" << i << "] returned invalid direction";
           } else if (d == (prev_d + 2) % 4) {
             LOG(WARNING) << "Ghost[" << i << "] chose the opposite direction";
-          } else if (ghosts_[i]->Move()) {
+          } else if (ghosts_[i]->CanMove(*this, d)) {
+            ghosts_[i]->SetDirection(d);
+            CHECK(ghosts_[i]->Move()); 
             moved = true;
           } else {
             LOG(WARNING) << "Ghost[" << i
@@ -170,13 +178,19 @@ int Game::Start() {
           }
           if (!moved) {  // auto move instead
             for (int j = 0; j < 4; ++j) {
-              ghosts_[i]->SetDirection((prev_d + j) % 4);
-              if (ghosts_[i]->Move()) break;
+              d = (prev_d + j) % 4;
+              if (ghosts_[i]->CanMove(*this, d)) {
+                ghosts_[i]->SetDirection(d);
+                CHECK(ghosts_[i]->Move());
+                break;
+              }
             }
           }
         } else if (ways == 1 ||
                    GetSymbolSafe(make_pair(pos.first + dr[oneway],
                                            pos.second + dc[oneway])) != '#') {
+          CHECK(ghosts_[i]->CanMove(*this, oneway)) << i << ':' << ghosts_[i]->GetRC().first
+          << ',' << ghosts_[i]->GetRC().second << "->" << oneway;
           ghosts_[i]->SetDirection(oneway);
           CHECK(ghosts_[i]->Move()) << "Ghost[" << i << "] auto move failed";
         } else {
