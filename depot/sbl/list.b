@@ -1,4 +1,10 @@
 // vi:filetype=cpp:
+
+// P read_list(P list, int n)
+// P write_list(P list, int n, P value)
+// P read_list(P list, int i, int j)
+// P write_list(P list, int i, int j, P value) {
+
 #include "translator/lib.h"
 
 P read_list(P list, int n) {
