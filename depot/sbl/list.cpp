@@ -14,14 +14,23 @@
 // P split_list(P xs, int n)
 
 P read_list(P list, int n) {
-  P res;
-  if (n == 0) {
-    res = fst(list);
-  } else {
-    res = read_list(list, n-1);
+  while (n > 0){
+    list = snd(list);
+    n = n-1;
   }
-  return res;
+  return fst(list);
 }
+// P read_list(P list, int n) {
+//   P res;
+//   if (n == 0) {
+//     res = fst(list);
+//   } else {
+//     res = read_list(snd(list), n-1);
+//   }
+//   return res;
+// }
+// ^^^^ naive
+
 
 P write_list(P list, int n, P val) {
   P res;
@@ -47,27 +56,46 @@ P write_list2d(P list, int i, int j, P val) {
 
 int length_list(P list) {
   int res;
-  if (atom(list)) {
-    res = 0;
-  } else {
-    res = 1 + length_list(snd(list));
+  res = 0;
+  while (atom(list) == 0) {
+    res += 1;
+    list = snd(list);
   }
   return res;
 }
+// int length_list(P list) {
+//   int res;
+//   if (atom(list)) {
+//     res = 0;
+//   } else {
+//     res = 1 + length_list(snd(list));
+//   }
+//   return res;
+// }
+// ^^^^ naive
 
-
-P reverse_list1(P list, P tmp) {
-  P res;
-  if (atom(list)) {
-    res = tmp;
-  } else {
-    res = reverse_list1(snd(list), P(fst(list), tmp));
-  }
-  return res;
-}
 P reverse_list(P list) {
-  return reverse_list1(list, top(0));
+  P res;
+  res = top(0);
+  while (atom(list) == 0){
+    res = P(fst(list), res);
+    list = snd(list);
+  }
+  return res;
 }
+// P reverse_list1(P list, P tmp) {
+//   P res;
+//   if (atom(list)) {
+//     res = tmp;
+//   } else {
+//     res = reverse_list1(snd(list), P(fst(list), tmp));
+//   }
+//   return res;
+// }
+// P reverse_list(P list) {
+//   return reverse_list1(list, top(0));
+// }
+// ^^^^ naive
 
 
 P replicate_list(int n, P val) {
