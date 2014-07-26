@@ -1,4 +1,3 @@
-#include "ghost/ai/ai.h"
 #include "ghost/ghost-ai-manager.h"
 
 #include <gflags/gflags.h>
@@ -8,7 +7,6 @@ int main(int argc, char** argv) {
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 
-  ghost::RegisterAi();
   ghost::GhostAiManager* ghost_ai_manager = ghost::GetGhostAiManager();
 
   printf("Registered AIs\n");

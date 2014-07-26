@@ -7,19 +7,17 @@
 
 #include <glog/logging.h>
 
+#include "ghost/ai/ai.h"
 #include "sim/sim.h"
 
 namespace ghost {
 
 class GhostAiManager {
  public:
-  GhostAiManager() {}
-  virtual ~GhostAiManager() {}
-
-  void RegisterGhostFactory(
-      const string& name, ::GhostFactory* ghost_factory) {
-    ghost_factory_[name].reset(ghost_factory);
+  GhostAiManager() {
+    RegisterAi(&ghost_factory_);
   }
+  virtual ~GhostAiManager() {}
 
   vector<string> GetGhostAiNames() {
     vector<string> names;

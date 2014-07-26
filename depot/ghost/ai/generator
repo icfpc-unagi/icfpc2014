@@ -62,17 +62,16 @@ for ghc_file in *.ghc; do
 done
 
 cat << EOM >> ai.cc
-#include "ghost/ghost-ai-manager.h"
 
 namespace ghost {
 
-void RegisterAi() {
+void RegisterAi(map<string, std::unique_ptr<GhostFactory>>* ghost_factories) {
 EOM
 
 for ghc_file in *.ghc; do
   name="${ghc_file%.ghc}"
-  echo '  GetGhostAiManager()->RegisterGhostFactory(' >> ai.cc
-  echo '      "'${name}'", new '$name'GhostFactory);' >> ai.cc
+  echo '  (*ghost_factories)["'$name'"].reset(new '$name'GhostFactory);' \
+      >> ai.cc
 done
 
 cat << EOM >> ai.cc
