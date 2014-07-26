@@ -1,8 +1,7 @@
 #include "tree.b"
 
 P step(P state, P game) {
-  int dir = 0;  // 1, 2, 3
-  return P(state, dir);
+  return P(state, 3);
 }
 
 P init(P game, P nazo) {

@@ -8,6 +8,8 @@ P top(int)
 P fst(P)
 P snd(P)
 int atom(P)
+P debug(P)  // returns undefined value
+P debug(int)
 */
 #pragma once
 
@@ -154,12 +156,22 @@ std::string P::to_string() {
 
 std::string Pair::to_string() {
   std::string ret;
-  ret += "<";
+  ret += "(";
   ret += car->to_string();
   ret += ",";
   ret += cdr->to_string();
-  ret += ">";
+  ret += ")";
   return ret;
+}
+
+P debug(P v) {
+  P undef;
+  std::cerr << v.to_string() << std::endl;
+  return undef;
+}
+
+P debug(int n) {
+  return debug(top(n));
 }
 
 
