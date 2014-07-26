@@ -3,12 +3,5 @@ cc_library(
     SOURCES "lambda-man.cc"
     DEPENDENCIES
         "//base"
-        "//sim"
-)
-
-cc_library(
-    NAME "lman"
-    SOURCES "lman.cc"
-    DEPENDENCIES
-        "//base"
+        "//sim:lambda-man-interface"
 )

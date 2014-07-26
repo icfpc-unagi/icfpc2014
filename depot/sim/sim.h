@@ -9,22 +9,8 @@
 #include "sim/character.h"
 #include "sim/game-interface.h"
 #include "sim/ghost-interface.h"
+#include "sim/lambda-man-interface.h"
 #include "util/coordinate.h"
-
-class Game;
-
-// Lambda-Man interface
-class LambdaMan : public Character {
- public:
-  void Init(GameInterface* game) {
-    game_ = game;
-  }
-  virtual void Main() = 0;
-  virtual int Step() = 0;
-
- protected:
-  GameInterface* game_;
-};
 
 // Game Mechanics
 class Game : public GameInterface {
@@ -37,7 +23,7 @@ class Game : public GameInterface {
     ghost_factories_.clear();
     ghost_factories_.push_back(ghost_factory);
   }
-  void SetLambdaMan(LambdaMan* lman) { lman_ = lman; }
+  void SetLambdaMan(LambdaManInterface* lman) { lman_ = lman; }
   void ParseMaze(std::istream& is);
   // Returns the final score
   int Start();
@@ -123,7 +109,7 @@ class Game : public GameInterface {
 
   vector<GhostFactory*> ghost_factories_;
   vector<std::unique_ptr<GhostInterface>> ghosts_;
-  LambdaMan* lman_;
+  LambdaManInterface* lman_;
   // The current state of the world
   // NOTE: Only pills and power pills will be cosumed to be empty.
   //       Fruit and Lambda-Man symbols indicate their locations but not their

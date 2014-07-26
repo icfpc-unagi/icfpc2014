@@ -3,12 +3,12 @@
 
 #include <vector>
 
-#include "sim/sim.h"
+#include "sim/lambda-man-interface.h"
 #include "translator/lib.h"
 
 namespace lman {
 
-class LambdaMan : public ::LambdaMan {
+class LambdaMan : public ::LambdaManInterface {
  public:
   LambdaMan();
   virtual ~LambdaMan();

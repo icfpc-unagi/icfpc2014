@@ -30,8 +30,9 @@ EOM
 #ifndef LMAN_AI_${upper_identifier}_H_
 #define LMAN_AI_${upper_identifier}_H_
 
+#include "lman/lambda-man.h"
+#include "sbl/sbl.h"
 #include "translator/lib.h"
-#include "sbl/tree.cpp"
 
 namespace lman {
 namespace ${identifier} {
@@ -41,13 +42,16 @@ P step(P ai, P game);
 
 }  // namespace ${identifier}
 
-class ${identifier}LambdaMan {
+class ${identifier}LambdaMan : public LambdaMan {
  public:
-  P BInit(P game, P nazo) {
+  ${identifier}LambdaMan() {}
+  virtual ~${identifier}LambdaMan() {}
+
+  P BInit(P game, P nazo) override {
     return ${identifier}::init(game, nazo);
   }
 
-  P BStep(P ai, P game) {
+  P BStep(P ai, P game) override {
     return ${identifier}::step(ai, game);
   }
 };
@@ -65,6 +69,8 @@ cc_library(
     SOURCES "${name}.cc"
     DEPENDENCIES
         "//base"
+        "//lman:lambda-man"
+        "//sbl"
         "//translator:lib"
 )
 

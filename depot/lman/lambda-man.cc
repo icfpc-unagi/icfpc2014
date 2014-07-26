@@ -1,8 +1,9 @@
 #include "lman/lambda-man.h"
 
-#include "sim/sim.h"
-
 namespace lman {
+
+LambdaMan::LambdaMan() {}
+LambdaMan::~LambdaMan() {}
 
 void LambdaMan::Main() {
   P game = EncodeWorld();

@@ -3,6 +3,8 @@ cc_library(
     SOURCES "chokudai-10.cc"
     DEPENDENCIES
         "//base"
+        "//lman:lambda-man"
+        "//sbl"
         "//translator:lib"
 )
 

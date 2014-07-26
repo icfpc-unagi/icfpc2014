@@ -1,12 +1,15 @@
 // vi:filetype=cpp:
 
+#ifndef SBL_SBL_H_
+
+#include "translator/lib.h"
+
 // P read_tree(P tree, int n)
 // P write_tree(P tree, int n, P value)
 // P list_to_tree(P list)
 //
 // 2d
 // P list2d_to_tree2d(P xss)
-#pragma once
 
 // readTree :: Integer -> Tree a -> Maybe a
 // readTree n tr = readTree1 n 1 tr
@@ -217,3 +220,5 @@ P list2d_to_tree2d_sub(P xss) {
 P list2d_to_tree2d(P xss) {
   return list_to_tree(list2d_to_tree2d_sub(xss));
 }
+
+#endif  // SBL_TREE_H_

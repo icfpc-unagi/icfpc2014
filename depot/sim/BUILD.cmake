@@ -26,6 +26,16 @@ cc_library(
 )
 
 cc_library(
+    NAME "lambda-man-interface"
+    SOURCES "lambda-man-interface.cc"
+    DEPENDENCIES
+        ":game-interface"
+        ":character"
+        "//base"
+        "//util:coordinate"
+)
+
+cc_library(
     NAME "sim"
     SOURCES "sim.cc"
     DEPENDENCIES
@@ -49,8 +59,7 @@ cc_binary(
     SOURCES "sim_main.cc"
     DEPENDENCIES
         ":sim"
-        "//lman:lman"
-        "//translator/ai:libchokudai-ai-ver8"
+        "//lman/ai:chokudai-10"
         "//ghost/ai:fickle"
 )
 
@@ -59,6 +68,6 @@ cc_library(
     SOURCES "sim_main.cc"
     DEPENDENCIES
         ":sim"
-        "//lman:lman"
+        "//lman/ai:chokudai-10"
         "//ghost/ai:fickle"
 )

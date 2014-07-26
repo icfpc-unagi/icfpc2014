@@ -1,8 +1,9 @@
 #ifndef LMAN_AI_CHOKUDAI_10_H_
 #define LMAN_AI_CHOKUDAI_10_H_
 
+#include "lman/lambda-man.h"
+#include "sbl/sbl.h"
 #include "translator/lib.h"
-#include "sbl/tree.cpp"
 
 namespace lman {
 namespace chokudai_10 {
@@ -12,13 +13,16 @@ P step(P ai, P game);
 
 }  // namespace chokudai_10
 
-class chokudai_10LambdaMan {
+class chokudai_10LambdaMan : public LambdaMan {
  public:
-  P BInit(P game, P nazo) {
+  chokudai_10LambdaMan() {}
+  virtual ~chokudai_10LambdaMan() {}
+
+  P BInit(P game, P nazo) override {
     return chokudai_10::init(game, nazo);
   }
 
-  P BStep(P ai, P game) {
+  P BStep(P ai, P game) override {
     return chokudai_10::step(ai, game);
   }
 };

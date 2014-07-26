@@ -3,7 +3,7 @@
 #include <glog/logging.h>
 #include <gtest/gtest.h>
 
-class MockLambdaMan : public LambdaMan {
+class MockLambdaMan : public LambdaManInterface {
 public:
   void Main() override {
     LOG(INFO) << "Main";

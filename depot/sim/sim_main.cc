@@ -4,7 +4,7 @@
 #include <glog/logging.h>
 
 #include "sim/sim.h"
-#include "lman/lman.h"
+#include "lman/ai/chokudai-10.h"
 #include "ghost/ai/fickle.h"
 
 DEFINE_string(maze, "depot/sim/world-classic.txt", "Text file that contains maze map");
@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
   }
 
   Game game;
-  game.SetLambdaMan(new LambdaManImpl);
+  game.SetLambdaMan(new lman::chokudai_10LambdaMan);
   std::ifstream mazefile(FLAGS_maze);
   game.ParseMaze(mazefile);
 
