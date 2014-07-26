@@ -126,7 +126,7 @@ class Game : public GameInterface {
   //       Fruit and Lambda-Man symbols indicate their locations but not their
   // states.
   Maze maze_;
-  vector<Coordinate> fruit_locations_;
+  Coordinate fruit_location_;
   int total_pills_;
   int life_;
   int vitality_;

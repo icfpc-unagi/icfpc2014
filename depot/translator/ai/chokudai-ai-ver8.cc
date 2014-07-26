@@ -286,17 +286,14 @@ P step2(P ai, P game) {
 	maxpoint = 0 - 99999999;
 	retdirection = 0;
 
-	printf("aaa\n");
 	map = fst(game);
 	gmap = map;
 
 	//list_to_tree(game);
 
 	game2 = snd(game);
-	printf("aaa\n");
 	lambdaman = fst(game2);
 	game3 = snd(game2);
-	printf("aaa\n");
 	ghosts = fst(game3);
 	fruits = snd(game3);
 

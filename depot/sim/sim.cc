@@ -9,7 +9,6 @@
 
 DEFINE_bool(print_state, true, "");
 
-constexpr int kFruits = 2;
 constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
                                   1000, 1000, 2000, 2000, 3000, 3000, 5000};
 constexpr int dr[4] = {-1, 0, 1, 0};
@@ -42,7 +41,7 @@ void Game::ParseMaze(std::istream& is) {
           ghost_index++;
           break;
         case '%':  // Fruit
-          fruit_locations_.emplace_back(maze_.size(), i);
+          fruit_location_ = Coordinate(maze_.size(), i);
           break;
         case '.':  // Pill
           total_pills_++;
@@ -51,8 +50,6 @@ void Game::ParseMaze(std::istream& is) {
     }
     maze_.push_back(line);
   }
-  LOG_IF(FATAL, fruit_locations_.size() > kFruits) << "# of fruits must be "
-                                                   << kFruits;
 }
 
 int Game::Start() {
@@ -61,6 +58,7 @@ int Game::Start() {
   const int width = maze_[0].size();
   const int end_of_lives = 127 * width * height * 16;
   const int fruit_appears[2] = {127 * 200, 127 * 400};
+  const int fruit_expires[2] = {127 * 280, 127 * 480};
   const int flight_mode_duration = 127 * 20;
   const int level = (width * height - 1) / 100 + 1;
   const int fruit_points = kFruitPoints[level <= 12 ? level : 13];
@@ -69,7 +67,7 @@ int Game::Start() {
   tick_ = 0;
   score_ = 0;
   life_ = 3;
-  vector<bool> fruit_appeared(fruit_locations_.size(), false);
+  bool fruit_appeared = false;
   vitality_ = 0;  // remaining ticks
   int utc_lman_next_move = 127;
   vector<int> utc_ghosts_next_moves(ghosts_.size());
@@ -106,11 +104,9 @@ int Game::Start() {
               break;
             }
           }
-          for (int i = 0; i < kFruits; ++i) {
-            if (fruit_appeared[i] && fruit_locations_[i] == rc) {
-              symbol = '%';
-              break;
-            }
+          if (fruit_appeared && fruit_location_ == rc) {
+            symbol = '%';
+            break;
           }
           ss << symbol;
         }
@@ -123,8 +119,9 @@ int Game::Start() {
     // *** 1. moves
     if (tick_ == utc_lman_next_move) {
       int d = lman_->Step();
-      lman_->SetDirection(d);
+      CHECK(0 <= d && d < 4) << d;
       if (lman_->CanMove(*this, d)) {
+        lman_->SetDirection(d);
         CHECK(lman_->Move());
       } else {
         LOG(WARNING) << "Lambda-Man hit a wall ('A`)";
@@ -200,10 +197,13 @@ int Game::Start() {
         }
       }
     }
-    // fruit appearing
-    for (int i = 0; i < kFruits; ++i) {
+    // fruit appearing/expiring
+    for (int i = 0; i < 2; ++i) {
       if (tick_ == fruit_appears[i]) {
-        fruit_appeared[i] = true;
+        fruit_appeared = true;
+        state_changed = true;
+      } else if (tick_ == fruit_expires[i]) {
+        fruit_appeared = false;
         state_changed = true;
       }
     }
@@ -228,12 +228,10 @@ int Game::Start() {
       score_ += 50;
     } else if (symbol == '%') {
       // check fruit
-      for (int i = 0; i < kFruits; ++i) {
-        if (fruit_appeared[i] && fruit_locations_[i] == pos) {
-          fruit_appeared[i] = false;
-          score_ += fruit_points;
-          break;
-        }
+      if (fruit_appeared && fruit_location_ == pos) {
+        fruit_appeared = false;
+        score_ += fruit_points;
+        break;
       }
     }
 
