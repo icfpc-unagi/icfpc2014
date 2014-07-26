@@ -1,6 +1,6 @@
 #ifndef SBL_SBL_H_
 
-#include "stack.h"
+#include "sbl/stack.h"
 
 P create_stack() {
   return top(0);

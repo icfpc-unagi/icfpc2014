@@ -1,8 +1,8 @@
 #ifndef SBL_SBL_H_
 
-#include "tree.h"  // fasttree.h
+#include "sbl/tree.h"  // fasttree.h
 
-#include "list.h"
+#include "sbl/list.h"
 
 P list_to_tree_(P list, int size) {
 	P ret;

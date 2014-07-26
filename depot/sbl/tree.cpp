@@ -1,9 +1,9 @@
 #ifndef SBL_SBL_H_
 
-#include "tree.h"
+#include "sbl/tree.h"
 
 #include "translator/lib.h"
-#include "list.h"
+#include "sbl/list.h"
 
 // readTree :: Integer -> Tree a -> Maybe a
 // readTree n tr = readTree1 n 1 tr

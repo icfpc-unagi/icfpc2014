@@ -1,6 +1,6 @@
 #ifndef SBL_SBL_H_
 
-#include "list.h"
+#include "sbl/list.h"
 
 // P read_list(P list, int n)
 // P write_list(P list, int n, P value)

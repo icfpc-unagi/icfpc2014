@@ -1,9 +1,9 @@
 #ifndef SBL_SBL_H_
 
-#include "queue.h"
+#include "sbl/queue.h"
 
-#include "stack.h"
-#include "list.h"
+#include "sbl/stack.h"
+#include "sbl/list.h"
 
 P create_queue() {
   return P(create_stack(), create_stack());
