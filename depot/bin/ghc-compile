@@ -1,8 +1,8 @@
 #!/usr/bin/php
 <?php
 
-if ($argc != 2) {
-  fprintf(STDERR, "Usage: ghc-compile <file>\n");
+if ($argc != 3) {
+  fprintf(STDERR, "Usage: ghc-compile <name> <file>\n");
   exit(1);
 }
 
@@ -92,7 +92,16 @@ function OutputCommand($lineno, $original, $command) {
   }
 }
 
-$data = str_replace(array("\r\n", "\r"), "\n", file_get_contents($argv[1]));
+$name = $argv[1];
+if (!preg_match('%^[\w]+$%', $name)) {
+  fprintf(STDERR, "Bad name: $name\n");
+  exit(2);
+}
+if (!is_readable($argv[2])) {
+  fprintf(STDERR, "No such file: $argv[2]\n");
+  exit(2);
+}
+$data = str_replace(array("\r\n", "\r"), "\n", file_get_contents($argv[2]));
 $data = explode("\n", $data);
 $program_counter = 0;
 foreach ($data as $lineno => $line) {
@@ -110,14 +119,14 @@ foreach ($data as $lineno => $line) {
   }
 }
 
-echo <<<'EOM'
+echo <<<EOM
 #include "ghost/ghost.h"
 
 #include <glog/logging.h>
 
 namespace ghost {
 
-class Fickle : public Ghost {
+class {$name}Ghost : public Ghost {
   void Run() override {
     ResetTick();
 
@@ -127,7 +136,16 @@ foreach ($COMMANDS as $lineno => $command) {
   OutputCommand($lineno, $data[$lineno], $command);
 }
 
-echo <<<'EOM'
+echo <<<EOM
+  }
+};
+
+class {$name}GhostFactory : public ::GhostFactory {
+ public:
+  virtual ~{$name}GhostFactory() {}
+
+  std::unique_ptr<::GhostInterface> Create() {
+    return std::unique_ptr<::GhostInterface>(new {$name}Ghost());
   }
 };
 

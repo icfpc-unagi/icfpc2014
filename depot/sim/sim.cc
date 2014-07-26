@@ -49,6 +49,7 @@ void Game::ParseMaze(std::istream& is) {
     for (int i = 0; i < line.size(); ++i) {
       switch (line[i]) {
         case '\\':  // Lambda-Man
+          CHECK(lman_ != nullptr);
           lman_->Initialize(maze_.size(), i, 2 /* face down */);
           break;
         case '=':  // Ghost
