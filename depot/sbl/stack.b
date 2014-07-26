@@ -1,3 +1,5 @@
+// vi:filetype=cpp:
+
 P create_stack() {
   return top(0);
 }
