@@ -30,9 +30,9 @@ struct Pair {
   //Pair(int a, int d);
   //Pair(int a, P d);
   //Pair(P a, int d);
-  Pair(P a, P d);
+  Pair(const P& a, const P& d);
 
-  std::string to_string();
+  std::string to_string() const;
 };
 
 enum var_type {TYPE_UNDEFINED, TYPE_INT, TYPE_PAIR};
@@ -90,79 +90,26 @@ struct P {
     *this = P(Pair(a,d));
   }
 
-  int toInt() {
+  int toInt() const {
     CHECK(type == TYPE_INT);
     return data_int;
   }
 
-  Pair toPair() {
+  Pair toPair() const {
     CHECK(type == TYPE_PAIR);
     return data_Pair;
   }
 
-  std::string to_string();
+  std::string to_string() const;
 };
 
-inline int toi(P v) {
-  return v.toInt();
-}
-
-inline P top(int n) {
-  P res(n);
-  return res;
-}
-
-inline P fst(P v) {
-  return * v.toPair().car;
-}
-
-inline P snd(P v) {
-  return * v.toPair().cdr;
-}
-
-inline int atom(P v) {
-  switch (v.type) {
-    case TYPE_INT:
-      return 1;
-    case TYPE_PAIR:
-      return 0;
-    default:
-      LOG(FATAL) << "atom: undefined type";
-  }
-}
-      
-inline std::string P::to_string() {
-  switch (type) {
-    case TYPE_UNDEFINED:
-      return "(undefined)";
-    case TYPE_INT:
-      return std::to_string(data_int);
-    case TYPE_PAIR:
-      return data_Pair.to_string();
-    default:
-      LOG(FATAL) << "P: undefined type";
-  }
-}
-
-inline std::string Pair::to_string() {
-  std::string ret;
-  ret += "(";
-  ret += car->to_string();
-  ret += ",";
-  ret += cdr->to_string();
-  ret += ")";
-  return ret;
-}
-
-inline void debug(P v) {
-  std::cerr << v.to_string() << std::endl;
-  return;
-}
-
-inline void debug(int n) {
-  debug(top(n));
-  return;
-}
+int toi(const P& v);
+P top(int n);
+P fst(const P& v);
+P snd(const P& v);
+int atom(const P& v);
+void debug(const P& v);
+void debug(int n);
 
 P init(P, P);
 P step(P, P);
