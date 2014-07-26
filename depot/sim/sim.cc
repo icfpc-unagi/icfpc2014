@@ -123,6 +123,7 @@ int Game::Start() {
       if (lman_->CanMove(*this, d)) {
         lman_->SetDirection(d);
         CHECK(lman_->Move());
+        LOG(INFO) << "Lambda-Man moved " << d;
       } else {
         LOG(WARNING) << "Lambda-Man hit a wall ('A`)";
       }
@@ -156,6 +157,7 @@ int Game::Start() {
           } else if (ghosts_[i]->CanMove(*this, d)) {
             ghosts_[i]->SetDirection(d);
             CHECK(ghosts_[i]->Move()); 
+            LOG(INFO) << "Ghost[" << i << "] moved " << d;
             moved = true;
           } else {
             LOG(WARNING) << "Ghost[" << i
@@ -167,6 +169,7 @@ int Game::Start() {
               if (ghosts_[i]->CanMove(*this, d)) {
                 ghosts_[i]->SetDirection(d);
                 CHECK(ghosts_[i]->Move());
+                LOG(INFO) << "Ghost[" << i << "] moved " << d;
                 break;
               }
             }
@@ -180,6 +183,7 @@ int Game::Start() {
               << ',' << ghosts_[i]->GetRC().second << "->" << oneway;
           ghosts_[i]->SetDirection(oneway);
           CHECK(ghosts_[i]->Move()) << "Ghost[" << i << "] auto move failed";
+          LOG(INFO) << "Ghost[" << i << "] moved " << oneway;
         } else {
           // surrounded on all four sides by walls
         }
