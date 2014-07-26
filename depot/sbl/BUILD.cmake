@@ -14,7 +14,7 @@ foreach(ai_source ${ai_sources})
 
   cc_binary(
       NAME "${ai_target}"
-      SOURCES "../translator/main.cc"
+      SOURCES "../translator/main_run.cc"
       DEPENDENCIES
           ":lib${ai_target}"
   )

@@ -1,4 +1,6 @@
+#include "translator/lib.h"
 #include "list.b"
+
 
 
 void debug_list(){
@@ -14,12 +16,4 @@ void debug_list(){
 void run() {
   debug_list();
   return;
-}
-
-P step(P state, P game) {
-  return P(state, 3);
-}
-P init(P game, P nazo) {
-  run();
-  return P(0, 0);
 }

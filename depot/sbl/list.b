@@ -5,8 +5,6 @@
 // P read_list(P list, int i, int j)
 // P write_list(P list, int i, int j, P value) {
 
-#include "translator/lib.h"
-
 P read_list(P list, int n) {
   P res;
   if (n == 0) {

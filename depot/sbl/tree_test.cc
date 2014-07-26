@@ -1,3 +1,4 @@
+#include "translator/lib.h"
 #include "tree.b"
 
 
@@ -22,12 +23,4 @@ void debug_tree(){
 void run() {
   debug_tree();
   return;
-}
-
-P step(P state, P game) {
-  return P(state, 3);
-}
-P init(P game, P nazo) {
-  run();
-  return P(0, 0);
 }
