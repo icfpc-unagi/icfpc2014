@@ -19,5 +19,5 @@ cc_binary(
     SOURCES "sim_main.cc"
     DEPENDENCIES
         ":sim"
-        "//ghost/sample:fickle"
+        "//ghost/ai:fickle"
 )
