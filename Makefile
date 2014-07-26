@@ -1,3 +1,5 @@
+CXX=/usr/bin/clang++
+
 build: build/Makefile
 	cd build && make -j all
 .PHONY: build
