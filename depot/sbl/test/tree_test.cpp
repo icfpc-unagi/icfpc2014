@@ -5,6 +5,11 @@
 void debug_tree(){
   P list;
   P tree;
+  list = P(3, P(1, P(4, P(1, 0))));
+  debug(list);
+  tree = list_to_tree(list);
+
+  debug(tree);
   list = P(3, P(1, P(4, P(1, P(5, P(9, 0))))));
   debug(list);
   tree = list_to_tree(list);

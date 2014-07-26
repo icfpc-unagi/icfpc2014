@@ -103,23 +103,94 @@ P write_tree(P tr, int n, P v) {
   return write_tree1(n, 1, v, tr);
 }
 
-// listToTree :: [a] -> Tree a
-// listToTree xs = listToTree1 xs 0
-// listToTree1 [] _ = emptyTree
-// listToTree1 (x:xs) n = writeTree n x (listToTree1 xs (n + 1))
-P list_to_tree1(P ys, int n) {
+// // listToTree :: [a] -> Tree a
+// // listToTree xs = listToTree1 xs 0
+// // listToTree1 [] _ = emptyTree
+// // listToTree1 (x:xs) n = writeTree n x (listToTree1 xs (n + 1))
+// P list_to_tree1(P ys, int n) {
+//   P res;
+//   if (atom(ys)) {  // []
+//     res = top(0);
+//   } else {
+//     res = write_tree(list_to_tree1(snd(ys), n+1), n, fst(ys));
+//   }
+//   return res;
+// }
+// P list_to_tree(P xs) {
+//   return list_to_tree1(xs, 0);
+// }
+
+// l2t :: [a] -> Tree a
+// l2t xs = l2t1 1 xs
+// 
+// l2t1 :: Integer -> [a] -> Tree a
+// l2t1 _ [] = Nil
+// l2t1 k xs = let
+//   ys = genericTake k xs
+//   zs = genericDrop k xs
+//   in Node (head $ l2t2 k (map Value ys)) (l2t1 (k * 2) zs)
+// 
+// l2t2 :: Integer -> [Tree a] -> [Tree a]
+// l2t2 1 xs = xs
+// l2t2 k xs = l2t2 (k`div`2) (gp2 xs)
+// 
+// gp2 :: [Tree a] -> [Tree a]
+// gp2 [] = []
+// gp2 [x] = [Node x Nil]
+// gp2 (x:y:xs) = Node x y : gp2 xs
+P gp2(P ts) {
   P res;
-  if (atom(ys)) {  // []
+  P x;
+  P y;
+  if (atom(ts)) {
     res = top(0);
   } else {
-    res = write_tree(list_to_tree1(snd(ys), n+1), n, fst(ys));
+    x = fst(ts);
+    ts = snd(ts);
+    if (atom(ts)) {
+      res = P( P(x,top(0)) ,  top(0) );
+    } else {
+      res = P( P(x,fst(ts)) ,  gp2(snd(ts)) );
+    }
+  }
+  return res;
+}
+P l2t2(int k, P ts) {
+  while (k > 1) {
+    ts = gp2(ts);
+    k = k / 2;
+  }
+  return ts;
+}
+P split_list(P xs, int n) {
+  P res;
+  if (atom(xs)) {
+    n = 0;
+  }
+  if (n==0) {
+    res = P(top(0), xs);
+  } else {
+    res = split_list(snd(xs), n-1);
+    res = P(
+	P(fst(xs), fst(res)),
+	P(snd(res))
+	);
+  }
+  return res;
+}
+P l2t1(int k, P xs) {
+  P res;
+  if (atom(xs)) {
+    res = top(0);
+  } else {
+    xs = split_list(xs, k);
+    res = P(fst(l2t2(k, fst(xs))), l2t1(k*2, snd(xs)));
   }
   return res;
 }
 P list_to_tree(P xs) {
-  return list_to_tree1(xs, 0);
+  return l2t1(1, xs);
 }
-
 
 //// tree2d
 
