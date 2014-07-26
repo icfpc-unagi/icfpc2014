@@ -1,5 +1,7 @@
 #pragma once
 
+#include "list.cpp"
+
 P list_to_tree_(P list, int size) {
 	P ret;
 	P left;
