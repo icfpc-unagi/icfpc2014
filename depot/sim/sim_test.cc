@@ -3,6 +3,15 @@
 #include <glog/logging.h>
 #include <gtest/gtest.h>
 
+DECLARE_bool(print_state);
+
+class SimulatorTest : public testing::Test {
+protected:
+  void SetUp() override {
+    FLAGS_print_state = false;
+  }
+};
+
 class MockLambdaMan : public LambdaManInterface {
 public:
   void Main() override {
@@ -46,7 +55,7 @@ private:
   int created_ = 0;
 };
 
-TEST(SimulatorTest, ParseMaze) {
+TEST_F(SimulatorTest, ParseMaze) {
   MockGhostFactory ghost_factory;
   MockLambdaManFactory lambda_man_factory;
   Game game;
@@ -79,7 +88,7 @@ TEST(SimulatorTest, ParseMaze) {
   EXPECT_EQ(4, ghost_factory.Count());
 }
 
-TEST(SimulatorTest, RunGame) {
+TEST_F(SimulatorTest, RunGame) {
   MockGhostFactory ghost_factory;
   MockLambdaManFactory lambda_man_factory;
   Game game;
