@@ -1,5 +1,4 @@
-#include"lib.cpp"
-#include "list.b"
+#include "translator/lib.h"
 
 // step
 P step(P ai, P game) {

@@ -1,5 +1,5 @@
 // vi:filetype=cpp:
-#include "lib.cpp"
+#include "lib.h"
 
 P readList(P list, int n) {
   P res;
