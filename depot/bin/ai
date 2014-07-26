@@ -1,0 +1,57 @@
+#!/bin/bash
+
+source gbash.sh || exit 1
+
+DEFINE_string lman '' 'LambaMan AIs.'
+DEFINE_string ghosts '' 'Ghost AIs.'
+
+gbash::init_google "$@"
+set -- "${GBASH_ARGV[@]}"
+set -e -u
+
+cd ~/code
+git reset --hard
+git clean -f -d
+git pull
+
+FindAi() {
+  local character="$1"
+  local name="$2"
+
+  local extension=cpp
+  if [ "${character}" == 'ghost' ]; then
+    extension=ghc
+  fi
+  local dropbox_file="/cloud/ro/dropbox/icfpc/2014/ai/${character}/${name}.${extension}"
+  local code_file="$(eval echo -n ~"/code/depot/${character}/ai/${name}.${extension}")"
+
+  if [ -f "${dropbox_file}" ]; then
+    echo "use an AI in Dropbox: ${character}/${name}" >&2
+    cp "${dropbox_file}" "${code_file}"
+  elif [ -f "${code_file}" ]; then
+    echo "use an AI in Github: ${character}/${name}" >&2
+  else
+    echo "no such AI: ${character}/${name}" >&2
+    echo "candidate paths are: " >&2
+    echo "  ${dropbox_file}" >&2
+    echo "  ${code_file}" >&2
+    exit 2
+  fi
+}
+
+IFS=, lman=($FLAGS_lman)
+for lambda_man in "${lman[@]}"; do
+  FindAi lman "${lambda_man}"
+done
+IFS=, ghosts=($FLAGS_ghosts)
+for ghost in "${ghosts[@]}"; do
+  FindAi ghost "${ghost}"
+done
+
+./depot/lman/ai/generator
+./depot/ghost/ai/generator
+
+make build/flame-binary/depot/sim/sim_main
+
+./build/flame-binary/depot/sim/sim_main \
+    --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" "$@"
