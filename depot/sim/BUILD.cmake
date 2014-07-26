@@ -1,7 +1,16 @@
 cc_library(
+    NAME "game-interface"
+    SOURCES "game-interface.cc"
+    DEPENDENCIES
+        "//base"
+        "//util:coordinate"
+)
+
+cc_library(
     NAME "sim"
     SOURCES "sim.cc"
     DEPENDENCIES
+        ":game-interface"
         "//base"
         "//util:coordinate"
 )

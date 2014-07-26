@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "util/coordinate.h"
+#include "sim/game-interface.h"
 
 // Game map data
 typedef vector<string> Maze;
@@ -92,8 +93,11 @@ class GhostFactory {
 };
 
 // Game Mechanics
-class Game {
+class Game : public GameInterface {
  public:
+  Game() {}
+  virtual ~Game() {}
+
   // Configurations
   void AddGhostFactory(GhostFactory* ghost_factory) {
     ghost_factories_.push_back(ghost_factory);
@@ -133,40 +137,40 @@ class Game {
   //////////////////////////////////////////////////////////////////////////////
   // APIs for Ghost
   //////////////////////////////////////////////////////////////////////////////
-  Coordinate GetFirstLambdaManRC() const {
+  Coordinate GetFirstLambdaManRC() const override {
     if (lman_ == nullptr) {
       return CoordinateUtil::Null();
     }
     return lman_->GetRC();
   }
 
-  Coordinate GetSecondLambdaManRC() const {
+  Coordinate GetSecondLambdaManRC() const override {
     // TODO(imos): Implement second lambda-man.
     return CoordinateUtil::Null();
   }
 
-  Coordinate GetGhostInitialRC(int ghost_index) const {
+  Coordinate GetGhostInitialRC(int ghost_index) const override {
     if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
       return CoordinateUtil::Null();
     }
     return ghosts_[ghost_index]->GetInitialRC();
   }
 
-  Coordinate GetGhostRC(int ghost_index) const {
+  Coordinate GetGhostRC(int ghost_index) const override {
     if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
       return CoordinateUtil::Null();
     }
     return ghosts_[ghost_index]->GetRC();
   }
 
-  int GetGhostVitality(int ghost_index) const {
+  int GetGhostVitality(int ghost_index) const override {
     if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
       return -1;
     }
     return ghosts_[ghost_index]->GetGhostVitality();
   }
 
-  int GetGhostDirection(int ghost_index) const {
+  int GetGhostDirection(int ghost_index) const override {
     if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
       return -1;
     }
