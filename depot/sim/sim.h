@@ -16,13 +16,16 @@ class Game;
 class Movement {
  public:
   virtual ~Movement() {}
+  // Accessors
+  Coordinate GetRC() const { return Coordinate(r_, c_); }
+  int GetDirection() const { return d_; }
+
+  // Following are for internal use
   void SetRC(int r, int c) {
     r_ = r;
     c_ = c;
   }
-  Coordinate GetRC() const { return Coordinate(r_, c_); }
   void SetDirection(int d) { d_ = d; }
-  int GetDirection() const { return d_; }
   void Initialize(int r, int c, int d) {
     initial_r = r;
     initial_c = c;
@@ -34,6 +37,8 @@ class Movement {
     c_ = initial_c;
     d_ = initial_d;
   }
+  bool CanMove(const Game& game, int d) const;
+  bool Move();
 
  private:
   int r_;
@@ -69,7 +74,8 @@ class GhostInterface : public Movement {
 // To create a ghost class above
 class GhostFactory {
  public:
-  virtual GhostInterface* Create();
+  virtual ~GhostFactory() {}
+  virtual GhostInterface* Create() = 0;
 };
 
 // Game Mechanics
@@ -83,6 +89,15 @@ class Game {
   void ParseMaze(std::istream& is);
   // Returns the final score
   int Start();
+  
+  char GetSymbol(const Coordinate& rc) const { return maze_[rc.first][rc.second]; }
+  char GetSymbolSafe(const Coordinate& rc) const {
+    if (rc.first < 0 || maze_.size() <= rc.first || rc.second < 0 ||
+        maze_[rc.first].size() <= rc.second) {
+      return '#';
+    }
+    return GetSymbol(rc);
+  }
 
   //////////////////////////////////////////////////////////////////////////////
   // APIs for Ghost
@@ -107,9 +122,6 @@ class Game {
   }
 
  private:
-  char GetSymbol(const Coordinate& rc) {
-    return maze_[rc.first][rc.second];
-  }
   void Eat(const Coordinate& rc) { maze_[rc.first][rc.second] = ' '; }
 
   vector<GhostFactory*> ghost_factories_;
