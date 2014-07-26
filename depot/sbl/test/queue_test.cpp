@@ -1,5 +1,5 @@
 #include "translator/lib.h"
-#include "sbl/queue.cpp"
+#include "sbl/queue.h"
 
 void test(){
   P q;

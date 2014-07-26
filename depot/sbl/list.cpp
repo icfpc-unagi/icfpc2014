@@ -1,4 +1,6 @@
-// vi:filetype=cpp:
+#ifndef SBL_SBL_H_
+
+#include "list.h"
 
 // P read_list(P list, int n)
 // P write_list(P list, int n, P value)
@@ -9,7 +11,7 @@
 //
 // int length_list(P list)
 // P reverse_list(P list)
-#pragma once
+// P split_list(P xs, int n)
 
 P read_list(P list, int n) {
   P res;
@@ -77,3 +79,22 @@ P replicate_list(int n, P val) {
   }
   return res;
 }
+
+P split_list(P xs, int n) {
+  P res;
+  if (atom(xs)) {
+    n = 0;
+  }
+  if (n==0) {
+    res = P(top(0), xs);
+  } else {
+    res = split_list(snd(xs), n-1);
+    res = P(
+	P(fst(xs), fst(res)),
+	snd(res)
+	);
+  }
+  return res;
+}
+
+#endif  // SBL_SBL_H_

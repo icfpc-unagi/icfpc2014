@@ -1,15 +1,9 @@
-// vi:filetype=cpp:
-
 #ifndef SBL_SBL_H_
 
-#include "translator/lib.h"
+#include "tree.h"
 
-// P read_tree(P tree, int n)
-// P write_tree(P tree, int n, P value)
-// P list_to_tree(P list)
-//
-// 2d
-// P list2d_to_tree2d(P xss)
+#include "translator/lib.h"
+#include "list.h"
 
 // readTree :: Integer -> Tree a -> Maybe a
 // readTree n tr = readTree1 n 1 tr
@@ -165,22 +159,6 @@ P l2t2(int k, P ts) {
   }
   return ts;
 }
-P split_list(P xs, int n) {
-  P res;
-  if (atom(xs)) {
-    n = 0;
-  }
-  if (n==0) {
-    res = P(top(0), xs);
-  } else {
-    res = split_list(snd(xs), n-1);
-    res = P(
-	P(fst(xs), fst(res)),
-	snd(res)
-	);
-  }
-  return res;
-}
 P l2t1(int k, P xs) {
   P res;
   if (atom(xs)) {
@@ -221,4 +199,4 @@ P list2d_to_tree2d(P xss) {
   return list_to_tree(list2d_to_tree2d_sub(xss));
 }
 
-#endif  // SBL_TREE_H_
+#endif  // SBL_SBL_H_

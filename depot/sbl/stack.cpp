@@ -1,6 +1,6 @@
-// vi:filetype=cpp:
+#ifndef SBL_SBL_H_
 
-#pragma once
+#include "stack.h"
 
 P create_stack() {
   return top(0);
@@ -21,3 +21,5 @@ P top_stack(P stack) {
 P pop_stack(P stack) {
   return snd(stack);
 }
+
+#endif  // SBL_SBL_H_

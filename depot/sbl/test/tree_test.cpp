@@ -1,5 +1,5 @@
 #include "translator/lib.h"
-#include "sbl/tree.cpp"
+#include "sbl/tree.h"
 
 
 void debug_tree(){

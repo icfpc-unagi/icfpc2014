@@ -1,6 +1,8 @@
-#pragma once
+#ifndef SBL_SBL_H_
 
-#include "list.cpp"
+#include "tree.h"  // fasttree.h
+
+#include "list.h"
 
 P list_to_tree_(P list, int size) {
 	P ret;
@@ -81,3 +83,5 @@ P list2d_to_tree2d_sub(P xss) {
 P list2d_to_tree2d(P xss) {
   return list_to_tree(list2d_to_tree2d_sub(xss));
 }
+
+#endif  // SBL_SBL_H_

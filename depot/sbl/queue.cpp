@@ -1,9 +1,9 @@
-// vi:filetype=cpp:
+#ifndef SBL_SBL_H_
 
-#pragma once
+#include "queue.h"
 
-#include "stack.cpp"
-#include "list.cpp"
+#include "stack.h"
+#include "list.h"
 
 P create_queue() {
   return P(create_stack(), create_stack());
@@ -41,3 +41,5 @@ P pop_queue(P queue) {
   }
   return q;
 }
+
+#endif  // SBL_SBL_H_
