@@ -75,7 +75,7 @@ class ${identifier}LambdaManFactory : public ::LambdaManFactory {
 EOM
 
 
-  cat << EOM >BUILD.cmake
+  cat << EOM >>BUILD.cmake
 cc_library(
     NAME "${name}"
     SOURCES "${name}.cc"
