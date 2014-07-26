@@ -558,6 +558,7 @@ public class BCompiler {
 			list.add("RTN");
 		}
 		for (Map.Entry<String, String[]> b : blocks.entrySet()) {
+			list.add("BRK ; " + b.getKey());
 			pos.put(b.getKey(), list.size());
 			for (String s : b.getValue()) {
 				list.add(s);
@@ -566,6 +567,7 @@ public class BCompiler {
 		for (int i = 0; i < list.size(); i++) {
 			String ss = list.get(i);
 			for (String s : ss.split(" ")) {
+				if (s.equals(";")) continue;
 				if (s.startsWith("$$next")) {
 					if (!s.endsWith("_")) {
 						pos.put(s, i + 1);
@@ -576,13 +578,18 @@ public class BCompiler {
 		}
 		for (int i = 0; i < list.size(); i++) {
 			boolean first = true;
+			String t = ";";
 			for (String s : list.get(i).split(" ")) {
 				if (!first) System.out.print(" ");
 				first = false;
-				if (s.startsWith("$")) s = "" + pos.get(s);
+				if (s.startsWith("$")) {
+					t += " " + s;
+					s = "" + pos.get(s);
+				}
 				if (s.startsWith("@")) s = "" + globals.get(s);
 				System.out.print(s);
 			}
+			if (t.length() > 1) System.out.print(" " + t);
 			System.out.println();
 		}
 	}
