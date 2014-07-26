@@ -14,7 +14,6 @@ int main(int argc, char** argv) {
   google::InitGoogleLogging(argv[0]);
 
   Game game;
-  game.AddGhostFactory(new ghost::fickleGhostFactory);
   game.SetLambdaMan(new LambdaManImpl);
   std::ifstream mazefile(FLAGS_maze);
   game.ParseMaze(mazefile);

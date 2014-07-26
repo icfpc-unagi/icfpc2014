@@ -40,7 +40,7 @@ TEST(SimulatorTest, ParseMaze) {
   MockLambdaMan lman;
   Game game;
   game.SetLambdaMan(&lman);
-  game.AddGhostFactory(&ghost_factory);
+  game.SetGhostFactory(&ghost_factory);
   std::stringstream maze;
   maze << "#######################\n"
   << "#..........#..........#\n"
@@ -73,7 +73,7 @@ TEST(SimulatorTest, RunGame) {
   MockLambdaMan lman;
   Game game;
   game.SetLambdaMan(&lman);
-  game.AddGhostFactory(&ghost_factory);
+  game.SetGhostFactory(&ghost_factory);
   std::stringstream maze;
   maze << "#######################\n"
   << "#..........#..........#\n"

@@ -8,11 +8,9 @@ DEFINE_string(ghosts, "fickle", "Comma-separated list of ghosts to use.");
 
 namespace ghost {
 
-vector<::GhostFactory*> GhostAiManager::GetGhosts(int num_ghosts) {
+vector<::GhostFactory*> GhostAiManager::GetGhosts() {
   vector<::GhostFactory*> ghosts;
-  vector<string> ghost_names = Split(FLAGS_ghosts, ",");
-  for (int i = 0; i < num_ghosts; i++) {
-    const string& ghost_name = ghost_names[i % ghost_names.size()];
+  for (const string& ghost_name : Split(FLAGS_ghosts, ",")) {
     auto ghost_factory = ghost_factory_.find(ghost_name);
     CHECK(ghost_factory != ghost_factory_.end())
         << "no such ghost: " << ghost_name;

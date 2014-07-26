@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "ghost/ghost-ai-manager.h"
 #include "sim/character.h"
 #include "sim/game-interface.h"
 #include "sim/ghost-interface.h"
@@ -28,11 +29,12 @@ class LambdaMan : public Character {
 // Game Mechanics
 class Game : public GameInterface {
  public:
-  Game() {}
+  Game() : ghost_factories_(ghost::GetGhostAiManager()->GetGhosts()) {}
   virtual ~Game() {}
 
   // Configurations
-  void AddGhostFactory(GhostFactory* ghost_factory) {
+  void SetGhostFactory(GhostFactory* ghost_factory) {
+    ghost_factories_.clear();
     ghost_factories_.push_back(ghost_factory);
   }
   void SetLambdaMan(LambdaMan* lman) { lman_ = lman; }

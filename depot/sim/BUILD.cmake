@@ -32,6 +32,7 @@ cc_library(
         ":character"
         ":game-interface"
         "//base"
+        "//ghost:ghost-ai-manager"
         "//util:coordinate"
 )
 

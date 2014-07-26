@@ -7,7 +7,7 @@
 #include <glog/logging.h>
 
 #include "base/string-printf.h"
-#include "sim/sim.h"
+#include "sim/ghost-interface.h"
 #include "util/coordinate.h"
 
 namespace ghost {

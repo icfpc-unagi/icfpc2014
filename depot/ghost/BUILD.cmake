@@ -4,14 +4,15 @@ cc_library(
     DEPENDENCIES
         "//base"
         "//base:string-printf"
-        "//sim"
+        "//sim:ghost-interface"
 )
 
 cc_library(
     NAME "ghost-ai-manager"
     SOURCES "ghost-ai-manager.cc"
     DEPENDENCIES
-        "//sim"
+        "//ghost/ai"
+        "//sim:ghost-interface"
 )
 
 cc_binary(

@@ -8,7 +8,7 @@
 #include <glog/logging.h>
 
 #include "ghost/ai/ai.h"
-#include "sim/sim.h"
+#include "sim/ghost-interface.h"
 
 namespace ghost {
 
@@ -27,7 +27,7 @@ class GhostAiManager {
     return names;
   }
 
-  vector<::GhostFactory*> GetGhosts(int num_ghosts);
+  vector<::GhostFactory*> GetGhosts();
 
  private:
   map<string, std::unique_ptr<::GhostFactory>> ghost_factory_;
