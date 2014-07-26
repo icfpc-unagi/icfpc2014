@@ -3,6 +3,9 @@
 // P read_tree(P tree, int n)
 // P write_tree(P tree, int n, P value)
 // P list_to_tree(P list)
+//
+// 2d
+// P list2d_to_tree2d(P xss)
 #pragma once
 
 // readTree :: Integer -> Tree a -> Maybe a
@@ -115,4 +118,31 @@ P list_to_tree1(P ys, int n) {
 }
 P list_to_tree(P xs) {
   return list_to_tree1(xs, 0);
+}
+
+
+//// tree2d
+
+// read tree[i][j]
+P read_tree2d(P tree, int i, int j) {
+  return read_tree(read_tree(tree, i), j);
+}
+
+// write tree[i][j]
+P write_tree2d(P tree, int i, int j, P val) {
+  return write_tree(tree, i, write_tree(read_tree(tree,i), j, val) );
+}
+
+// map list_to_tree
+P list2d_to_tree2d_sub(P xss) {
+  P res;
+  if (atom(xss)) {
+    res = top(0);
+  } else {
+    res = P(list_to_tree(fst(xss)), list2d_to_tree2d_sub(snd(xss)));
+  }
+  return res;
+}
+P list2d_to_tree2d(P xss) {
+  return list_to_tree(list2d_to_tree2d_sub(xss));
 }
