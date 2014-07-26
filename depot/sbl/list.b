@@ -28,12 +28,12 @@ P write_list(P list, int n, P val) {
 }
 
 // read list[i][j]
-P read_list(P list, int i, int j) {
+P read_list2d(P list, int i, int j) {
   return read_list(read_list(list, i), j);
 }
 
 // write list[i][j]
-P write_list(P list, int i, int j, P val) {
+P write_list2d(P list, int i, int j, P val) {
   return write_list(list, i, write_list(read_list(list,i), j, val) );
 }
 
@@ -57,7 +57,6 @@ P reverse_list1(P list, P tmp) {
   }
   return res;
 }
-
 P reverse_list(P list) {
   return reverse_list1(list, top(0));
 }
