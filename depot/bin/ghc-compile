@@ -28,7 +28,7 @@ function AddCommand($lineno, $program_counter, $line) {
 }
 
 function ResolveName($lineno, $name) {
-  if (preg_match('%\d+%', $name)) {
+  if (preg_match('%^\d+$%', $name)) {
     return $name;
   }
   if (preg_match('%^([a-h]|pc)$%i', $name)) {
@@ -64,7 +64,8 @@ function OutputCommand($lineno, $original, $command) {
       case 'JEQ':
         $goto = ResolveName($lineno, array_shift($args));
         if (!is_numeric($goto)) {
-          fprintf(STDERR, "goto target must be a number: $goto\n");
+          fprintf(STDERR,
+                  "goto target must be a number: $goto in line $lineno\n");
           exit(2);
         }
         $goto = sprintf("pc%03d", $goto);
