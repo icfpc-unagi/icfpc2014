@@ -1,7 +1,7 @@
 cc_library(
-    NAME "chokudai-ai-ver4"
+    NAME "chokudai-ai-ver8"
     SOURCES "lman.cc"
     DEPENDENCIES
         "//base"
-        "//translator/ai:libchokudai-ai-ver4"
+        "//translator/ai:libchokudai-ai-ver8"
 )

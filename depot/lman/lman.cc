@@ -18,8 +18,8 @@ int LambdaManImpl::Step() {
 
 P LambdaManImpl::MakeList(const vector<P>& t) {
   CHECK(!t.empty());
-  P tuple = t.back();
-  for (int i = t.size() - 2; i >= 0; --i) {
+  P tuple(0);  // 0 termination
+  for (int i = t.size() - 1; i >= 0; --i) {
     tuple = P(t[i], tuple);
   }
   return tuple;

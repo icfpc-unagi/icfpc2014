@@ -49,6 +49,6 @@ cc_binary(
     SOURCES "sim_main.cc"
     DEPENDENCIES
         ":sim"
-        "//lman:chokudai-ai-ver4"
+        "//lman:chokudai-ai-ver8"
         "//ghost/ai:fickle"
 )
