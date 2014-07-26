@@ -28,7 +28,7 @@ void Ghost::INT2() {
 }
 
 void Ghost::INT3() {
-  register_a_ = GetGhostIndex();
+  register_a_ = GetIndex();
 }
 
 void Ghost::INT4() {

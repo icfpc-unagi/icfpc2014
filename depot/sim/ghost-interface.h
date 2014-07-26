@@ -12,18 +12,19 @@ class GhostInterface : public Character {
 
   void Init(GameInterface* game, int ghost_index) {
     game_ = game;
-    ghost_index_ = ghost_index;
-    ghost_vitality_ = 0;
+    index_ = ghost_index;
+    vitality_ = 0;
   }
   virtual int Step() = 0;
 
-  int GetGhostIndex() { return ghost_index_; }
-  int GetGhostVitality() { return ghost_vitality_; }
+  int GetIndex() const { return index_; }
+  int GetVitality() const { return vitality_; }
+  void SetVitality(int vitality) { vitality_ = vitality; }
 
  protected:
   GameInterface* game_;
-  int ghost_index_;
-  int ghost_vitality_;
+  int index_;
+  int vitality_;
 };
 
 // To create a ghost class above

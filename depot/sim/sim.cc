@@ -74,7 +74,6 @@ int Game::Start() {
   for (int i = 0; i < ghosts_.size(); ++i) {
     utc_ghosts_next_moves[i] = 130 + 2 * i;
   }
-  vector<bool> ghosts_invisible_(ghosts_.size(), false);
   // True if Lambda-Man ate something since the last move
   bool eating = false;
   
@@ -128,6 +127,7 @@ int Game::Start() {
         LOG(WARNING) << "Lambda-Man hit a wall ('A`)";
       }
       utc_lman_next_move += eating ? 137 : 127;
+      LOG(INFO) << "Next Lambda-Man move at " << utc_lman_next_move;
       eating = false;  // Reset eating state
       state_changed = true;
     }
@@ -197,7 +197,7 @@ int Game::Start() {
     if (vitality_ > 0) {
       if (--vitality_ == 0) {
         for (int i = 0; i < ghosts_.size(); ++i) {
-          ghosts_invisible_[i] = false;
+          ghosts_[i]->SetVitality(0 /* standard */);
         }
       }
     }
@@ -227,6 +227,7 @@ int Game::Start() {
       vitality_ = flight_mode_duration;
       // Gets all ghosts to turn around
       for (int i = 0; i < ghosts_.size(); ++i) {
+        ghosts_[i]->SetVitality(1);
         ghosts_[i]->SetDirection((ghosts_[i]->GetDirection() + 2) % 4);
       }
       score_ += 50;
@@ -241,7 +242,7 @@ int Game::Start() {
 
     // *** 4. life losing
     for (int i = 0; i < ghosts_.size(); ++i) {
-      if (!ghosts_invisible_[i] && ghosts_[i]->GetRC() == pos) {
+      if (ghosts_[i]->GetVitality() != 2 /* invisible */ && ghosts_[i]->GetRC() == pos) {
         if (vitality_ == 0) {
           // Ghost eats Lambda-Man
           // Loses a life
@@ -256,7 +257,7 @@ int Game::Start() {
         } else {
           // Lambda-Man eats ghost
           ghosts_[i]->ResetPositionAndDirection();
-          ghosts_invisible_[i] = true;
+          ghosts_[i]->SetVitality(2);
         }
       }
     }

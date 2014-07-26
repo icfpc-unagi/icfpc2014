@@ -105,7 +105,7 @@ class Game : public GameInterface {
     if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
       return -1;
     }
-    return ghosts_[ghost_index]->GetGhostVitality();
+    return ghosts_[ghost_index]->GetVitality();
   }
 
   int GetGhostDirection(int ghost_index) const override {
