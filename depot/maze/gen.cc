@@ -2,18 +2,31 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 
-DEFINE_int32(num_ghosts, 4, "");
+DEFINE_int32(ghosts, 4, "");
+DEFINE_int32(powerpills, 4, "");
 DEFINE_int32(width, 22, "");
 DEFINE_int32(height, 22, "");
 DEFINE_int32(size, 0, "This value overwrites width and height if non-zero");
 DEFINE_int32(seed, 0, "");
+DEFINE_string(maker, "digger", "digger,grid");
+DEFINE_string(placer, "scatter", "scatter");
 
 using namespace std;
 
 const int dr[4] = {-1,0,1,0};
 const int dc[4] = {0,1,0,-1};
 
-class DFSDigger {
+class Maker {
+public:
+	virtual vector<string> Gen() = 0;
+};
+
+class Placer {
+public:
+	virtual void Place(int ghosts, int powerpills, vector<string>* data) = 0;
+};
+
+class DFSDigger : public Maker {
 public:
 	DFSDigger(int height, int width) :
 	   data(height, string(width, '#')) {}
@@ -35,7 +48,7 @@ private:
 	  }
 	  data[r][c] = '.';
 	  int s = rand() % 4;
-	  for (int i = 0; i < 3; ++i) {
+	  for (int i = 0; i < 4; ++i) {
 	  	int d = (s + i) % 4;
 	  	Dig(r + dr[d], c + dc[d]);
 	  }
@@ -46,9 +59,72 @@ private:
 	vector<string> data;
 };
 
-class ScatteringLocator {
+class GridMaker : public Maker {
 public:
-	void Locate(int ghosts, vector<string>* data) {
+	GridMaker(int height, int width) :
+	   data(height, string(width, '#')) {}
+	vector<string> Gen() {
+	  Joint(rand() % height(), rand() % width());
+	  for (int i = 0; i < height(); ++i) {
+	  	replace(data[i].begin(), data[i].end(), 'x', '.');
+	  }
+	  return std::move(data);
+	}
+private:
+	void Joint(int r, int c) {
+	  if (r < 1 || width() - 1 <= r || c < 1 || height() - 1 <= c) return;
+	  data[r][c] = 'x';
+	  int s = rand() % 4;
+	  for (int i = 0; i < 4; ++i) {
+	  	if (rand() % 3 == 0) continue;
+	  	int j = i % 4;
+	  	int k = (i + 1) % 4;
+	  	if (data[r + dr[j]][c + dc[j]] != '#' ||
+	  	    data[r + dr[j] + dr[k]][c + dc[j] + dc[k]] != '#' ||
+	  	    data[r + dr[j] - dr[k]][c + dc[j] - dc[k]] != '#') continue;
+	    Line(r + dr[j], c + dc[j], j);
+	  }
+	}
+	bool Line(int r, int c, int d) {
+	  if (r < 1 || width() - 1 <= r || c < 1 || height() - 1 <= c) {
+	  	return false;
+	  }
+	  if (data[r][c] != '#') {
+	  	data[r][c] = 'x';
+	  	return true;
+	  }
+	  int e = (d + 1) % 4;
+      if (data[r + dr[e]][c + dc[e]] != '#' ||
+  	      data[r - dr[e]][c - dc[e]] != '#') {
+	  	Joint(r, c);
+        return true;
+      }
+      if (data[r + dr[d]][c + dr[d]] != '#') {
+      	data[r + dr[d]][c + dr[d]] = 'x';
+      	data[r][c] = '.';
+      	return true;
+      }
+      if (data[r - dr[d]][c - dc[d]] != 'x' && rand() % 2 == 0) {
+	  	Joint(r, c);
+      	return true;
+      }
+      data[r][c] = '.';
+      if (!Line(r + dr[d], c + dc[d], d)) {
+	  	Joint(r, c);
+      }
+      return true;
+      // if (data[r + dr[d] + dr[e]][c + dr[d] + dc[e]] == 'x' ||
+  	  //    data[r + dr[d] - dr[e]][c + dr[d] - dc[e]] == 'x') return false;
+	}
+	int width() { return data[0].size(); }
+	int height() { return data.size();}
+
+	vector<string> data;
+};
+
+class ScatteringPlacer : public Placer {
+public:
+	void Place(int ghosts, int powerpills, vector<string>* data) {
 		vector<pair<int, int>> pits;
 		for (int r = 0; r < data->size(); ++r) {
 			for (int c = 0; c < (*data)[r].size(); ++c) {
@@ -59,10 +135,17 @@ public:
 		}
 		CHECK_GT(pits.size(), ghosts + 2);
 		random_shuffle(pits.begin(), pits.end());
-		(*data)[pits[0].first][pits[0].second] = '\\';
-		(*data)[pits[1].first][pits[1].second] = '%';
+		(*data)[pits.back().first][pits.back().second] = '\\';
+		pits.pop_back();
+		(*data)[pits.back().first][pits.back().second] = '%';
+		pits.pop_back();
 		for (int i = 0; i < ghosts; ++i) {
-	 		(*data)[pits[i + 2].first][pits[i + 2].second] = '=';
+	 		(*data)[pits.back().first][pits.back().second] = '=';
+			pits.pop_back();
+	 	}
+		for (int i = 0; i < powerpills; ++i) {
+	 		(*data)[pits.back().first][pits.back().second] = 'o';
+			pits.pop_back();
 	 	}
 	}
 };
@@ -71,17 +154,25 @@ int main(int argc, char** argv) {
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
 
-  const int ghosts = FLAGS_num_ghosts;
+  const int ghosts = FLAGS_ghosts;
+  const int powerpills = FLAGS_powerpills;
   const int width = FLAGS_size > 0 ? FLAGS_size : FLAGS_width;
   const int height = FLAGS_size > 0 ? FLAGS_size : FLAGS_height;
   CHECK_GT(width, 2);
   CHECK_GT(height, 2);
 
   srand(FLAGS_seed);
-  DFSDigger gen(height, width);
-  ScatteringLocator loc;
-  vector<string> data = gen.Gen();
-  loc.Locate(ghosts, &data);
+  unique_ptr<Maker> maker;
+  if (FLAGS_maker == "digger") {
+  	maker.reset(new DFSDigger(height, width));
+  } else if (FLAGS_maker == "grid") {
+  	maker.reset(new GridMaker(height, width));
+  } else {
+  	LOG(FATAL) << "Specify --maker";
+  }
+  vector<string> data = maker->Gen();
+  ScatteringPlacer placer;
+  placer.Place(ghosts, powerpills, &data);
 
   for (int i = 0; i < data.size(); ++i) {
   	cout << data[i] << endl;
