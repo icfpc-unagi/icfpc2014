@@ -99,11 +99,13 @@ class Game {
   // Returns the final score
   int Start();
   
-  char GetSymbol(const Coordinate& rc) const { return maze_[rc.first][rc.second]; }
+  char GetSymbol(const Coordinate& rc) const {
+    return maze_[rc.first][rc.second];
+  }
   char GetSymbolSafe(const Coordinate& rc) const {
     if (rc.first < 0 || maze_.size() <= rc.first || rc.second < 0 ||
         maze_[rc.first].size() <= rc.second) {
-      return '#';
+      return '?';
     }
     return GetSymbol(rc);
   }

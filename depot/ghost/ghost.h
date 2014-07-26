@@ -252,7 +252,7 @@ class Ghost : public ::GhostInterface {
   // INPUT: register_a_ (map square x-ordinate)
   // INPUT: register_a_ (map square y-ordinate)
   // OUTPUT: register_a_ (contents of map square)
-  void INT7() {}
+  void INT7();
 
   // Sends the current value of the PC and all registers to an external
   // debug/trace agent.
