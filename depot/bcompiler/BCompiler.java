@@ -8,6 +8,9 @@ public class BCompiler {
 	@SetOpt.Option(abbr = 'r', usage = "runを呼ぶモード")
 	public boolean run = false;
 	
+	@SetOpt.Option(abbr = 'l', usage = "ライブラリコンパイルモード(エントリなし，ラベル付き出力)")
+	public boolean lib = false;
+	
 	int q;
 	Map<String, Integer> numVars;
 	ArrayList<String> globalVars;
@@ -511,11 +514,11 @@ public class BCompiler {
 		Function[] funcs = getFunctions(p);
 		functions = new TreeMap<String, BCompiler.Function>();
 		for (Function f : funcs) functions.put(f.name, f);
-		if (run && !functions.containsKey("run")) {
+		if (!lib && run && !functions.containsKey("run")) {
 			throw new RuntimeException("need function: run");
-		} else if (!run && !functions.containsKey("init")) {
+		} else if (!lib && !run && !functions.containsKey("init")) {
 			throw new RuntimeException("need function: init");
-		} else if (!run && !functions.containsKey("step")) {
+		} else if (!lib && !run && !functions.containsKey("step")) {
 			throw new RuntimeException("need function: step");
 		}
 		numVars = new TreeMap<String, Integer>();
@@ -530,67 +533,81 @@ public class BCompiler {
 				}
 			}
 		}
-		Map<String, Integer> pos = new TreeMap<String, Integer>();
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("DUM " + (globalVars.size() + funcs.length));
-		Map<String, Integer> globals = new TreeMap<String, Integer>();
-		for (int i = 0; i < globalVars.size(); i++) {
-			list.add("LDC 0");
-		}
-		for (int i = 0; i < funcs.length; i++) {
-			list.add("LDF $" + funcs[i].name);
-			globals.put("@" + funcs[i].name, globalVars.size() + i);
-		}
-		list.add("LDF " + (list.size() + 3));
-		list.add("RAP " + (globalVars.size() + funcs.length));
-		list.add("RTN");
-		if (!run) {
-			list.add("LD 1 0");
-			list.add("LD 1 1");
-			list.add("LD 0 @init");
-			list.add("AP 2");
-			list.add("LD 0 @step");
-			list.add("CONS");
-			list.add("RTN");
-		} else {
-			list.add("LD 0 @run");
-			list.add("AP 0");
-			list.add("RTN");
-		}
-		for (Map.Entry<String, String[]> b : blocks.entrySet()) {
-			list.add("BRK ; " + b.getKey());
-			pos.put(b.getKey(), list.size());
-			for (String s : b.getValue()) {
-				list.add(s);
+		if (!lib) {
+			Map<String, Integer> pos = new TreeMap<String, Integer>();
+			ArrayList<String> list = new ArrayList<String>();
+			Map<String, Integer> globals = new TreeMap<String, Integer>();
+			list.add("DUM " + (globalVars.size() + funcs.length));
+			for (int i = 0; i < globalVars.size(); i++) {
+				list.add("LDC 0");
 			}
-		}
-		for (int i = 0; i < list.size(); i++) {
-			String ss = list.get(i);
-			for (String s : ss.split(" ")) {
-				if (s.equals(";")) continue;
-				if (s.startsWith("$$next")) {
-					if (!s.endsWith("_")) {
-						pos.put(s, i + 1);
-						pos.put(s + "_", i + 1);
+			for (int i = 0; i < funcs.length; i++) {
+				list.add("LDF $" + funcs[i].name);
+				globals.put("@" + funcs[i].name, globalVars.size() + i);
+			}
+			list.add("LDF " + (list.size() + 3));
+			list.add("RAP " + (globalVars.size() + funcs.length));
+			list.add("RTN");
+			if (!run) {
+				list.add("LD 1 0");
+				list.add("LD 1 1");
+				list.add("LD 0 @init");
+				list.add("AP 2");
+				list.add("LD 0 @step");
+				list.add("CONS");
+				list.add("RTN");
+			} else {
+				list.add("LD 0 @run");
+				list.add("AP 0");
+				list.add("RTN");
+			}
+			for (Map.Entry<String, String[]> b : blocks.entrySet()) {
+				list.add("BRK ; " + b.getKey());
+				pos.put(b.getKey(), list.size());
+				for (String s : b.getValue()) {
+					list.add(s);
+				}
+			}
+			for (int i = 0; i < list.size(); i++) {
+				String ss = list.get(i);
+				for (String s : ss.split(" ")) {
+					if (s.equals(";")) continue;
+					if (s.startsWith("$$next")) {
+						if (!s.endsWith("_")) {
+							pos.put(s, i + 1);
+							pos.put(s + "_", i + 1);
+						}
 					}
 				}
 			}
-		}
-		for (int i = 0; i < list.size(); i++) {
-			boolean first = true;
-			String t = ";";
-			for (String s : list.get(i).split(" ")) {
-				if (!first) System.out.print(" ");
-				first = false;
-				if (s.startsWith("$")) {
-					t += " " + s;
-					s = "" + pos.get(s);
+			for (int i = 0; i < list.size(); i++) {
+				boolean first = true;
+				String t = ";";
+				if (!list.get(i).startsWith("BRK")) System.out.print("  ");
+				for (String s : list.get(i).split(" ")) {
+					if (!first) System.out.print(" ");
+					first = false;
+					if (s.startsWith("$")) {
+						t += " " + s;
+						s = "" + pos.get(s);
+					}
+					if (s.startsWith("@")) s = "" + globals.get(s);
+					System.out.print(s);
 				}
-				if (s.startsWith("@")) s = "" + globals.get(s);
-				System.out.print(s);
+				if (t.length() > 1) System.out.print(" " + t);
+				System.out.println();
 			}
-			if (t.length() > 1) System.out.print(" " + t);
-			System.out.println();
+		} else {
+			for (Map.Entry<String, String[]> b : blocks.entrySet()) {
+				String label = b.getKey();
+				if (numVars.containsKey(b.getKey())) {
+					label += "(" + numVars + ")";
+				}
+				System.out.println(label + ":");
+				for (String s : b.getValue()) {
+					System.out.println("  " + s);
+				}
+			}
 		}
 	}
 	
