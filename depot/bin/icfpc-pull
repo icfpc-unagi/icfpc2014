@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ ! -d ~/code ]; then
+  icfpc-clone
+fi
+
+cd ~/code
+git reset --hard
+git pull
