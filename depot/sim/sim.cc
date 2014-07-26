@@ -3,11 +3,12 @@
 #include <algorithm>
 #include <iostream>
 #include <sstream>
-
 #include <gflags/gflags.h>
 #include <glog/logging.h>
+#include "util/colors.h"
 
 DEFINE_bool(print_state, true, "");
+DEFINE_bool(print_color, true, "");
 
 constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
                                   1000, 1000, 2000, 2000, 3000, 3000, 5000};
@@ -54,6 +55,8 @@ void Game::ParseMaze(std::istream& is) {
 }
 
 int Game::Start() {
+  if (FLAGS_print_state && FLAGS_print_color) std::cout << CLEARSCREEN;
+  
   // constants
   const int height = maze_.size();
   const int width = maze_[0].size();
@@ -91,28 +94,41 @@ int Game::Start() {
     // *** 0. debug print
     if (FLAGS_print_state && state_changed) {
       std::stringstream ss;
+      if (FLAGS_print_color) ss << RESETCURSOR;
+      ss << "The world state (utc=" << tick_
+         << ",lives=" << life_ << ",score=" << score_ << "):\n";
       for (int r = 0; r < height; ++r) {
         for (int c = 0; c < width; ++c) {
           Coordinate rc(r, c);
+          const char* color = "";
           char symbol = GetSymbol(rc);
           if (symbol == '=' || symbol == '\\' || symbol == '%') symbol = ' ';
+          if (symbol == '#') color = BLUE;
+          if (symbol == 'o') color = YELLOW;
           if (lman_->GetRC() == rc) {
             symbol =  '\\';
+            color = BOLDYELLOW;
           }
           if (fruit_appeared && fruit_location_ == rc) {
             symbol = '%';
+            color = BOLDRED;
           }
           for (int i = 0; i < ghosts_.size(); ++i) {
             if (ghosts_[i]->GetRC() == rc) {
               symbol = '=';
+              static const char* kGhostColors[] = {BOLDRED, BOLDMAGENTA, BOLDCYAN, BOLDGREEN};
+              color = kGhostColors[i];
               break;
             }
           }
-          ss << ' ' << symbol;
+          ss << ' ';
+          if (FLAGS_print_color) ss << color;
+          ss << symbol;
+          if (FLAGS_print_color) ss << RESET;
         }
         ss << '\n';
       }
-      LOG(INFO) << "The world state (utc=" << tick_ << ",score=" << score_ << "):\n" << ss.str();
+      std::cout << ss.str();
       state_changed = false;
     }
 
@@ -123,12 +139,10 @@ int Game::Start() {
       if (lman_->CanMove(*this, d)) {
         lman_->SetDirection(d);
         CHECK(lman_->Move());
-        LOG(INFO) << "Lambda-Man moved " << d;
       } else {
         LOG(WARNING) << "Lambda-Man hit a wall ('A`)";
       }
       utc_lman_next_move += eating ? 137 : 127;
-      LOG(INFO) << "Next Lambda-Man move at " << utc_lman_next_move;
       eating = false;  // Reset eating state
       state_changed = true;
     }
@@ -157,7 +171,6 @@ int Game::Start() {
           } else if (ghosts_[i]->CanMove(*this, d)) {
             ghosts_[i]->SetDirection(d);
             CHECK(ghosts_[i]->Move()); 
-            LOG(INFO) << "Ghost[" << i << "] moved " << d;
             moved = true;
           } else {
             LOG(WARNING) << "Ghost[" << i
@@ -169,7 +182,6 @@ int Game::Start() {
               if (ghosts_[i]->CanMove(*this, d)) {
                 ghosts_[i]->SetDirection(d);
                 CHECK(ghosts_[i]->Move());
-                LOG(INFO) << "Ghost[" << i << "] moved " << d;
                 break;
               }
             }
@@ -178,11 +190,9 @@ int Game::Start() {
           CHECK(ghosts_[i]->CanMove(*this, oneway));
           ghosts_[i]->SetDirection(oneway);
           CHECK(ghosts_[i]->Move()) << "Ghost[" << i << "] auto move failed";
-          LOG(INFO) << "Ghost[" << i << "] moved " << oneway;
         } else if (ghosts_[i]->CanMove(*this, oppo_d)) {
           ghosts_[i]->SetDirection(oppo_d);
           CHECK(ghosts_[i]->Move());
-          LOG(INFO) << "Ghost[" << i << "] moved " << oppo_d;
         } else {
           // surrounded on all four sides by walls
         }
@@ -237,7 +247,6 @@ int Game::Start() {
       if (fruit_appeared && fruit_location_ == pos) {
         fruit_appeared = false;
         score_ += fruit_points;
-        break;
       }
     }
 
@@ -281,5 +290,6 @@ int Game::Start() {
     // *** 7. tick end
     tick_++;
   }
+  LOG_IF(INFO, tick_ == end_of_lives) << "Game over: End of lives";
   return score_;
 }
