@@ -1,36 +1,33 @@
 #include "tree.b"
 
 
-P debug_tree(){
+void debug_tree(){
   P list;
   P tree;
-  P gomi;
   list = P(3, P(1, P(4, P(1, P(5, P(9, 0))))));
-  gomi = debug(list);
+  debug(list);
   tree = list_to_tree(list);
-  gomi = debug(tree);
-  gomi = debug(read_tree(tree,0));
-  gomi = debug(read_tree(tree,1));
-  gomi = debug(read_tree(tree,2));
-  gomi = debug(read_tree(tree,3));
-  gomi = debug(read_tree(tree,4));
-  gomi = debug(read_tree(tree,5));
+  debug(tree);
+  debug(read_tree(tree,0));
+  debug(read_tree(tree,1));
+  debug(read_tree(tree,2));
+  debug(read_tree(tree,3));
+  debug(read_tree(tree,4));
+  debug(read_tree(tree,5));
   tree = write_tree(tree,3,100);
-  gomi = debug(tree);
-  return 0;
+  debug(tree);
+  return;
 }
 
-P run() {
-  P gomi;
-  gomi = debug_tree();
-  return gomi;
+void run() {
+  debug_tree();
+  return;
 }
 
 P step(P state, P game) {
   return P(state, 3);
 }
 P init(P game, P nazo) {
-  P gomi;
-  gomi = run();
+  run();
   return P(0, 0);
 }
