@@ -9,8 +9,6 @@
 
 DEFINE_bool(print_state, true, "");
 
-using namespace std;
-
 constexpr int kFruits = 2;
 constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
                                   1000, 1000, 2000, 2000, 3000, 3000, 5000};
@@ -107,7 +105,7 @@ int Game::Start() {
   while (tick_ < end_of_lives) {
     // *** 0. debug print
     if (FLAGS_print_state && state_changed) {
-      stringstream ss;
+      std::stringstream ss;
       for (int r = 0; r < height; ++r) {
         for (int c = 0; c < width; ++c) {
           Coordinate rc(r, c);
