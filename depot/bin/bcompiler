@@ -11,4 +11,4 @@ set -e -u
 pushd "$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)"/../bcompiler >/dev/null
 javac -d "${TMPDIR}" -encoding UTF-8 *.java
 popd >/dev/null
-java -cp "${TMPDIR}" BCompiler "$@" >"${FLAGS_output}"
+java -cp "${TMPDIR}" BCompiler $(bfiles "$@") >"${FLAGS_output}"
