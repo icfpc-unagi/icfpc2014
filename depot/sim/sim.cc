@@ -173,6 +173,7 @@ int Game::Start() {
       if (tick_ == utc_ghosts_next_moves[i]) {
         // Check if the ghost has options
         int prev_d = ghosts_[i]->GetDirection();
+        DCHECK(0 <= prev_d && prev_d < 4);
         int oppo_d = (prev_d + 2) % 4;
         auto pos = ghosts_[i]->GetRC();
         int ways = 0;

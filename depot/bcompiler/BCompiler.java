@@ -200,7 +200,22 @@ public class BCompiler {
 		ArrayList<Code> codes = new ArrayList<Code>();
 		while ((p.peek() == 'i' && p.cs[p.p + 1] == 'n' || p.peek() == 'P')) {
 			p.readType();
-			vars.add(p.readName());
+			for (;;) {
+				String name = p.readName();
+				vars.add(name);
+				if (p.peek() == '=') {
+					p.eat('=');
+					Exp e = getExp(p);
+					if (!(e instanceof Const && ((Const) e).val == 0)) {
+						codes.add(new Assign(name, e));
+					}
+				}
+				if (p.peek() == ',') {
+					p.eat(',');
+				} else {
+					break;
+				}
+			}
 			p.eat(';');
 		}
 		while (p.peek() != '}') {
@@ -216,6 +231,9 @@ public class BCompiler {
 				p.eat(')');
 				p.eat('{');
 				Block thenBlock = getBlock(p);
+				if (thenBlock.vars.length > 0) {
+					throw p.new ParseException("block cannot have local vars");
+				}
 				p.eat('}');
 				int pp = p.p;
 				if (!p.readName().equals("else")) {
@@ -224,6 +242,9 @@ public class BCompiler {
 				} else {
 					p.eat('{');
 					Block elseBlock = getBlock(p);
+					if (elseBlock.vars.length > 0) {
+						throw p.new ParseException("block cannot have local vars");
+					}
 					p.eat('}');
 					codes.add(new If(cond, thenBlock, elseBlock));
 				}
@@ -233,6 +254,9 @@ public class BCompiler {
 				p.eat(')');
 				p.eat('{');
 				Block block = getBlock(p);
+				if (block.vars.length > 0) {
+					throw p.new ParseException("block cannot have local vars");
+				}
 				p.eat('}');
 				codes.add(new While(cond, block));
 			} else {
@@ -600,8 +624,9 @@ public class BCompiler {
 		} else {
 			for (Map.Entry<String, String[]> b : blocks.entrySet()) {
 				String label = b.getKey();
-				if (numVars.containsKey(b.getKey())) {
-					label += "(" + numVars + ")";
+				String name = b.getKey().substring(1);
+				if (numVars.containsKey(name)) {
+					label += "(" + functions.get(name).args.length + "," + numVars.get(name) + ")";
 				}
 				System.out.println(label + ":");
 				for (String s : b.getValue()) {
