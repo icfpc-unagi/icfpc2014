@@ -1,7 +1,10 @@
 #include "sim/sim.h"
 #include <algorithm>
 #include <iostream>
+#include <sstream>
 #include <glog/logging.h>
+
+DEFINE_bool(print_state, false, "");
 
 using namespace std;
 
@@ -92,13 +95,46 @@ int Game::Start() {
   bool eating = false;
 
   // main loop
+  bool state_changed = true;
   while (tick_ < end_of_lives) {
+    // *** 0. debug print
+    if (FLAGS_print_state && state_changed) {
+      stringstream ss;
+      for (int r = 0; r < height; ++r) {
+        for (int c = 0; c < width; ++c) {
+          Coordinate rc(r, c);
+          char symbol = GetSymbol(rc);
+          if (symbol == '=' || symbol == '\\') symbol = ' ';
+          if (lman_->GetRC() == rc) {
+            symbol =  '\\';
+          }
+          for (int i = 0; i < ghosts_.size(); ++i) {
+            if (ghosts_[i]->GetRC() == rc) {
+              symbol = '=';
+              break;
+            }
+          }
+          for (int i = 0; i < kFruits; ++i) {
+            if (fruit_appeared[i] && fruit_locations_[i] == rc) {
+              symbol = '%';
+              break;
+            }
+          }
+          ss << symbol;
+        }
+        ss << '\n';
+      }
+      LOG(INFO) << "The world state:\n" << ss.str();
+      state_changed = false;
+    }
+
     // *** 1. moves
     if (tick_ == utc_lman_next_move) {
       lman_->SetDirection(lman_->Step());
       if (!lman_->Move()) LOG(WARNING) << "Lambda-Man hit a wall ('A`)";
       utc_lman_next_move += eating ? 137 : 127;
       eating = false;  // Reset eating state
+      state_changed = true;
     }
     for (int i = 0; i < ghosts_.size(); ++i) {
       if (tick_ == utc_ghosts_next_moves[i]) {
@@ -143,6 +179,7 @@ int Game::Start() {
           // surrounded on all four sides by walls
         }
         utc_ghosts_next_moves[i] += (65 + i) * (flight_mode == 0 ? 2 : 3);
+        state_changed = true;
       }
     }
 
@@ -159,6 +196,7 @@ int Game::Start() {
     for (int i = 0; i < kFruits; ++i) {
       if (tick_ == fruit_appears[i]) {
         fruit_appeared[i] = true;
+        state_changed = true;
       }
     }
 
