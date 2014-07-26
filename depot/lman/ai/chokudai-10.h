@@ -27,6 +27,15 @@ class chokudai_10LambdaMan : public LambdaMan {
   }
 };
 
+class chokudai_10LambdaManFactory : public ::LambdaManFactory {
+ public:
+  virtual ~chokudai_10LambdaManFactory() {}
+
+  std::unique_ptr<::LambdaManInterface> Create() {
+    return std::unique_ptr<::LambdaManInterface>(new chokudai_10LambdaMan());
+  }
+};
+
 }  // namespace lman
 
 #endif  // LMAN_AI_CHOKUDAI_10_H_
