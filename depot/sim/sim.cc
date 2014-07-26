@@ -10,7 +10,7 @@
 DEFINE_bool(print_state, true, "");
 DEFINE_bool(print_color, true, "");
 DEFINE_int32(max_print_height, 40, "");
-DEFINE_int32(max_print_width, 160, "");
+DEFINE_int32(max_print_width, 80, "");
 
 constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
                                   1000, 1000, 2000, 2000, 3000, 3000, 5000};
