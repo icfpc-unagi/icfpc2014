@@ -11,6 +11,7 @@ DEFINE_bool(print_state, true, "");
 
 constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
                                   1000, 1000, 2000, 2000, 3000, 3000, 5000};
+constexpr int kGhostPoints[4] = {200, 400, 800, 1600};
 constexpr int dr[4] = {-1, 0, 1, 0};
 constexpr int dc[4] = {0, 1, 0, -1};
 
@@ -67,13 +68,14 @@ int Game::Start() {
   tick_ = 0;
   score_ = 0;
   life_ = 3;
-  bool fruit_appeared = false;
   vitality_ = 0;  // remaining ticks
+  bool fruit_appeared = false;
   int utc_lman_next_move = 127;
   vector<int> utc_ghosts_next_moves(ghosts_.size());
   for (int i = 0; i < ghosts_.size(); ++i) {
     utc_ghosts_next_moves[i] = 130 + 2 * i;
   }
+  int ghost_eaten = 0;
   // True if Lambda-Man ate something since the last move
   bool eating = false;
 
@@ -97,15 +99,14 @@ int Game::Start() {
           if (lman_->GetRC() == rc) {
             symbol =  '\\';
           }
+          if (fruit_appeared && fruit_location_ == rc) {
+            symbol = '%';
+          }
           for (int i = 0; i < ghosts_.size(); ++i) {
             if (ghosts_[i]->GetRC() == rc) {
               symbol = '=';
               break;
             }
-          }
-          if (fruit_appeared && fruit_location_ == rc) {
-            symbol = '%';
-            break;
           }
           ss << symbol;
         }
@@ -135,14 +136,13 @@ int Game::Start() {
       if (tick_ == utc_ghosts_next_moves[i]) {
         // Check if the ghost has options
         int prev_d = ghosts_[i]->GetDirection();
+        int oppo_d = (prev_d + 2) % 4;
         auto pos = ghosts_[i]->GetRC();
         int ways = 0;
         int oneway = 2;  // turn around if there is no option else
         for (int j = 3; j < 6; ++j) {
           int way = (prev_d + j) % 4;
-          if (GetSymbolSafe(
-                  Coordinate(pos.first + dr[way], pos.second + dc[way]),
-                  '#') != '#') {
+          if (ghosts_[i]->CanMove(*this, way)) {
             ways++;
             oneway = way;
           }
@@ -152,7 +152,7 @@ int Game::Start() {
           bool moved = false;
           if (d < 0 || 4 <= d) {
             LOG(WARNING) << "Ghost[" << i << "] returned invalid direction";
-          } else if (d == (prev_d + 2) % 4) {
+          } else if (d == oppo_d) {
             LOG(WARNING) << "Ghost[" << i << "] chose the opposite direction";
           } else if (ghosts_[i]->CanMove(*this, d)) {
             ghosts_[i]->SetDirection(d);
@@ -174,16 +174,15 @@ int Game::Start() {
               }
             }
           }
-        } else if (
-            ways == 1 ||
-            GetSymbolSafe(Coordinate(pos.first + dr[oneway],
-                                     pos.second + dc[oneway]), '#') != '#') {
-          CHECK(ghosts_[i]->CanMove(*this, oneway))
-              << i << ':' << ghosts_[i]->GetRC().first
-              << ',' << ghosts_[i]->GetRC().second << "->" << oneway;
+        } else if (ways == 1) {
+          CHECK(ghosts_[i]->CanMove(*this, oneway));
           ghosts_[i]->SetDirection(oneway);
           CHECK(ghosts_[i]->Move()) << "Ghost[" << i << "] auto move failed";
           LOG(INFO) << "Ghost[" << i << "] moved " << oneway;
+        } else if (ghosts_[i]->CanMove(*this, oppo_d)) {
+          ghosts_[i]->SetDirection(oppo_d);
+          CHECK(ghosts_[i]->Move());
+          LOG(INFO) << "Ghost[" << i << "] moved " << oppo_d;
         } else {
           // surrounded on all four sides by walls
         }
@@ -260,12 +259,15 @@ int Game::Start() {
           // Lambda-Man eats ghost
           ghosts_[i]->ResetPositionAndDirection();
           ghosts_[i]->SetVitality(2);
+          score_ += kGhostPoints[ghost_eaten];
+          if (ghost_eaten < 3) ghost_eaten++;
         }
       }
     }
 
     // *** 5. pills
     if (total_pills_ == 0) {
+      score_ *= (life_ + 1);
       LOG(INFO) << "Game over: You won!";
       break;
     }
