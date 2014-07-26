@@ -8,9 +8,6 @@
 #include "util/coordinate.h"
 #include "sim/game-interface.h"
 
-// Game map data
-typedef vector<string> Maze;
-
 class Game;
 
 // Includes utilities
@@ -54,14 +51,14 @@ class Movement {
 // Lambda-Man interface
 class LambdaMan : public Movement {
  public:
-  void Init(Game* game) {
+  void Init(GameInterface* game) {
     game_ = game;
   }
   virtual void Main() = 0;
   virtual int Step() = 0;
 
  protected:
-  Game* game_;
+  GameInterface* game_;
 };
 
 // Ghost CPU interface
@@ -69,7 +66,7 @@ class GhostInterface : public Movement {
  public:
   GhostInterface() : game_(nullptr) {}
 
-  void Init(Game* game, int ghost_index) {
+  void Init(GameInterface* game, int ghost_index) {
     game_ = game;
     ghost_index_ = ghost_index;
     ghost_vitality_ = 0;
@@ -80,7 +77,7 @@ class GhostInterface : public Movement {
   int GetGhostVitality() { return ghost_vitality_; }
 
  protected:
-  Game* game_;
+  GameInterface* game_;
   int ghost_index_;
   int ghost_vitality_;
 };
@@ -110,7 +107,7 @@ class Game : public GameInterface {
   char GetSymbol(const Coordinate& rc) const {
     return maze_[rc.first][rc.second];
   }
-  char GetSymbolSafe(const Coordinate& rc, char out_of_area) const {
+  char GetSymbolSafe(const Coordinate& rc, char out_of_area) const override {
     if (rc.first < 0 || maze_.size() <= rc.first || rc.second < 0 ||
         maze_[rc.first].size() <= rc.second) {
       return out_of_area;
@@ -130,10 +127,10 @@ class Game : public GameInterface {
   int GetScore() const override {
     return score_;
   }
-  int GetNumberOfGhosts() const {
+  int GetNumberOfGhosts() const override {
     return ghosts_.size();
   }
-  const Maze& GetMaze() const {
+  const Maze& GetMaze() const override {
     return maze_;
   }
 

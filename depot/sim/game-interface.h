@@ -3,8 +3,13 @@
 
 #include "util/coordinate.h"
 
+// Game map data
+typedef vector<string> Maze;
+
 class GameInterface {
  public:
+  virtual char GetSymbolSafe(const Coordinate& rc, char out_of_area) const = 0;
+
   //////////////////////////////////////////////////////////////////////////////
   // APIs for LambdaMan
   //////////////////////////////////////////////////////////////////////////////
@@ -12,6 +17,7 @@ class GameInterface {
   virtual int GetLives() const = 0;
   virtual int GetScore() const = 0;
   virtual int GetNumberOfGhosts() const = 0;
+  virtual const Maze& GetMaze() const = 0;
 
   //////////////////////////////////////////////////////////////////////////////
   // APIs for Ghost
