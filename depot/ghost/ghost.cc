@@ -28,6 +28,10 @@ void Ghost::INT2() {
 }
 
 void Ghost::INT4() {
+  Ghost::ReturnCoordinate(game_->GetGhostInitialRC(register_a_));
+}
+
+void Ghost::INT5() {
   Ghost::ReturnCoordinate(game_->GetGhostRC(register_a_));
 }
 

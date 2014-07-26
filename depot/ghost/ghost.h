@@ -224,7 +224,7 @@ class Ghost : public ::GhostInterface {
   // INPUT: register_a_ (ghost index)
   // OUTPUT: register_a_ (indexed ghost's current x-ordinate)
   // OUTPUT: register_b_ (indexed ghost's current y-ordinate)
-  void INT5() {}
+  void INT5();
 
   // For the ghost with index read from register A, stores its vitality in
   // register A, and its direction in register B.

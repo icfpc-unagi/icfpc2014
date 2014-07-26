@@ -18,6 +18,7 @@ class Movement {
   virtual ~Movement() {}
   // Accessors
   Coordinate GetRC() const { return Coordinate(r_, c_); }
+  Coordinate GetInitialRC() const { return Coordinate(initial_r, initial_c); }
   int GetDirection() const { return d_; }
 
   // Following are for internal use
@@ -112,6 +113,13 @@ class Game {
   Coordinate GetSecondLambdaManRC() {
     // TODO(imos): Implement second lambda-man.
     return CoordinateUtil::Null();
+  }
+
+  Coordinate GetGhostInitialRC(int ghost_index) {
+    if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
+      return CoordinateUtil::Null();
+    }
+    return ghosts_[ghost_index]->GetInitialRC();
   }
 
   Coordinate GetGhostRC(int ghost_index) {
