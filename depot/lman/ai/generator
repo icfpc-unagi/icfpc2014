@@ -8,74 +8,66 @@ DEPOT_DIR="${AI_DIR%/depot/*}/depot"
 cd "${AI_DIR}"
 
 if [ -f BUILD.cmake ]; then rm BUILD.cmake; fi
-for ghc_file in *.ghc; do
-  name="${ghc_file%.ghc}"
 
-  "${DEPOT_DIR}/bin/ghc-compile" "${name}" "${ghc_file}" > "${name}.h"
+for cpp_file in *.cpp; do
+  name="${cpp_file%.cpp}"
+  identifier=$(echo -n "${name}" | sed -e 's/[^a-zA-Z0-9]/_/g')
+  upper_identifier="$(echo -n "${identifier}" | tr '[a-z]' '[A-Z]')"
 
   cat << EOM >"${name}.cc"
-#include "ghost/ai/${name}.h"
+#include "lman/ai/${name}.h"
 
-namespace dummy {
-void ghost_ai_${name}_cc() {}
-}  // namespace dummy
+namespace lman {
+namespace ${identifier} {
+#include "lman/ai/${name}.cpp"
+}  // namespace ${identifier}
+}  // namespace lman
+
 EOM
 
-  cat << EOM >>BUILD.cmake
+
+  cat << EOM >"${name}.h"
+#ifndef LMAN_AI_${upper_identifier}_H_
+#define LMAN_AI_${upper_identifier}_H_
+
+#include "translator/lib.h"
+#include "sbl/tree.cpp"
+
+namespace lman {
+namespace ${identifier} {
+
+P init(P game, P nazo);
+P step(P ai, P game);
+
+}  // namespace ${identifier}
+
+class ${identifier}LambdaMan {
+ public:
+  P BInit(P game, P nazo) {
+    return ${identifier}::init(game, nazo);
+  }
+
+  P BStep(P ai, P game) {
+    return ${identifier}::step(ai, game);
+  }
+};
+
+}  // namespace lman
+
+#endif  // LMAN_AI_${upper_identifier}_H_
+
+EOM
+
+
+  cat << EOM >BUILD.cmake
 cc_library(
     NAME "${name}"
     SOURCES "${name}.cc"
     DEPENDENCIES
         "//base"
-        "//ghost"
+        "//translator:lib"
 )
 
 EOM
 
 done
-
-cat << EOM >> BUILD.cmake
-cc_library(
-    NAME "ai"
-    SOURCES "ai.cc"
-    DEPENDENCIES
-EOM
-
-for ghc_file in *.ghc; do
-  name="${ghc_file%.ghc}"
-  echo '        ":'$name'"' >> BUILD.cmake
-done
-
-cat << EOM >> BUILD.cmake
-        "//ghost:ghost-ai-manager"
-)
-EOM
-
-
-cat << EOM > ai.cc
-#include "ghost/ai/ai.h"
-EOM
-
-for ghc_file in *.ghc; do
-  name="${ghc_file%.ghc}"
-  echo '#include "ghost/ai/'${name}'.h"' >> ai.cc
-done
-
-cat << EOM >> ai.cc
-
-namespace ghost {
-
-void RegisterAi(map<string, std::unique_ptr<GhostFactory>>* ghost_factories) {
-EOM
-
-for ghc_file in *.ghc; do
-  name="${ghc_file%.ghc}"
-  echo '  (*ghost_factories)["'$name'"].reset(new '$name'GhostFactory);' \
-      >> ai.cc
-done
-
-cat << EOM >> ai.cc
-}
-
-}  // namespace ghost
-EOM

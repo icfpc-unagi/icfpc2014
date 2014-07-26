@@ -26,3 +26,4 @@ class chokudai_10LambdaMan {
 }  // namespace lman
 
 #endif  // LMAN_AI_CHOKUDAI_10_H_
+
