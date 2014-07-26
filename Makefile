@@ -6,6 +6,10 @@ build/flame-binary/%: build/Makefile
 	cd build && make -j flame-binary/$*
 .PHONY: build/flame-binary/%
 
+%/...:
+	target="$*/all"; cd build && make -j "$${target//\//__}"
+.PHONY:
+
 configure: build/Makefile
 .PHONY: configure
 

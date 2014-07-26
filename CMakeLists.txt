@@ -95,7 +95,7 @@ function(cc_library)
   message("  target: ${TARGET_PATH}")
   flatten_path("${TARGET_PATH}" TARGET_PATH)
 
-  set(CHILD_TARGETS ${CHILD_TARGETS} ${TARGET_PATH} PARENT_SCOPE)
+  add_dependencies("${mkdir_target}__all" ${TARGET_PATH})
 
   # Prepare source lists.
   set(sources)
@@ -439,15 +439,13 @@ function(main)
 
   find_target_directories("${FLAME_ROOT}/depot")
   foreach(PACKAGE_DIRECTORY ${TARGET_DIRECTORIES})
-    set(CHILD_TARGETS)
     string(REPLACE "/" "." PACKAGE_PREFIX "${PACKAGE_DIRECTORY}")
     message("Package: ${PACKAGE_DIRECTORY}")
     flatten_path("${PACKAGE_DIRECTORY}" mkdir_target)
+    add_custom_target("${mkdir_target}__all")
     add_custom_target(
         "${mkdir_target}" COMMAND mkdir -p "flame-binary/${PACKAGE_DIRECTORY}")
     include("${FLAME_ROOT}/${PACKAGE_DIRECTORY}/BUILD.cmake")
-    add_custom_target("${mkdir_target}__all")
-    add_dependencies("${mkdir_target}__all" ${CHILD_TARGETS})
   endforeach()
 endfunction()
 
