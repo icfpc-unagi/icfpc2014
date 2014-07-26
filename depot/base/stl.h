@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <algorithm>
 #include <map>
+#include <memory>
 #include <set>
 #include <string>
 #include <vector>
