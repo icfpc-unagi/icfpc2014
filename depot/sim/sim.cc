@@ -9,6 +9,8 @@
 
 DEFINE_bool(print_state, true, "");
 DEFINE_bool(print_color, true, "");
+DEFINE_int32(max_print_height, 40, "");
+DEFINE_int32(max_print_width, 160, "");
 
 constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
                                   1000, 1000, 2000, 2000, 3000, 3000, 5000};
@@ -110,8 +112,15 @@ int Game::Start() {
       if (FLAGS_print_color) ss << RESETCURSOR;
       ss << "The world state (utc=" << tick_
          << ",lives=" << life_ << ",score=" << score_ << "):\n";
-      for (int r = 0; r < height; ++r) {
-        for (int c = 0; c < width; ++c) {
+      auto lmanrc = lman_[0]->GetRC();
+      int min_r = max(0, lmanrc.first - FLAGS_max_print_height / 2);
+      int max_r = min(height, min_r + FLAGS_max_print_height);
+      min_r = max(0, max_r - FLAGS_max_print_height);
+      int min_c = max(0, lmanrc.second - FLAGS_max_print_width / 2);
+      int max_c = min(width, min_c + FLAGS_max_print_width);
+      min_c = max(0, max_c - FLAGS_max_print_width);
+      for (int r = min_r; r < max_r; ++r) {
+        for (int c = min_c; c < max_c; ++c) {
           Coordinate rc(r, c);
           const char* color = "";
           char symbol = GetSymbol(rc);
