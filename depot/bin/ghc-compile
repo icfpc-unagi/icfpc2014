@@ -119,7 +119,12 @@ foreach ($data as $lineno => $line) {
   }
 }
 
+$upper_name = strtoupper($name);
+
 echo <<<EOM
+#ifndef GHOST_AI_{$upper_name}_H_
+#define GHOST_AI_{$upper_name}_H_
+
 #include "ghost/ghost.h"
 
 #include <glog/logging.h>
@@ -150,5 +155,7 @@ class {$name}GhostFactory : public ::GhostFactory {
 };
 
 }  // namespace ghost
+
+#endif  // GHOST_AI_{$upper_name}_H_
 
 EOM;
