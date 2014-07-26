@@ -88,7 +88,7 @@ P write_tree1(int n, int k, P v, P tr) {
   if (n < k) {
     res = P(write_tree2(n, k, v, fst(tr)), snd(tr));
   } else {
-    res = P(fst(tr), write_tree2(n-k, k*2, v, snd(tr)));
+    res = P(fst(tr), write_tree1(n-k, k*2, v, snd(tr)));
   }
   return res;
 }
