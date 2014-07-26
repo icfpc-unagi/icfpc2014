@@ -1,7 +1,10 @@
 #include "sim/sim.h"
+
 #include <algorithm>
 #include <iostream>
 #include <sstream>
+
+#include <gflags/gflags.h>
 #include <glog/logging.h>
 
 DEFINE_bool(print_state, true, "");
