@@ -17,10 +17,8 @@ void debug_tree(){
   debug(read_tree(tree,5));
   tree = write_tree(tree,3,100);
   debug(tree);
-  return;
 }
 
 void run() {
   debug_tree();
-  return;
 }

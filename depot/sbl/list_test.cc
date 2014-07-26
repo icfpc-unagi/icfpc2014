@@ -10,10 +10,8 @@ void debug_list(){
   debug(length(list));
   list = reverse_list(list);
   debug(list);
-  return;
 }
 
 void run() {
   debug_list();
-  return;
 }
