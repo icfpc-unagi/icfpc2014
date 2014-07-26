@@ -1,4 +1,13 @@
 cc_library(
+    NAME "character"
+    SOURCES "character.cc"
+    DEPENDENCIES
+        ":game-interface"
+        "//base"
+        "//util:coordinate"
+)
+
+cc_library(
     NAME "game-interface"
     SOURCES "game-interface.cc"
     DEPENDENCIES
@@ -10,6 +19,7 @@ cc_library(
     NAME "sim"
     SOURCES "sim.cc"
     DEPENDENCIES
+        ":character"
         ":game-interface"
         "//base"
         "//util:coordinate"

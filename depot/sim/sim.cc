@@ -15,28 +15,6 @@ constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
 constexpr int dr[4] = {-1, 0, 1, 0};
 constexpr int dc[4] = {0, 1, 0, -1};
 
-bool Movement::CanMove(const Game& game, int d) const {
-  return game.GetSymbolSafe(Coordinate(r_ + dr[d], c_ + dc[d]), '#') != '#';
-}
-
-bool Movement::Move() {
-  switch (d_) {
-    case 0:
-      r_--;
-      return true;
-    case 1:
-      c_++;
-      return true;
-    case 2:
-      r_++;
-      return true;
-    case 3:
-      c_--;
-      return true;
-  }
-  return false;
-}
-
 void Game::ParseMaze(std::istream& is) {
   CHECK(is.good());
   string line;
