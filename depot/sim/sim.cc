@@ -139,7 +139,7 @@ int Game::Start() {
             if (ghosts_[i]->GetRC() == rc) {
               symbol = '=';
               static const char* kGhostColors[] = {BOLDRED, BOLDMAGENTA, BOLDCYAN, BOLDGREEN};
-              color = kGhostColors[i];
+              color = kGhostColors[i % 4];
               break;
             }
           }
