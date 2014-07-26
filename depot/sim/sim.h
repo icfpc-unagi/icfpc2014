@@ -18,7 +18,7 @@ class Movement {
   virtual ~Movement() {}
   // Accessors
   Coordinate GetRC() const { return Coordinate(r_, c_); }
-  Coordinate GetInitialRC() const { return Coordinate(initial_r, initial_c); }
+  Coordinate GetInitialRC() const { return Coordinate(initial_r_, initial_c_); }
   int GetDirection() const { return d_; }
 
   // Following are for internal use
@@ -28,15 +28,15 @@ class Movement {
   }
   void SetDirection(int d) { d_ = d; }
   void Initialize(int r, int c, int d) {
-    initial_r = r;
-    initial_c = c;
-    initial_d = d;
+    initial_r_ = r;
+    initial_c_ = c;
+    initial_d_ = d;
     ResetPositionAndDirection();
   }
   void ResetPositionAndDirection() {
-    r_ = initial_r;
-    c_ = initial_c;
-    d_ = initial_d;
+    r_ = initial_r_;
+    c_ = initial_c_;
+    d_ = initial_d_;
   }
   bool CanMove(const Game& game, int d) const;
   bool Move();
@@ -45,9 +45,9 @@ class Movement {
   int r_;
   int c_;
   int d_;  // direction
-  int initial_r;
-  int initial_c;
-  int initial_d;
+  int initial_r_;
+  int initial_c_;
+  int initial_d_;
 };
 
 // Lambda-Man interface
