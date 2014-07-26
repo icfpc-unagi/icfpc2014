@@ -20,18 +20,18 @@ Ghost::Ghost()
 Ghost::~Ghost() {}
 
 void Ghost::INT1() {
-  Coordinate coordinate = game_->GetFirstLambdaManRC();
-  if (CoordinateUtil::IsNull(coordinate)) {
-    error_ = true;
-    return;
-  }
-
-  register_a_ = coordinate.second;
-  register_b_ = coordinate.first;
+  Ghost::ReturnCoordinate(game_->GetFirstLambdaManRC());
 }
 
 void Ghost::INT2() {
-  Coordinate coordinate = game_->GetSecondLambdaManRC();
+  Ghost::ReturnCoordinate(game_->GetSecondLambdaManRC());
+}
+
+void Ghost::INT4() {
+  Ghost::ReturnCoordinate(game_->GetGhostRC(register_a_));
+}
+
+void Ghost::ReturnCoordinate(const Coordinate& coordinate) {
   if (CoordinateUtil::IsNull(coordinate)) {
     error_ = true;
     return;

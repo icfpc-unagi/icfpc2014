@@ -8,6 +8,7 @@
 
 #include "base/string-printf.h"
 #include "sim/sim.h"
+#include "util/coordinate.h"
 
 namespace ghost {
 
@@ -214,7 +215,7 @@ class Ghost : public ::GhostInterface {
   // INPUT: register_a_ (ghost index)
   // OUTPUT: register_a_ (indexed ghost's starting x-ordinate)
   // OUTPUT: register_b_ (indexed ghost's starting y-ordinate)
-  void INT4() {}
+  void INT4();
 
   // For the ghost with index read from register A, stores its current position
   // in registers A (x-ordinate) and B (y-ordinate). If A is not a valid ghost
@@ -266,6 +267,8 @@ class Ghost : public ::GhostInterface {
   }
 
  protected:
+  void ReturnCoordinate(const Coordinate& coordinate);
+
   Value register_pc_;
   Value register_a_;
   Value register_b_;

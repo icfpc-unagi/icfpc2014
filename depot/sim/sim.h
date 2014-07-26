@@ -56,17 +56,19 @@ class LambdaMan : public Movement {
 // Ghost CPU interface
 class GhostInterface : public Movement {
  public:
+  GhostInterface() {}
+
   void SetGame(Game* game) { game_ = game; }
   virtual int Step() = 0;
 
  protected:
+  int ghost_index_;
   Game* game_;
 };
 
 // To create a ghost class above
 class GhostFactory {
  public:
-  virtual ~GhostFactory() {}
   virtual GhostInterface* Create();
 };
 
@@ -95,6 +97,13 @@ class Game {
   Coordinate GetSecondLambdaManRC() {
     // TODO(imos): Implement second lambda-man.
     return CoordinateUtil::Null();
+  }
+
+  Coordinate GetGhostRC(int ghost_index) {
+    if (ghost_index < 0 || ghosts_.size() <= ghost_index) {
+      return CoordinateUtil::Null();
+    }
+    return ghosts_[ghost_index]->GetRC();
   }
 
  private:
