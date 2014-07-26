@@ -1,0 +1,59 @@
+#!/bin/bash
+
+export TMPDIR="$(mktemp -d "${TMPDIR:-/tmp}/gbash.XXXXXX")"
+trap "rm -rf ${TMPDIR}" EXIT
+
+GetDepotDir() {
+  pushd "$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)"/.. >/dev/null
+  pwd
+  popd >/dev/null
+}
+
+DEPOT_DIR="$(GetDepotDir)"
+
+GetDependency() {
+  local file="$1"
+  
+  cat "${file}" | grep include | grep sbl | \
+      cut -d'#' -f 2 | cut -d'"' -f 2 | cut -d. -f 1
+}
+
+GetSblDependency() {
+  local sbl_file="$1"
+
+  GetDependency "${sbl_file}"
+}
+
+GetUpdateDependency() {
+  local dependency_file="$1"
+
+  for file in $(cat "${dependency_file}"); do
+    if [ -f "${DEPOT_DIR}/${file}.cpp" ]; then
+      echo "${file}"
+      GetSblDependency "${DEPOT_DIR}/${file}.cpp";
+    fi
+    if [ -f "${DEPOT_DIR}/${file}.h" ]; then
+      GetSblDependency "${DEPOT_DIR}/${file}.h";
+    fi
+  done
+}
+
+AnalyzeDependency() {
+  GetDependency "$1" | sort | uniq >"${TMPDIR}/sbl"
+  while :; do
+    echo "hogehoge"
+    cat "${TMPDIR}/sbl"
+    cp "${TMPDIR}/sbl" "${TMPDIR}/sbl.last"
+    GetUpdateDependency "${TMPDIR}/sbl.last" | sort | uniq >"${TMPDIR}/sbl"
+    if diff "${TMPDIR}/sbl" "${TMPDIR}/sbl.last"; then
+      break
+    fi
+  done
+}
+
+AnalyzeDependency "$1" >/dev/null
+
+echo "$1"
+for sbl_file in $(cat "${TMPDIR}/sbl"); do
+  echo "${DEPOT_DIR}/${sbl_file}.cpp"
+done
