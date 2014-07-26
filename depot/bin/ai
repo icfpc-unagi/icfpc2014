@@ -2,8 +2,8 @@
 
 source gbash.sh || exit 1
 
-DEFINE_string lman '' 'LambaMan AIs.'
-DEFINE_string ghosts '' 'Ghost AIs.'
+DEFINE_string lman 'chokudai-10' 'LambaMan AIs.'
+DEFINE_string ghosts 'chokudai' 'Ghost AIs.'
 
 gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
