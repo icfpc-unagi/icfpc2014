@@ -76,7 +76,7 @@ int Game::Start() {
   }
   // True if Lambda-Man ate something since the last move
   bool eating = false;
-  
+
   // AI init
   lman_->Init(this);
   for (int i = 0; i < ghosts_.size(); ++i) {
@@ -205,12 +205,14 @@ int Game::Start() {
     for (int i = 0; i < 2; ++i) {
       if (tick_ == fruit_appears[i]) {
         fruit_appeared = true;
+        fruit_remaining_ = fruit_expires[i] - tick_;
         state_changed = true;
       } else if (tick_ == fruit_expires[i]) {
         fruit_appeared = false;
         state_changed = true;
       }
     }
+    if (fruit_remaining_ > 0) fruit_remaining_--;
 
     // *** 3. occupying
     auto pos = lman_->GetRC();

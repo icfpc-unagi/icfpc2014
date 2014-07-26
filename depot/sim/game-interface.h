@@ -18,6 +18,7 @@ class GameInterface {
   virtual int GetScore() const = 0;
   virtual int GetNumberOfGhosts() const = 0;
   virtual const Maze& GetMaze() const = 0;
+  virtual int GetFruitRemaining() const = 0;
 
   //////////////////////////////////////////////////////////////////////////////
   // APIs for Ghost

@@ -71,6 +71,9 @@ class Game : public GameInterface {
   const Maze& GetMaze() const override {
     return maze_;
   }
+  int GetFruitRemaining() const override {
+    return fruit_remaining_;
+  }
 
   //////////////////////////////////////////////////////////////////////////////
   // APIs for Ghost
@@ -127,6 +130,7 @@ class Game : public GameInterface {
   // states.
   Maze maze_;
   Coordinate fruit_location_;
+  int fruit_remaining_;
   int total_pills_;
   int life_;
   int vitality_;
