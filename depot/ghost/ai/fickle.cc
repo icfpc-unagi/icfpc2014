@@ -1,4 +1,4 @@
-#include "ghost/sample/fickle.h"
+#include "ghost/ai/fickle.h"
 
 namespace dummy {
 void ghost_ai_fickle_cc() {}

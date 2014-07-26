@@ -3,22 +3,24 @@
 #include <gflags/gflags.h>
 
 #include "base/split.h"
+#include "sim/sim.h"
 
 DEFINE_string(ghosts, "fickle", "Comma-separated list of ghosts to use.");
 
 namespace ghost {
 
-vector<::GhostFactory*> GhostAiManager::GetGhosts(int num_ghosts) {
-  vector<::GhostFactory*> ghosts;
-  vector<string> ghost_names = Split(FLAGS_ghosts, ",");
-  for (int i = 0; i < num_ghosts; i++) {
-    const string& ghost_name = ghost_names[i % ghost_names.size()];
+GhostAiManager::GhostAiManager() {}
+GhostAiManager::~GhostAiManager() {}
+
+vector<::GhostFactory*> GhostAiManager::GetGhostFactories() {
+  vector<::GhostFactory*> ghost_factories;
+  for (const string& ghost_name : Split(FLAGS_ghosts, ",")) {
     auto ghost_factory = ghost_factory_.find(ghost_name);
     CHECK(ghost_factory != ghost_factory_.end())
         << "no such ghost: " << ghost_name;
-    ghosts.push_back(ghost_factory->second.get());
+    ghost_factories.push_back(ghost_factory->second.get());
   }
-  return ghosts;
+  return ghost_factories;
 }
 
 GhostAiManager* GetGhostAiManager() {

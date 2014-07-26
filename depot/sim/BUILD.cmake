@@ -3,6 +3,7 @@ cc_library(
     SOURCES "sim.cc"
     DEPENDENCIES
         "//base"
+        "//ghost:ghost-ai-manager"
         "//util:coordinate"
 )
 
@@ -19,5 +20,4 @@ cc_binary(
     SOURCES "sim_main.cc"
     DEPENDENCIES
         ":sim"
-        "//ghost/sample:fickle"
 )

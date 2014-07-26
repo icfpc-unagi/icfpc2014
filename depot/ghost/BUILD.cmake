@@ -10,8 +10,6 @@ cc_library(
 cc_library(
     NAME "ghost-ai-manager"
     SOURCES "ghost-ai-manager.cc"
-    DEPENDENCIES
-        "//sim"
 )
 
 cc_binary(
@@ -20,4 +18,5 @@ cc_binary(
     DEPENDENCIES
         "//ghost/ai"
         "//ghost:ghost-ai-manager"
+        "//sim"
 )

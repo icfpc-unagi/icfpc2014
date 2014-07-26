@@ -14,7 +14,7 @@ for ghc_file in *.ghc; do
   "${DEPOT_DIR}/bin/ghc-compile" "${name}" "${ghc_file}" > "${name}.h"
 
   cat << EOM >"${name}.cc"
-#include "ghost/sample/${name}.h"
+#include "ghost/ai/${name}.h"
 
 namespace dummy {
 void ghost_ai_${name}_cc() {}
