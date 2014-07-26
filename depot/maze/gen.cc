@@ -46,7 +46,7 @@ private:
 	vector<string> data;
 };
 
-class RandomLocator {
+class ScatteringLocator {
 public:
 	void Locate(int ghosts, vector<string>* data) {
 		vector<pair<int, int>> pits;
@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
 
   srand(FLAGS_seed);
   DFSDigger gen(height, width);
-  RandomLocator loc;
+  ScatteringLocator loc;
   vector<string> data = gen.Gen();
   loc.Locate(ghosts, &data);
 

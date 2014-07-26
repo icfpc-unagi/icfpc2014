@@ -299,19 +299,19 @@ int Game::Start() {
     // *** 5. pills
     if (total_pills_ == 0) {
       score_ *= (life_ + 1);
-      LOG(INFO) << "Game over: You won!";
+      LOG(INFO) << "Game over: You won! (utc=" << tick_ << ")";
       break;
     }
 
     // *** 6. game over
     if (life_ == 0) {
-      LOG(INFO) << "Game over: Lambda-Man has died";
+      LOG(INFO) << "Game over: Lambda-Man has died (utc=" << tick_ << ")";
       break;
     }
 
     // *** 7. tick end
     tick_++;
   }
-  LOG_IF(INFO, tick_ == end_of_lives) << "Game over: End of lives";
+  LOG_IF(INFO, tick_ == end_of_lives) << "Game over: End of lives (utc=" << tick_ << ")";
   return score_;
 }
