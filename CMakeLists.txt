@@ -129,6 +129,7 @@ function(cc_library)
     message("    dependency: ${TARGET_PATH}")
     flatten_path("${PACKAGE_DIRECTORY}" mkdir_target)
     add_dependencies("${BINARY_TARGET}" "${mkdir_target}")
+    add_dependencies("${mkdir_target}__all" "${BINARY_TARGET}")
     target_link_libraries("${BINARY_TARGET}" "${TARGET_PATH}")
     # Prepare test-specific things.
     if("${TARGET_TEST}")
