@@ -49,7 +49,7 @@ cd ~/code
 ./depot/lman/ai/generator
 ./depot/ghost/ai/generator
 
-make build/flame-binary/depot/sim/sim_main
+make
 
 ./build/flame-binary/depot/sim/sim_main \
     --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" "$@"
