@@ -47,7 +47,6 @@ for ghc_file in *.ghc; do
 done
 
 cat << EOM >> BUILD.cmake
-        "//ghost:ghost-ai-manager"
 )
 EOM
 
