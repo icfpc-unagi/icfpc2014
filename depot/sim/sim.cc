@@ -20,6 +20,7 @@ void Game::ParseMaze(std::istream& is) {
   CHECK(is.good());
   string line;
   int ghost_index = 0;
+  int lambda_man_index = 0;
   total_pills_ = 0;
   while (true) {
     getline(is, line);
@@ -29,8 +30,16 @@ void Game::ParseMaze(std::istream& is) {
     for (int i = 0; i < line.size(); ++i) {
       switch (line[i]) {
         case '\\':  // Lambda-Man
-          CHECK(lman_ != nullptr);
-          lman_->Initialize(maze_.size(), i, 2 /* face down */);
+          CHECK(lambda_man_factories_.size() > 0);
+          CHECK(lambda_man_factories_[lambda_man_index %
+                                      lambda_man_factories_.size()]
+                    != nullptr);
+          lman_.emplace_back(
+              lambda_man_factories_[lambda_man_index %
+                                    lambda_man_factories_.size()]
+                  ->Create());
+          lman_.back()->Initialize(maze_.size(), i, 2 /* face down */);
+          lambda_man_index++;
           break;
         case '=':  // Ghost
           CHECK(ghost_factories_.size() > 0);
@@ -83,10 +92,14 @@ int Game::Start() {
   bool eating = false;
 
   // AI init
-  lman_->Init(this);
+  for (int i = 0; i < lman_.size(); ++i) {
+    lman_[i]->Init(this);
+  }
   for (int i = 0; i < ghosts_.size(); ++i) {
     ghosts_[i]->Init(this, i);
   }
+
+  CHECK(lman_.size() > 0);
 
   // main loop
   bool state_changed = true;
@@ -105,7 +118,7 @@ int Game::Start() {
           if (symbol == '=' || symbol == '\\' || symbol == '%') symbol = ' ';
           if (symbol == '#') color = BLUE;
           if (symbol == 'o') color = YELLOW;
-          if (lman_->GetRC() == rc) {
+          if (lman_[0]->GetRC() == rc) {
             symbol =  '\\';
             color = BOLDYELLOW;
           }
@@ -134,11 +147,11 @@ int Game::Start() {
 
     // *** 1. moves
     if (tick_ == utc_lman_next_move) {
-      int d = lman_->Step();
+      int d = lman_[0]->Step();
       CHECK(0 <= d && d < 4) << d;
-      if (lman_->CanMove(*this, d)) {
-        lman_->SetDirection(d);
-        CHECK(lman_->Move());
+      if (lman_[0]->CanMove(*this, d)) {
+        lman_[0]->SetDirection(d);
+        CHECK(lman_[0]->Move());
       } else {
         LOG(WARNING) << "Lambda-Man hit a wall ('A`)";
       }
@@ -224,7 +237,7 @@ int Game::Start() {
     if (fruit_remaining_ > 0) fruit_remaining_--;
 
     // *** 3. occupying
-    auto pos = lman_->GetRC();
+    auto pos = lman_[0]->GetRC();
     char symbol = GetSymbol(pos);
     if (symbol == '.') {
       // pill
@@ -259,7 +272,7 @@ int Game::Start() {
           life_--;
           // Resets Lambda-Man and all ghosts returned to starting positions and
           // directions
-          lman_->ResetPositionAndDirection();
+          lman_[0]->ResetPositionAndDirection();
           for (int j = 0; j < ghosts_.size(); ++j) {
             ghosts_[j]->ResetPositionAndDirection();
           }

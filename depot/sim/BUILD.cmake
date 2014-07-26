@@ -43,6 +43,7 @@ cc_library(
         ":game-interface"
         "//base"
         "//ghost:ghost-ai-manager"
+        "//lman:lambda-man-ai-manager"
         "//util:coordinate"
 )
 

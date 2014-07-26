@@ -14,6 +14,17 @@ public:
   }
 };
 
+class MockLambdaManFactory : public LambdaManFactory {
+public:
+  std::unique_ptr<LambdaManInterface> Create() override {
+    created_++;
+    return std::unique_ptr<LambdaManInterface>(new MockLambdaMan);
+  }
+  int Count() { return created_; }
+private:
+  int created_ = 0;
+};
+
 class MockGhost : public GhostInterface {
 public:
   int Step() override {
@@ -37,9 +48,9 @@ private:
 
 TEST(SimulatorTest, ParseMaze) {
   MockGhostFactory ghost_factory;
-  MockLambdaMan lman;
+  MockLambdaManFactory lambda_man_factory;
   Game game;
-  game.SetLambdaMan(&lman);
+  game.SetLambdaMan(&lambda_man_factory);
   game.SetGhostFactory(&ghost_factory);
   std::stringstream maze;
   maze << "#######################\n"
@@ -70,9 +81,9 @@ TEST(SimulatorTest, ParseMaze) {
 
 TEST(SimulatorTest, RunGame) {
   MockGhostFactory ghost_factory;
-  MockLambdaMan lman;
+  MockLambdaManFactory lambda_man_factory;
   Game game;
-  game.SetLambdaMan(&lman);
+  game.SetLambdaMan(&lambda_man_factory);
   game.SetGhostFactory(&ghost_factory);
   std::stringstream maze;
   maze << "#######################\n"

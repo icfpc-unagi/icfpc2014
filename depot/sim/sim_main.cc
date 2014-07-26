@@ -21,7 +21,6 @@ int main(int argc, char** argv) {
   }
 
   Game game;
-  game.SetLambdaMan(new lman::chokudai_10LambdaMan);
   std::ifstream mazefile(FLAGS_maze);
   game.ParseMaze(mazefile);
 

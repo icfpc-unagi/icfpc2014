@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "ghost/ghost-ai-manager.h"
+#include "lman/lambda-man-ai-manager.h"
 #include "sim/character.h"
 #include "sim/game-interface.h"
 #include "sim/ghost-interface.h"
@@ -15,7 +16,9 @@
 // Game Mechanics
 class Game : public GameInterface {
  public:
-  Game() : ghost_factories_(ghost::GetGhostAiManager()->GetGhosts()) {}
+  Game() : ghost_factories_(ghost::GetGhostAiManager()->GetGhosts()),
+           lambda_man_factories_(
+               lman::GetLambdaManAiManager()->GetLambdaManAis()) {}
   virtual ~Game() {}
 
   // Configurations
@@ -23,7 +26,10 @@ class Game : public GameInterface {
     ghost_factories_.clear();
     ghost_factories_.push_back(ghost_factory);
   }
-  void SetLambdaMan(LambdaManInterface* lman) { lman_ = lman; }
+  void SetLambdaMan(LambdaManFactory* lambda_man_factory) {
+    lambda_man_factories_.clear();
+    lambda_man_factories_.push_back(lambda_man_factory);
+  }
   void ParseMaze(std::istream& is);
   // Returns the final score
   int Start();
@@ -65,10 +71,11 @@ class Game : public GameInterface {
   // APIs for Ghost
   //////////////////////////////////////////////////////////////////////////////
   Coordinate GetFirstLambdaManRC() const override {
-    if (lman_ == nullptr) {
+    CHECK(lman_.size() > 0);
+    if (lman_[0] == nullptr) {
       return CoordinateUtil::Null();
     }
-    return lman_->GetRC();
+    return lman_[0]->GetRC();
   }
 
   Coordinate GetSecondLambdaManRC() const override {
@@ -109,7 +116,8 @@ class Game : public GameInterface {
 
   vector<GhostFactory*> ghost_factories_;
   vector<std::unique_ptr<GhostInterface>> ghosts_;
-  LambdaManInterface* lman_;
+  vector<LambdaManFactory*> lambda_man_factories_;
+  vector<std::unique_ptr<LambdaManInterface>> lman_;
   // The current state of the world
   // NOTE: Only pills and power pills will be cosumed to be empty.
   //       Fruit and Lambda-Man symbols indicate their locations but not their
