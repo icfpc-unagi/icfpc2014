@@ -1,5 +1,3 @@
-// vi:filetype=cpp:
-
 #include "stack.b"
 #include "list.b"
 
@@ -28,7 +26,8 @@ P front_queue(P queue) {
 }
 
 P pop_queue(P queue) {
-  P x, q;
+  P x;
+  P q;
   x = top_stack(fst(queue));
   q = pop_stack(fst(queue));
   if (is_empty_stack(q)) {
