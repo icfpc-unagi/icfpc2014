@@ -58,6 +58,7 @@ function OutputCommand($lineno, $original, $command) {
     echo '    VLOG(1) << "' . addslashes($original) . '"' . ";\n";
     $goto = NULL;
     $suffix = NULL;
+    $id = NULL;
     switch ($function) {
       case 'JGT':
       case 'JLT':
