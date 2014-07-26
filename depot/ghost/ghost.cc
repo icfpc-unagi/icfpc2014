@@ -61,7 +61,7 @@ void Ghost::INT7() {
     // 2: Pill
     case '.': register_a_ = 2; break;
     // 3: Power pill
-    case 'O': register_a_ = 3; break;
+    case 'o': register_a_ = 3; break;
     // 4: Fruit
     case '%': register_a_ = 4; break;
     // 5: Lambda-Man starting position
