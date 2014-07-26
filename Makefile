@@ -20,28 +20,28 @@ clean:
 build/Makefile:
 	mkdir -p build
 	cd build && \
-	    cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_CXX_COMPILER=clang++ ..
+	    cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_CXX_COMPILER=$(CXX) ..
 	cd build && cmake ..
 .PHONY: build/Makefile
 
 release:
 	mkdir -p build
-	cd build && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=clang++ ..
+	cd build && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=$(CXX) ..
 .PHONY: release
 
 debug:
 	mkdir -p build
-	cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=clang++ ..
+	cd build && cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=$(CXX) ..
 .PHONY: debug
 
 msan:
 	mkdir -p build
-	cd build && cmake -DCMAKE_BUILD_TYPE=msan -DCMAKE_CXX_COMPILER=clang++ ..
+	cd build && cmake -DCMAKE_BUILD_TYPE=msan -DCMAKE_CXX_COMPILER=$(CXX) ..
 .PHONY: msan
 
 usan:
 	mkdir -p build
-	cd build && cmake -DCMAKE_BUILD_TYPE=usan -DCMAKE_CXX_COMPILER=clang++ ..
+	cd build && cmake -DCMAKE_BUILD_TYPE=usan -DCMAKE_CXX_COMPILER=$(CXX) ..
 .PHONY: usan
 
 asan:
