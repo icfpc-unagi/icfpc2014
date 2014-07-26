@@ -7,6 +7,8 @@ cc_library(
     NAME "base"
     SOURCES "base.cc"
     DEPENDENCIES
+        ":split"
+        ":string-printf"
         "#glog"
         "#gflags"
 )

@@ -29,6 +29,8 @@ class GhostAiManager {
     return names;
   }
 
+  vector<::GhostFactory*> GetGhosts(int num_ghosts);
+
  private:
   map<string, std::unique_ptr<::GhostFactory>> ghost_factory_;
 };
