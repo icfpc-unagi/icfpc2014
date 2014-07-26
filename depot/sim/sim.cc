@@ -52,6 +52,9 @@ void Game::ParseMaze(std::istream& is) {
           lman_->Initialize(maze_.size(), i, 2 /* face down */);
           break;
         case '=':  // Ghost
+          CHECK(ghost_factories_.size() > 0);
+          CHECK(ghost_factories_[ghost_index % ghost_factories_.size()]
+                    != nullptr);
           ghosts_.emplace_back(
               ghost_factories_[ghost_index % ghost_factories_.size()]
                   ->Create());

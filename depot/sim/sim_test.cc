@@ -26,9 +26,9 @@ private:
 
 class MockGhostFactory : public GhostFactory {
 public:
-  GhostInterface* Create() override {
+  std::unique_ptr<GhostInterface> Create() override {
     created_++;
-    return new MockGhost;
+    return std::unique_ptr<GhostInterface>(new MockGhost);
   }
   int Count() { return created_; }
 private:

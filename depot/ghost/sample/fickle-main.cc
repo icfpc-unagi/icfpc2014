@@ -9,7 +9,7 @@
 int main(int argc, char** argv) {
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
-  std::unique_ptr<ghost::Ghost> ghost(new ghost::Fickle);
+  std::unique_ptr<ghost::Ghost> ghost(new ghost::FickleGhost);
   ghost->Run();
   return 0;
 }

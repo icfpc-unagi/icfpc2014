@@ -4,7 +4,7 @@
 
 namespace ghost {
 
-class Fickle : public Ghost {
+class FickleGhost : public Ghost {
   void Run() override {
     ResetTick();
 pc000: if (Tick()) return;
@@ -63,6 +63,15 @@ pc013: if (Tick()) return;
     register_pc_ = 13;
     VLOG(1) << "[13] hlt";
     HLT();
+  }
+};
+
+class FickleGhostFactory : public ::GhostFactory {
+ public:
+  virtual ~FickleGhostFactory() {}
+
+  std::unique_ptr<::GhostInterface> Create() {
+    return std::unique_ptr<::GhostInterface>(new FickleGhost());
   }
 };
 

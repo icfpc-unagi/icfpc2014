@@ -84,7 +84,7 @@ class GhostInterface : public Movement {
 class GhostFactory {
  public:
   virtual ~GhostFactory() {}
-  virtual GhostInterface* Create() = 0;
+  virtual std::unique_ptr<GhostInterface> Create() = 0;
 };
 
 // Game Mechanics
