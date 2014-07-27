@@ -34,23 +34,6 @@ P list_to_array256(P list) {
   return fst(list_to_array256_rec(list, 256));
 }
 
-P set_array256_rec(P t, int i, P v, int n) {
-  if (n == 0) {
-    t = v;
-  } else {
-    if (i < n) {
-      t = P(set_array256_rec(fst(t), i, v, n / 2), snd(t));
-    } else {
-      t = P(fst(t), set_array256_rec(snd(t), i - n, v, n / 2));
-    }
-  }
-  return t;
-}
-
-P set_array256(P t, int i, P v) {
-  return set_array256_rec(t, i, v, 128);
-}
-
 P create_array2d256_rec(int n) {
   P t;
   if (n == 1) {
@@ -77,26 +60,6 @@ P list2d_to_array2d256_rec(P l) {
 
 P list2d_to_array2d256(P l) {
   return list_to_array256(list2d_to_array2d256_rec(l));
-}
-
-int set_array2d256_rec_j;
-
-P set_array2d256_rec(P t, int i, P v, int n) {
-  if (n == 0) {
-    t = set_array256(t, set_array2d256_rec_j, v);
-  } else {
-    if (i < n) {
-      t = P(set_array2d256_rec(fst(t), i, v, n / 2), snd(t));
-    } else {
-      t = P(fst(t), set_array2d256_rec(snd(t), i - n, v, n / 2));
-    }
-  }
-  return t;
-}
-
-P set_array2d256(P t, int i, int j, P v) {
-  set_array2d256_rec_j = j;
-  return set_array2d256_rec(t, i, v, 128);
 }
 
 P get_array2d256(P t, int i, int j) {
