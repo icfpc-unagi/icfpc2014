@@ -7,12 +7,16 @@ DEPOT_DIR="${AI_DIR%/depot/*}/depot"
 
 cd "${AI_DIR}"
 
-if [ -f BUILD.cmake ]; then rm BUILD.cmake; fi
 for ghc_file in *.ghc; do
   name="${ghc_file%.ghc}"
-
-  "${DEPOT_DIR}/bin/ghc-compile" "${name}" "${ghc_file}" > "${name}.h"
   "${DEPOT_DIR}/bin/ghc-assemble" "${ghc_file}" > "${name}.asm"
+done
+
+if [ -f BUILD.cmake ]; then rm BUILD.cmake; fi
+for asm_file in *.asm; do
+  name="${asm_file%.asm}"
+
+  "${DEPOT_DIR}/bin/ghc-compile" "${name}" "${asm_file}" > "${name}.h"
 
   cat << EOM >"${name}.cc"
 #include "ghost/ai/${name}.h"
@@ -42,8 +46,8 @@ cc_library(
     DEPENDENCIES
 EOM
 
-for ghc_file in *.ghc; do
-  name="${ghc_file%.ghc}"
+for asm_file in *.asm; do
+  name="${asm_file%.asm}"
   echo '        ":'$name'"' >> BUILD.cmake
 done
 
@@ -56,8 +60,8 @@ cat << EOM > ai.cc
 #include "ghost/ai/ai.h"
 EOM
 
-for ghc_file in *.ghc; do
-  name="${ghc_file%.ghc}"
+for asm_file in *.asm; do
+  name="${asm_file%.asm}"
   echo '#include "ghost/ai/'${name}'.h"' >> ai.cc
 done
 
@@ -68,8 +72,8 @@ namespace ghost {
 void RegisterAi(map<string, std::unique_ptr<GhostFactory>>* ghost_factories) {
 EOM
 
-for ghc_file in *.ghc; do
-  name="${ghc_file%.ghc}"
+for asm_file in *.asm; do
+  name="${asm_file%.asm}"
   echo '  (*ghost_factories)["'$name'"].reset(new '$name'GhostFactory);' \
       >> ai.cc
 done
