@@ -232,7 +232,6 @@ int Game::Start() {
     // flight mode deactivating
     if (vitality_ > 0) {
       if (--vitality_ == 0) {
-        ghost_eaten = 0;
         for (int i = 0; i < ghosts_.size(); ++i) {
           ghosts_[i]->SetVitality(0 /* standard */);
         }
@@ -265,6 +264,7 @@ int Game::Start() {
       Eat(pos);
       // Activates flight mode
       vitality_ = flight_mode_duration;
+      ghost_eaten = 0;
       // Gets all ghosts to turn around
       for (int i = 0; i < ghosts_.size(); ++i) {
         ghosts_[i]->SetVitality(1);
