@@ -77,6 +77,9 @@ else
   package_id="$(ipkg archive ./sim_main)"
   echo "package ID is ${package_id}" >&2
   popd
-  ninecluster-run "${package_id}" -- \
-      ./sim_main --maze=/code/depot/maze/world-classic.txt
+  cat stats_args.sh | while read line; do
+    ninecluster-run "${package_id}" -- ./sim_main $line &
+  done
 fi
+
+wait
