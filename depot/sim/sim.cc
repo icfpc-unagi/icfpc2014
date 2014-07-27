@@ -303,12 +303,14 @@ int Game::Start() {
     if (symbol == '.') {
       // pill
       Eat(pos);
+      eating = true;
       score_ += 10;
-      VLOG(2) << 10 << "pt by taking a pill";
+      VLOG(2) << "10pt by taking a pill";
       total_pills_--;
     } else if (symbol == 'o') {
       // check power pill
       Eat(pos);
+      eating = true;
       // Activates flight mode
       vitality_ = flight_mode_duration;
       ghost_eaten = 0;
@@ -318,14 +320,13 @@ int Game::Start() {
         ghosts_[i]->SetDirection((ghosts_[i]->GetDirection() + 2) % 4);
       }
       score_ += 50;
-      VLOG(2) << 50 << "pt by taking a power pill";
-    } else if (symbol == '%') {
+      VLOG(2) << "50pt by taking a power pill";
+    } else if (symbol == '%' && fruit_appeared && fruit_location_ == pos) {
       // check fruit
-      if (fruit_appeared && fruit_location_ == pos) {
-        fruit_appeared = false;
-        score_ += fruit_points;
-        VLOG(2) << fruit_points << "pt by taking a fruit";
-      }
+      fruit_appeared = false;
+      eating = true;
+      score_ += fruit_points;
+      VLOG(2) << fruit_points << "pt by taking a fruit";
     }
 
     // *** 4. life losing
@@ -344,6 +345,7 @@ int Game::Start() {
           break;
         } else {
           // Lambda-Man eats ghost
+          eating = true;
           ghosts_[i]->ResetPositionAndDirection();
           ghosts_[i]->SetVitality(2 /* invisible */);
           score_ += kGhostPoints[ghost_eaten];
