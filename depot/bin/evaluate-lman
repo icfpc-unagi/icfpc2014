@@ -6,4 +6,4 @@ if [ $# -ne 1 ]; then
 fi
 
 ai --evaluate=lman --lman="$1" 2>/dev/null | grep '^stats' | \
-    tee /dropbox/results/lman/"$(date +%Y%m%d-%H%M%S)"
+    tee /dropbox/results/lman/"$1-$(date +%Y%m%d-%H%M%S).txt"
