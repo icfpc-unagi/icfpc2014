@@ -8,8 +8,8 @@
 #include "util/colors.h"
 #include "util/flags.h"
 
-DEFINE_bool(print_state, true, "");
-DEFINE_bool(print_color, true, "");
+DEFINE_bool(print_state, true, "Print the field state to stderr for each step");
+DEFINE_bool(print_color, true, "Prettify the field state");
 DEFINE_bool(print_ghost_move, false, "");
 DEFINE_int32(max_print_height, 40, "");
 DEFINE_int32(max_print_width, 80, "");
@@ -369,8 +369,8 @@ int Game::Start() {
   LOG_IF(INFO, tick_ == end_of_lives) << "Game over: " BOLDMAGENTA "End of lives" RESET;
   LOG(INFO) << "Stats: utc=" << tick_ << " lives=" << life_ << " fruites=" << fruits_eaten << " kills=" << kills;
   if (FLAGS_print_stats) {
-    printf("utc: %d, lives: %d, fruites: %d, kills: %d\n",
-           tick_, life_, fruits_eaten, kills);
+    printf("score: %d\tutc: %d\tlives: %d\tfruites: %d\tkills: %d\n",
+           score_, tick_, life_, fruits_eaten, kills);
   }
   return score_;
 }
