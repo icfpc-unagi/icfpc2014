@@ -5,6 +5,30 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
+if [ ! -d /mnt/ipkg_cache ]; then
+  sudo mkdir -p /mnt/ipkg_cache || true
+  sudo chmod 777 /mnt/ipkg_cache || true
+fi
+
+DownloadFragment() {
+  local hash="$1"
+  local local_cache="/mnt/ipkg_cache/${hash}"
+
+  if [ -f "${local_cache}" ]; then
+    local local_hash="$(md5 "${local_cache}")"
+    if [ "${hash}" == "${local_hash}" ]; then
+      cp "${local_cache}" "${TMPDIR}/${hash}"
+      return
+    else
+      echo "Local cache is broken: ${local_cache}" >&2
+      rm "${local_cache}"
+    fi
+  fi
+  echo "Downloading from ${IPKG_HOST}/fragment/${hash}..." >&2
+  curl --silent -o "${TMPDIR}/${hash}" "${IPKG_HOST}/fragment/${hash}"
+  cp "${TMPDIR}/${hash}" "${local_cache}" || true
+}
+
 GetPackage() {
   local package_id="${1}"
   local output_file="${2}"
@@ -23,7 +47,7 @@ GetPackage() {
     if [[ "${hash}" =~ ^[0-9a-f]{32,}$ ]]; then
       echo "Loading ${hash}..." >&2
       throttle
-      curl --silent -o "${TMPDIR}/${hash}" "${IPKG_HOST}/fragment/${hash}" &
+      DownloadFragment "${hash}" &
     else
       echo "Bad hash key: ${hash}" >&2
       exit 2
