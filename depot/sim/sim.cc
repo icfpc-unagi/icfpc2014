@@ -99,6 +99,8 @@ int Game::Start() {
   int ghost_eaten = 0;
   // True if Lambda-Man ate something since the last move
   bool eating = false;
+  int fruits_eaten = 0;
+  int kills = 0;
 
   // AI init
   for (int i = 0; i < lman_.size(); ++i) {
@@ -188,7 +190,7 @@ int Game::Start() {
             if (ghosts_[i]->GetRC() == rc) {
               symbol = '=';
               static const char* kGhostColors[] = {BOLDRED, BOLDMAGENTA, BOLDCYAN, BOLDGREEN};
-              color = kGhostColors[i % 4];
+              color = vitality_ > 0 ? BOLDBLUE : kGhostColors[i % 4];
               break;
             }
           }
@@ -324,6 +326,7 @@ int Game::Start() {
       fruit_appeared = false;
       eating = true;
       score_ += fruit_points;
+      fruits_eaten++;
       VLOG(2) << fruit_points << "pt by taking a fruit";
     }
 
@@ -347,6 +350,7 @@ int Game::Start() {
           ghosts_[i]->ResetPositionAndDirection();
           ghosts_[i]->SetVitality(2 /* invisible */);
           score_ += kGhostPoints[ghost_eaten];
+          kills++;
           VLOG(2) << kGhostPoints[ghost_eaten] << "pt by eating ghost" << i;
           if (ghost_eaten < 3) ghost_eaten++;
         }
@@ -367,19 +371,20 @@ int Game::Start() {
     if (total_pills_ == 0) {
       VLOG(2) << "Bonus factor = " << (life_ + 1);
       score_ *= (life_ + 1);
-      LOG(INFO) << "Game over: You won! (utc=" << tick_ << ")";
+      LOG(INFO) << "Game over: You won!";
       break;
     }
 
     // *** 6. game over
     if (life_ == 0) {
-      LOG(INFO) << "Game over: Lambda-Man has died (utc=" << tick_ << ")";
+      LOG(INFO) << "Game over: Lambda-Man has died";
       break;
     }
 
     // *** 7. tick end
     tick_++;
   }
-  LOG_IF(INFO, tick_ == end_of_lives) << "Game over: End of lives (utc=" << tick_ << ")";
+  LOG_IF(INFO, tick_ == end_of_lives) << "Game over: End of lives";
+  LOG(INFO) << "Stats: utc=" << tick_ << " lives=" << life_ << " fruites=" << fruits_eaten << " kills=" << kills;
   return score_;
 }
