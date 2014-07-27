@@ -10,6 +10,7 @@ class LambdaManInterface : public Character {
  public:
   void Init(GameInterface* game) {
     game_ = game;
+    Main();
   }
   virtual void Main() = 0;
   virtual int Step() = 0;
