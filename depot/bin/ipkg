@@ -5,6 +5,7 @@ source gbash.sh || exit 1
 DEFINE_bool silent false 'Suprress messages.'
 DEFINE_string host '54.199.96.56' 'Host name to launch a ninelet.'
 DEFINE_string alias '' 'Alias name of a package.'
+DEFINE_int cpu_limit 60 'CPU limit.'
 
 gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
