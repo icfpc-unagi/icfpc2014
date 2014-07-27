@@ -3,6 +3,7 @@ cc_library(
     SOURCES "lib.cc"
     DEPENDENCIES
         "//base"
+        "//util:flags"
 )
 
 # cc_library(
