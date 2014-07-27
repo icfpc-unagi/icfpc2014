@@ -133,7 +133,7 @@ public:
 				}
 			}
 		}
-		CHECK_GT(pits.size(), ghosts + 2);
+		CHECK_GT(pits.size(), ghosts + powerpills + 2);
 		random_shuffle(pits.begin(), pits.end());
 		(*data)[pits.back().first][pits.back().second] = '\\';
 		pits.pop_back();
