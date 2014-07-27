@@ -57,10 +57,12 @@ fi
 if [ "${FLAGS_port}" -eq 0 ]; then
   ssh -q ${tty_flag} -i "${TMPDIR}/ninelet.pem" \
       -o StrictHostKeyChecking=no \
+      -o ConnectionReuse=yes \
       ninelet@"${FLAGS_host}" -- "$@"
 else
   ssh -q ${tty_flag} -i "${TMPDIR}/ninelet.pem" \
       -o StrictHostKeyChecking=no \
+      -o ConnectionReuse=yes \
       -p "${FLAGS_port}" \
       ninelet@"${FLAGS_host}" -- "$@"
 fi
