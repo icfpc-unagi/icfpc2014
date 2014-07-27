@@ -2,12 +2,12 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 
-DEFINE_int32(ghosts, 4, "");
-DEFINE_int32(powerpills, 4, "");
-DEFINE_int32(width, 22, "");
-DEFINE_int32(height, 22, "");
+DEFINE_int32(ghosts, 4, "# of ghosts");
+DEFINE_int32(powerpills, 4, "# of power pills");
+DEFINE_int32(width, 22, "width size");
+DEFINE_int32(height, 22, "height size");
 DEFINE_int32(size, 0, "This value overwrites width and height if non-zero");
-DEFINE_int32(seed, 0, "");
+DEFINE_int32(seed, 0, "random seed");
 DEFINE_string(maker, "digger", "digger,grid");
 DEFINE_string(placer, "scatter", "scatter");
 
@@ -23,7 +23,7 @@ public:
 
 class Placer {
 public:
-	virtual void Place(int ghosts, int powerpills, vector<string>* data) = 0;
+	virtual bool Place(int ghosts, int powerpills, vector<string>* data) = 0;
 };
 
 class DFSDigger : public Maker {
@@ -31,7 +31,7 @@ public:
 	DFSDigger(int height, int width) :
 	   data(height, string(width, '#')) {}
 	vector<string> Gen() {
-	  int r = rand() % (width() - 2) + 1;
+	  int r = rand() % (height() - 2) + 1;
 	  int c = rand() % (width() - 2) + 1;
 	  Dig(r, c);
 	  return std::move(data);
@@ -39,7 +39,7 @@ public:
 private:
 	void Dig(int r, int c) {
 	  if (data[r][c] == '.') return;
-	  if (r < 1 || width() - 1 <= r || c < 1 || height() - 1 <= c) return;
+	  if (r < 1 || height() - 1 <= r || c < 1 || width() - 1 <= c) return;
 	  for (int i = 0; i < 4; ++i) {
 	  	int j = (i + 1) % 4;
 	  	if (data[r + dr[i]][c + dc[i]] == '.' &&
@@ -64,7 +64,9 @@ public:
 	GridMaker(int height, int width) :
 	   data(height, string(width, '#')) {}
 	vector<string> Gen() {
-	  Joint(rand() % height(), rand() % width());
+	  int r = rand() % (height() - 2) + 1;
+	  int c = rand() % (width() - 2) + 1;
+	  Joint(r, c);
 	  for (int i = 0; i < height(); ++i) {
 	  	replace(data[i].begin(), data[i].end(), 'x', '.');
 	  }
@@ -124,7 +126,7 @@ private:
 
 class ScatteringPlacer : public Placer {
 public:
-	void Place(int ghosts, int powerpills, vector<string>* data) {
+	bool Place(int ghosts, int powerpills, vector<string>* data) {
 		vector<pair<int, int>> pits;
 		for (int r = 0; r < data->size(); ++r) {
 			for (int c = 0; c < (*data)[r].size(); ++c) {
@@ -133,7 +135,7 @@ public:
 				}
 			}
 		}
-		CHECK_GT(pits.size(), ghosts + 2);
+		if (pits.size() < ghosts + powerpills + 2) return false;
 		random_shuffle(pits.begin(), pits.end());
 		(*data)[pits.back().first][pits.back().second] = '\\';
 		pits.pop_back();
@@ -147,6 +149,7 @@ public:
 	 		(*data)[pits.back().first][pits.back().second] = 'o';
 			pits.pop_back();
 	 	}
+	 	return true;
 	}
 };
 
@@ -172,11 +175,11 @@ int main(int argc, char** argv) {
   }
   vector<string> data = maker->Gen();
   ScatteringPlacer placer;
-  placer.Place(ghosts, powerpills, &data);
-
+  bool ok = placer.Place(ghosts, powerpills, &data);
   for (int i = 0; i < data.size(); ++i) {
   	cout << data[i] << endl;
   }
+  LOG_IF(FATAL, !ok) << "Couldn't place objects";
 
   return 0;
 }

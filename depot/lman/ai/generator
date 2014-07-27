@@ -50,6 +50,8 @@ class ${identifier}LambdaMan : public LambdaMan {
   ${identifier}LambdaMan() {}
   virtual ~${identifier}LambdaMan() {}
 
+  const char* Name() override { return "${name}"; }
+
   P BInit(P game, P nazo) override {
     return ${identifier}::init(game, nazo);
   }

@@ -1,0 +1,202 @@
+; switch chokudai / fickle
+mov a,[5]
+sub a,31
+mov [5],a
+jgt chokudai,a,100
+
+fickle:
+; Keep track of how long we have spent travelling in each direction.
+; Try to go in the direction we've travelled in least.
+
+                 ; Count of time spent going in direction 0 is in memory address 0, and so on.
+  mov a,255      ; A is the min value.
+  mov b,0        ; B is the corresponding direction.
+  mov c,255      ; C is the candidate direction for the new min.
+fickle_three:    ; Start of loop.
+  inc c          ; Pick new direction.
+  jgt fickle_seven,[c],a    ; Jump if count of direction C is above best so far.
+                 ; We have a new min.
+  mov a,[c]      ; Save new min.
+  mov b,c        ; Save direction.
+  jlt fickle_three,c,3      ; Jump target. Loop back if we have not tried all 4 directions.
+fickle_seven:
+  mov a,b        ; Actually set desired direction.
+  int 0
+  
+  int 3          ; Get our ghost index in A.
+  int 6          ; Get out current direction in B.
+  inc [b]        ; Increment corresponding count.
+  hlt            ; Stop.
+
+
+chokudai:
+  INT 1
+  ; 現在位置の取得
+  MOV e,a
+  MOV f,b
+  INT 3
+  MOV [10],a
+  INT 5
+  MOV g,a
+  MOV h,b
+  INT 3
+  INT 6
+  MOV [13],b
+  ADD [13],2
+  JLT init3,[13],4
+  SUB [13],4
+
+init3:
+  MOV [11],[13] ; 最高値の初期化
+  MOV c,0
+
+  ; 上に行くときの処理
+  MOV d,10 ; 初期値の入力
+
+  ; 壁だったら上評価を0にする
+  MOV a,g
+  MOV b,h
+  SUB b,1
+  INT 7
+  JEQ uplast,a,0
+  JEQ uplast,[13],0
+
+
+  ; 上に行くときの評価
+  ; 上にいるなら評価22アップ
+  JGT up1,f,h
+  ADD d,22
+up1:
+
+
+  ; 曲がる動きは評価1アップ
+  MOV a,[13]
+  ADD a,0
+  AND a,1
+  JEQ up2,a,0
+  ADD d,1
+up2:
+
+  ; 上が最高値になっていたら更新
+  JLT uplast,d,c
+  MOV [11],0
+  MOV c,d
+uplast:
+
+
+  ; 下に行くときの処理
+  MOV d,10 ; 初期値の入力
+
+  ; 壁だったら下評価を0にする
+  MOV a,g
+  MOV b,h
+  ADD b,1
+  INT 7
+  JEQ downlast,a,0
+  JEQ downlast,[13],2
+
+  ; 下に行くときの評価
+  ; 下にいるなら評価22アップ
+  JLT down1,f,h
+  ADD d,22
+down1:
+
+  ; 曲がる動きは評価1アップ
+  MOV a,[13]
+  ADD a,2
+  AND a,1
+  JEQ down2,a,0
+  ADD d,1
+down2:
+
+  ; 下が最高値になっていたら更新
+  JLT downlast,d,c
+  MOV [11],2
+  MOV c,d
+downlast:
+
+
+  ; 右に行くときの処理
+  MOV d,10 ; 初期値の入力
+
+  ; 壁だったら右評価を0にする
+  MOV a,g
+  MOV b,h
+  ADD a,1
+  INT 7
+  JEQ rightlast,a,0
+  JEQ rightlast,[13],1
+
+  ; 右に行くときの評価
+  ; 右にいるなら評価22アップ
+  JLT right1,e,g
+  ADD d,22
+right1:
+
+  ; 曲がる動きは評価1アップ
+  MOV a,[13]
+  ADD a,1
+  AND a,1
+  JEQ right2,a,0
+  ADD d,1
+right2:
+
+  ; 右が最高値になっていたら更新
+  JLT rightlast,d,c
+  MOV [11],1
+  MOV c,d
+rightlast:
+
+
+  ; 左に行くときの処理
+  MOV d,10 ; 初期値の入力
+
+  ; 壁だったら左評価を0にする
+  MOV a,g
+  MOV b,h
+  SUB a,1
+  INT 7
+  JEQ leftlast,a,0
+  JEQ leftlast,[13],3
+
+  ; 左に行くときの評価
+  ; 左にいるなら評価22アップ
+  JGT left1,e,g
+  ADD d,22
+left1:
+
+  ; 曲がる動きは評価1アップ
+  MOV a,[13]
+  ADD a,3
+  AND a,1
+  JEQ left2,a,0
+  ADD d,1
+left2:
+
+  ; 左が最高値になっていたら更新
+  JLT leftlast,d,c
+  MOV [11],3
+  MOV c,d
+leftlast:
+
+
+  ; 最後に最高記録を採用
+  MOV a,[11]
+  INT 0
+  MOV d,[11]
+  HLT
+
+
+
+  ; メモ
+  ; a,b 色々使う
+  ;
+  ; c 最も良い選択肢の最高ポイント　初期値は1
+  ; d 現在調べている方向のポイント　初期値は1
+  ; e ラムダマンの現在の場所x
+  ; f ラムダマンの現在の場所y
+  ; g 自分の現在の場所x
+  ; h 自分の現在の場所y
+  ; [11] 自分のID
+  ; [12] 最高記録の方向
+  ; [13] 自分の直前の向き

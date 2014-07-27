@@ -60,7 +60,7 @@ P LambdaMan::EncodeWorld() const {
     gs.push_back(EncodeGhost(i));
   }
   P g = MakeList(gs);
-  // TODO: fruits
+  // fruits
   P f(game_->GetFruitRemaining());
   return P(m, P(l, P(g, f)));
 }

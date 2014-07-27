@@ -18,6 +18,8 @@ class migiLambdaMan : public LambdaMan {
   migiLambdaMan() {}
   virtual ~migiLambdaMan() {}
 
+  const char* Name() override { return "migi"; }
+
   P BInit(P game, P nazo) override {
     return migi::init(game, nazo);
   }

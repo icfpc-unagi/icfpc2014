@@ -6,13 +6,15 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 #include "util/colors.h"
+#include "util/flags.h"
 
 DEFINE_bool(print_state, true, "");
 DEFINE_bool(print_color, true, "");
-DEFINE_int32(print_for_test, 0, "Print information for testing.");
 DEFINE_bool(print_ghost_move, false, "");
 DEFINE_int32(max_print_height, 40, "");
 DEFINE_int32(max_print_width, 80, "");
+DEFINE_bool(spec_call_redundant_ghost_step, true, "");
+DEFINE_bool(spec_one_more_fright_cycle, true, "");
 
 constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
                                   1000, 1000, 2000, 2000, 3000, 3000, 5000};
@@ -20,8 +22,9 @@ constexpr int kGhostPoints[4] = {200, 400, 800, 1600};
 constexpr int dr[4] = {-1, 0, 1, 0};
 constexpr int dc[4] = {0, 1, 0, -1};
 
-void Game::ParseMaze(std::istream& is) {
+void Game::ParseMaze(const string& name, std::istream& is) {
   CHECK(is.good());
+  maze_name_ = name;
   string line;
   int ghost_index = 0;
   int lambda_man_index = 0;
@@ -81,7 +84,7 @@ int Game::Start() {
   const int end_of_lives = 127 * width * height * 16;
   const int fruit_appears[2] = {127 * 200, 127 * 400};
   const int fruit_expires[2] = {127 * 280, 127 * 480};
-  const int flight_mode_duration = 127 * 20;
+  const int fright_mode_duration = 127 * 20;
   const int level = (width * height - 1) / 100 + 1;
   const int fruit_points = kFruitPoints[level <= 12 ? level : 13];
 
@@ -90,15 +93,19 @@ int Game::Start() {
   score_ = 0;
   life_ = 3;
   vitality_ = 0;  // remaining ticks
-  bool fruit_appeared = false;
+  fruit_appeared_ = false;
+  fruit_remaining_ = 0;
   int utc_lman_next_move = 127;
   vector<int> utc_ghosts_next_moves(ghosts_.size());
+  bool spec_ghost_one_more_fright = false;
   for (int i = 0; i < ghosts_.size(); ++i) {
     utc_ghosts_next_moves[i] = 130 + 2 * i;
   }
   int ghost_eaten = 0;
   // True if Lambda-Man ate something since the last move
   bool eating = false;
+  int fruits_eaten = 0;
+  int kills = 0;
 
   // AI init
   for (int i = 0; i < lman_.size(); ++i) {
@@ -112,54 +119,16 @@ int Game::Start() {
 
   // main loop
   bool state_changed = true;
-  int test_print = 0;
   while (tick_ < end_of_lives) {
     // *** 0. debug print
     if (FLAGS_print_for_test > 0 && (state_changed || tick_ <= 1)) {
-      if (++test_print > FLAGS_print_for_test) {
-        continue;
-      }
-      std::stringstream ss;
-      ss << score_ << " " << life_ << " " << tick_ << "\n";
-      for (int r = 0; r < height; r++) {
-        for (int c = 0; c < width; ++c) {
-          Coordinate rc(r, c);
-          const char* color = "";
-          char symbol = GetSymbol(rc);
-          if (symbol == '=' || symbol == '\\' || symbol == '%') symbol = '1';
-          if (lman_[0]->GetRC() == rc) {
-            if (vitality_ > 0) {
-              symbol =  '6';
-            } else {
-              symbol =  '5';
-            }
-          }
-          if (fruit_appeared && fruit_location_ == rc) {
-            symbol = '4';
-          }
-          for (int i = 0; i < ghosts_.size(); ++i) {
-            if (ghosts_[i]->GetRC() == rc) {
-              static const char kGhostChars[] = {'7', '8', '9', 'a', 'b'};
-              symbol = kGhostChars[i % 5];
-            }
-          }
-          switch (symbol) {
-            case '#': symbol = '0'; break;
-            case ' ': symbol = '1'; break;
-            case '.': symbol = '2'; break;
-            case 'o': symbol = '3'; break;
-          }
-          ss << symbol;
-        }
-        ss << '\n';
-      }
-      ss << '\n';
-      std::cout << ss.str();
+      if (PrintForTest()) break;
       state_changed = false;
     } else if (FLAGS_print_state && state_changed) {
       std::stringstream ss;
       if (FLAGS_print_color) ss << RESETCURSOR;
-      ss << "The world state (utc=" << tick_
+      ss << CYAN "[" << lman_[0]->Name() << "@" << maze_name_ << "]\n" RESET
+         << "The world state (utc=" << tick_
          << ",lives=" << life_ << ",score=" << score_ << "):\n";
       auto lmanrc = lman_[0]->GetRC();
       int min_r = max(0, lmanrc.first - FLAGS_max_print_height / 2);
@@ -180,13 +149,13 @@ int Game::Start() {
             symbol =  vitality_ > 0 ? 'X' : '\\';
             color = BOLDYELLOW;
           }
-          if (fruit_appeared && fruit_location_ == rc) {
+          if (fruit_appeared_ && fruit_location_ == rc) {
             symbol = '%';
             color = BOLDRED;
           }
           for (int i = 0; i < ghosts_.size(); ++i) {
             if (ghosts_[i]->GetRC() == rc) {
-              symbol = '=';
+              symbol = FLAGS_print_color ? '=' : '0' + i;
               static const char* kGhostColors[] = {BOLDRED, BOLDMAGENTA, BOLDCYAN, BOLDGREEN};
               color = kGhostColors[i % 4];
               break;
@@ -219,6 +188,7 @@ int Game::Start() {
     }
     for (int i = 0; i < ghosts_.size(); ++i) {
       if (tick_ == utc_ghosts_next_moves[i]) {
+        LOG(INFO) << "ghost" << i << " moves";
         // Check if the ghost has options
         int prev_d = ghosts_[i]->GetDirection();
         DCHECK(0 <= prev_d && prev_d < 4);
@@ -233,8 +203,10 @@ int Game::Start() {
             oneway = way;
           }
         }
+        int d;
+        if (FLAGS_spec_call_redundant_ghost_step) d = ghosts_[i]->Step();
         if (ways >= 2) {  // has options
-          int d = ghosts_[i]->Step();
+          if (!FLAGS_spec_call_redundant_ghost_step) d = ghosts_[i]->Step();
           bool moved = false;
           if (d < 0 || 4 <= d) {
             LOG(WARNING) << "Ghost[" << i << "] returned invalid direction";
@@ -249,11 +221,17 @@ int Game::Start() {
                          << "] chose a bad direction to a wall";
           }
           if (!moved) {  // auto move instead
-            for (int j = 0; j < 4; ++j) {
-              if (ghosts_[i]->CanMove(*this, j)) {
-                ghosts_[i]->SetDirection(j);
-                CHECK(ghosts_[i]->Move());
-                break;
+            if (ghosts_[i]->CanMove(*this, prev_d)) {
+              ghosts_[i]->SetDirection(prev_d);
+              CHECK(ghosts_[i]->Move());
+            } else {
+              for (int j = 0; j < 4; ++j) {
+                if (j == oppo_d) continue;
+                if (ghosts_[i]->CanMove(*this, j)) {
+                  ghosts_[i]->SetDirection(j);
+                  CHECK(ghosts_[i]->Move());
+                  break;
+                }
               }
             }
           }
@@ -274,22 +252,26 @@ int Game::Start() {
     }
 
     // *** 2. actions
-    // flight mode deactivating
+    // fright mode deactivating
     if (vitality_ > 0) {
       if (--vitality_ == 0) {
+        VLOG(2) << "fright mode ends in tick " << tick_;
         for (int i = 0; i < ghosts_.size(); ++i) {
           ghosts_[i]->SetVitality(0 /* standard */);
+        }
+        if (FLAGS_spec_one_more_fright_cycle) {
+          spec_ghost_one_more_fright = true;
         }
       }
     }
     // fruit appearing/expiring
     for (int i = 0; i < 2; ++i) {
       if (tick_ == fruit_appears[i]) {
-        fruit_appeared = true;
+        fruit_appeared_ = true;
         fruit_remaining_ = fruit_expires[i] - tick_;
         state_changed = true;
       } else if (tick_ == fruit_expires[i]) {
-        fruit_appeared = false;
+        fruit_appeared_ = false;
         state_changed = true;
       }
     }
@@ -309,8 +291,8 @@ int Game::Start() {
       // check power pill
       Eat(pos);
       eating = true;
-      // Activates flight mode
-      vitality_ = flight_mode_duration;
+      // Activates fright mode
+      vitality_ = fright_mode_duration;
       ghost_eaten = 0;
       // Gets all ghosts to turn around
       for (int i = 0; i < ghosts_.size(); ++i) {
@@ -319,11 +301,12 @@ int Game::Start() {
       }
       score_ += 50;
       VLOG(2) << "50pt by taking a power pill";
-    } else if (symbol == '%' && fruit_appeared && fruit_location_ == pos) {
+    } else if (symbol == '%' && fruit_appeared_ && fruit_location_ == pos) {
       // check fruit
-      fruit_appeared = false;
+      fruit_appeared_ = false;
       eating = true;
       score_ += fruit_points;
+      fruits_eaten++;
       VLOG(2) << fruit_points << "pt by taking a fruit";
     }
 
@@ -343,10 +326,10 @@ int Game::Start() {
           break;
         } else {
           // Lambda-Man eats ghost
-          eating = true;
           ghosts_[i]->ResetPositionAndDirection();
           ghosts_[i]->SetVitality(2 /* invisible */);
           score_ += kGhostPoints[ghost_eaten];
+          kills++;
           VLOG(2) << kGhostPoints[ghost_eaten] << "pt by eating ghost" << i;
           if (ghost_eaten < 3) ghost_eaten++;
         }
@@ -356,10 +339,13 @@ int Game::Start() {
     // *** 4.5. fixing next duration
     if (utc_lman_next_move <= tick_) {
       utc_lman_next_move += eating ? 137 : 127;
+      spec_ghost_one_more_fright = false;
     }
     for (int i = 0; i < ghosts_.size(); ++i) {
       if (utc_ghosts_next_moves[i] <= tick_) {
-        utc_ghosts_next_moves[i] += (65 + i % 4) * (vitality_ == 0 ? 2 : 3);
+        bool slow = vitality_ != 0 || spec_ghost_one_more_fright;
+        utc_ghosts_next_moves[i] += (65 + i % 4) * (slow ? 3 : 2);
+        spec_ghost_one_more_fright = false;
       }
     }
 
@@ -367,19 +353,68 @@ int Game::Start() {
     if (total_pills_ == 0) {
       VLOG(2) << "Bonus factor = " << (life_ + 1);
       score_ *= (life_ + 1);
-      LOG(INFO) << "Game over: You won! (utc=" << tick_ << ")";
+      LOG(INFO) << "Game over: " BOLDGREEN "CLEAR" RESET;
       break;
     }
 
     // *** 6. game over
     if (life_ == 0) {
-      LOG(INFO) << "Game over: Lambda-Man has died (utc=" << tick_ << ")";
+      LOG(INFO) << "Game over: " BOLDRED "Lambda-Man has died" RESET;
       break;
     }
 
     // *** 7. tick end
     tick_++;
   }
-  LOG_IF(INFO, tick_ == end_of_lives) << "Game over: End of lives (utc=" << tick_ << ")";
+  LOG_IF(INFO, tick_ == end_of_lives) << "Game over: " BOLDMAGENTA "End of lives" RESET;
+  LOG(INFO) << "Stats: utc=" << tick_ << " lives=" << life_ << " fruites=" << fruits_eaten << " kills=" << kills;
   return score_;
+}
+
+bool Game::PrintForTest() const {
+  static int test_print = 0;
+  const int height = maze_.size();
+  const int width = maze_[0].size();
+
+  std::stringstream ss;
+  ss << score_ << " " << life_ << " " << tick_ << "\n";
+  for (int r = 0; r < height; r++) {
+    for (int c = 0; c < width; ++c) {
+      Coordinate rc(r, c);
+      const char* color = "";
+      char symbol = GetSymbol(rc);
+      if (symbol == '=' || symbol == '\\' || symbol == '%') symbol = ' ';
+      if (lman_[0]->GetRC() == rc) {
+        if (vitality_ > 0) {
+          symbol =  'X';
+        } else {
+          symbol =  '\\';
+        }
+      }
+      if (fruit_appeared_ && fruit_location_ == rc) {
+        symbol = '%';
+      }
+      for (int i = 0; i < ghosts_.size(); ++i) {
+        if (ghosts_[i]->GetRC() == rc) {
+          if (vitality_ > 0) {
+            if (ghosts_[i]->GetVitality() == 2 /* invisible */) {
+              symbol = ':';
+            } else {
+              symbol = '@';
+            }
+          } else {
+            static const char kGhostChars[] = {'0', '1', '2', '3', '4'};
+            symbol = kGhostChars[i % 5];
+          }
+        }
+      }
+      ss << symbol;
+    }
+    ss << '\n';
+  }
+  ss << '\n';
+  std::cout << ss.str();
+
+  test_print++;
+  return test_print >= FLAGS_print_for_test;
 }

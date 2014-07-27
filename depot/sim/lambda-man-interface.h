@@ -12,6 +12,7 @@ class LambdaManInterface : public Character {
     game_ = game;
     Main();
   }
+  virtual const char* Name() = 0;
   virtual void Main() = 0;
   virtual int Step() = 0;
 

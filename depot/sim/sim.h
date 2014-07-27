@@ -30,7 +30,8 @@ class Game : public GameInterface {
     lambda_man_factories_.clear();
     lambda_man_factories_.push_back(lambda_man_factory);
   }
-  void ParseMaze(std::istream& is);
+  void ParseMaze(const string& name, std::istream& is);
+  void ParseMaze(std::istream& is) { ParseMaze("(noname)", is); }
   // Returns the final score
   int Start();
   
@@ -114,6 +115,8 @@ class Game : public GameInterface {
  private:
   void Eat(const Coordinate& rc) { maze_[rc.first][rc.second] = ' '; }
 
+  bool PrintForTest() const;
+
   vector<GhostFactory*> ghost_factories_;
   vector<std::unique_ptr<GhostInterface>> ghosts_;
   vector<LambdaManFactory*> lambda_man_factories_;
@@ -125,11 +128,13 @@ class Game : public GameInterface {
   Maze maze_;
   Coordinate fruit_location_;
   int fruit_remaining_;
+  bool fruit_appeared_;
   int total_pills_;
   int life_;
   int vitality_;
   int score_;
   int tick_;
+  string maze_name_;
 };
 
 #endif  // SIM_SIM_H_

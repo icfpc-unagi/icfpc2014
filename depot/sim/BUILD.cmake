@@ -45,6 +45,7 @@ cc_library(
         "//ghost:ghost-ai-manager"
         "//lman:lambda-man-ai-manager"
         "//util:coordinate"
+        "//util:flags"
 )
 
 cc_test(

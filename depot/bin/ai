@@ -5,6 +5,7 @@ source gbash.sh || exit 1
 DEFINE_string lman 'chokudai-10' 'LambaMan AIs.'
 DEFINE_string ghosts 'chokudai' 'Ghost AIs.'
 DEFINE_string maze 'world-classic' 'Maze.'
+DEFINE_bool build true 'Build files.'
 
 gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
@@ -21,7 +22,7 @@ FindAi() {
     extension=ghc
   fi
   local dropbox_file="/cloud/ro/dropbox/icfpc/2014/ai/${character}/${name}.${extension}"
-  local code_file="$(eval echo -n ~"/code/depot/${character}/ai/${name}.${extension}")"
+  local code_file="$(eval echo -n "${HOME}/code/depot/${character}/ai/${name}.${extension}")"
 
   if [ -f "${dropbox_file}" ]; then
     echo "use an AI in Dropbox: ${character}/${name}" >&2
@@ -49,7 +50,7 @@ done
 if [ -f "/cloud/ro/dropbox/icfpc/2014/maze/${FLAGS_maze}.txt" ]; then
   maze="/cloud/ro/dropbox/icfpc/2014/maze/${FLAGS_maze}.txt"
 elif [ -f "/code/maze/${FLAGS_maze}.txt" ]; then
-  maze="/code/maze/${FLAGS_maze}.txt"
+  maze="${HOME}/code/maze/${FLAGS_maze}.txt"
 else
   echo "no such maze: ${FLAGS_maze}" >&2
   exit 2
@@ -59,7 +60,9 @@ cd ~/code
 ./depot/lman/ai/generator
 ./depot/ghost/ai/generator
 
-make build/flame-binary/depot/sim/sim_main
+if (( FLAGS_build )); then
+  make build/flame-binary/depot/sim/sim_main
+fi
 
 ./build/flame-binary/depot/sim/sim_main \
     --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" --maze="${maze}" "$@"

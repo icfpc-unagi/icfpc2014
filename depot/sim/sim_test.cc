@@ -15,6 +15,7 @@ protected:
 
 class MockLambdaMan : public LambdaManInterface {
 public:
+  const char* Name() override { return "mock"; }
   void Main() override {
     LOG(INFO) << "Main";
   }

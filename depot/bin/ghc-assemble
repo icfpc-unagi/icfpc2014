@@ -79,7 +79,7 @@ function OutputCommand($lineno, $original, $command) {
     }
     if ($id !== NULL) { array_unshift($args, $id); }
     if ($goto !== NULL) { array_unshift($args, $goto); }
-    echo "   $function " . implode(',', $args) . "\n";
+    echo '  ' . trim($function . ' ' . implode(',', $args)) . "\n";
   } else {
     $command = trim($command);
     echo "; $command\n";
