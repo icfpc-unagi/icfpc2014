@@ -76,7 +76,7 @@ int Game::Start() {
     FLAGS_print_state = false;
     FLAGS_print_color = false;
   }
-  if (FLAGS_print_state && FLAGS_print_color) std::cout << CLEARSCREEN;
+  if (FLAGS_print_state && FLAGS_print_color) std::cerr << CLEARSCREEN;
 
   // constants
   const int height = maze_.size();

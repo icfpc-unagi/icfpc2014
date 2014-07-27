@@ -7,7 +7,7 @@
 #include "sim/sim.h"
 
 DEFINE_string(maze, "depot/maze/world-classic.txt", "Text file that contains maze map");
-DEFINE_bool(silent, false, "Suppress status messages.");
+DECLARE_bool(silent);
 DECLARE_bool(logtostderr);
 
 int main(int argc, char** argv) {
