@@ -6,9 +6,9 @@ $o
 
 def label(l, r, op)
   if r - l == 1
-    return sprintf("$get_array%d_end_%s", $n, op.downcase)
+    return sprintf("$get_array$%d_end_%s", $n, op.downcase)
   else
-    return sprintf("$get_array%d_%d_%d", $n, l, r)
+    return sprintf("$get_array$%d_%d_%d", $n, l, r)
   end
 end
 

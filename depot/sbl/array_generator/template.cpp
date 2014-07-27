@@ -37,16 +37,56 @@ P set_array<%=n%>(P t, int i, P v) {
   return set_array<%=n%>_rec(t, i, v, <%=n/2%>);
 }
 
-P create_array_rec(int n) {
+P create_array<%=n%>_rec(int n) {
+  P a;
   if (n == 1) {
-    return top(0);
+    a = top(0);
   } else {
-    return P(create_array_rec(n / 2), create_array_rec(n / 2));
+    a = P(create_array<%=n%>_rec(n / 2), create_array<%=n%>_rec(n / 2));
   }
+  return a;
 }
 
 P create_array<%=n%>() {
-  return create_array_rec(<%=n%>);
+  return create_array<%=n%>_rec(<%=n%>);
+}
+
+P create_array2d<%=n%>_rec(int n) {
+  P t;
+  if (n == 1) {
+    t = create_array<%=n%>();
+  } else {
+    t = P(create_array2d<%=n%>_rec(n / 2), create_array2d<%=n%>_rec(n / 2));
+  }
+  return t;
+}
+
+P create_array2d<%=n%>() {
+  return create_array2d<%=n%>_rec(<%=n%>);
+}
+
+int set_array2d<%=n%>_rec_j;
+
+P set_array2d<%=n%>_rec(P t, int i, P v, int n) {
+  if (n == 0) {
+    t = set_array<%=n%>(t, set_array2d<%=n%>_rec_j, v);
+  } else {
+    if (i < n) {
+      t = P(set_array2d<%=n%>_rec(fst(t), i, v, n / 2), snd(t));
+    } else {
+      t = P(fst(t), set_array2d<%=n%>_rec(snd(t), i - n, v, n / 2));
+    }
+  }
+  return t;
+}
+
+P set_array2d<%=n%>(P t, int i, int j, P v) {
+  set_array2d<%=n%>_rec_j = j;
+  return set_array2d<%=n%>_rec(t, i, v, <%= n/2 %>);
+}
+
+P get_array2d<%=n%>(P t, int i, int j) {
+  return get_array<%=n%>(get_array<%=n%>(t, i), j);
 }
 
 #endif  // SBL_SBL_H_
