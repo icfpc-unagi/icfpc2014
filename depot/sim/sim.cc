@@ -316,7 +316,6 @@ int Game::Start() {
           break;
         } else {
           // Lambda-Man eats ghost
-          eating = true;
           ghosts_[i]->ResetPositionAndDirection();
           ghosts_[i]->SetVitality(2 /* invisible */);
           score_ += kGhostPoints[ghost_eaten];
