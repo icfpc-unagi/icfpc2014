@@ -9,7 +9,8 @@ void LambdaMan::Main() {
   P game = EncodeWorld();
   P nazo;
   P ret = BInit(game, nazo);
-  state_ = fst(ret);
+  state_ = ret;
+  // DO NOT  "state_ = fst(ret);"  because init(_,_) does not return (State, Step_func) but only State.
 }
 
 int LambdaMan::Step() {
