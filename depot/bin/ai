@@ -77,9 +77,10 @@ else
   package_id="$(ipkg archive ./sim_main)"
   echo "package ID is ${package_id}" >&2
   popd
-  stats_args.sh "${FLAGS_lman}" | while read line; do
+  stats_args.sh "${FLAGS_lman}" >"${TMPDIR}/simulator-args"
+  while read line; do
     ninecluster-run "${package_id}" -- ./sim_main $line &
-  done
+  done <"${TMPDIR}/simulator-args"
 fi
 
 wait
