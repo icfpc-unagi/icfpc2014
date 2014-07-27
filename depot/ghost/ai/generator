@@ -12,6 +12,7 @@ for ghc_file in *.ghc; do
   name="${ghc_file%.ghc}"
 
   "${DEPOT_DIR}/bin/ghc-compile" "${name}" "${ghc_file}" > "${name}.h"
+  "${DEPOT_DIR}/bin/ghc-assemble" "${ghc_file}" > "${name}.asm"
 
   cat << EOM >"${name}.cc"
 #include "ghost/ai/${name}.h"

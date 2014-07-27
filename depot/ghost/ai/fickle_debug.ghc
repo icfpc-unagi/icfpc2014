@@ -1,19 +1,43 @@
-mov a,255
-mov b,0
-mov c,255
+  ; A is the min value.
+  MOV a, 255
+  INT 8
+  ; B is the corresponding direction.
+  MOV b, 0
+  INT 8
+  ; C is the candidate direction for the new min.
+  MOV c, 255
+  INT 8
 
-inc c
-jgt 7,[c],a
+loop:
+  ; Pick new direction.
+  INC c
+  INT 8
+  ; Jump if count of direction C is above best so far.
+  JGT set_direction, [c], a
+  INT 8
+  ; Save new min.
+  MOV a, [c]
+  INT 8
+  ; Save direction.
+  MOV b, c
+  INT 8
+  ; Jump target. Loop back if we have not tried all 4 directions.
+  JLT loop, c, 3
+  INT 8
 
-mov a,[c]
-mov b,c
-jlt 3,c,3
-
-mov a,b
-int 0
-int 8
-
-int 3
-int 6
-inc [b]
-hlt
+set_direction:
+  ; Actually set desired direction.
+  MOV a, b
+  INT 8
+  INT 0
+  INT 8
+  ; Get our ghost index in A.
+  INT 3
+  INT 8
+  ; Get out current direction in B.
+  INT 6
+  INT 8
+  ; Increment corresponding count.
+  INC [b]
+  INT 8
+  HLT
