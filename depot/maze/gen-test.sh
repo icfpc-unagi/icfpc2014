@@ -27,10 +27,10 @@ ${GEN} -size=256 -ghosts=30 -powerpills=10 -maker=grid > depot/maze/test2-256.tx
 
 ${GEN} -width=40 -height=20 -ghosts=5  -powerpills=3  -maker=digger > depot/maze/rect-40x20.txt
 ${GEN} -width=80 -height=20 -ghosts=6  -powerpills=6  -maker=digger > depot/maze/rect-80x20.txt
-${GEN} -width=80 -height=20 -ghosts=8  -powerpills=7  -maker=digger > depot/maze/rect-160x20.txt
+${GEN} -width=160 -height=20 -ghosts=8  -powerpills=7  -maker=digger > depot/maze/rect-160x20.txt
 ${GEN} -width=20 -height=40 -ghosts=5  -powerpills=3  -maker=digger > depot/maze/rect-20x40.txt
 ${GEN} -width=20 -height=80 -ghosts=6  -powerpills=6  -maker=digger > depot/maze/rect-20x80.txt
-${GEN} -width=20 -height=80 -ghosts=8 -powerpills=7  -maker=digger > depot/maze/rect-20x160.txt
+${GEN} -width=20 -height=160 -ghosts=8 -powerpills=7  -maker=digger > depot/maze/rect-20x160.txt
 
 if [ -d /dropbox ]; then
   cp -f depot/maze/*.txt /dropbox/maze/
