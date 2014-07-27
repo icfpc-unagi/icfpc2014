@@ -129,28 +129,22 @@ int Game::Start() {
           Coordinate rc(r, c);
           const char* color = "";
           char symbol = GetSymbol(rc);
-          if (symbol == '=' || symbol == '\\' || symbol == '%') symbol = '1';
+          if (symbol == '=' || symbol == '\\' || symbol == '%') symbol = ' ';
           if (lman_[0]->GetRC() == rc) {
             if (vitality_ > 0) {
-              symbol =  '6';
+              symbol =  'X';
             } else {
-              symbol =  '5';
+              symbol =  '\\';
             }
           }
           if (fruit_appeared && fruit_location_ == rc) {
-            symbol = '4';
+            symbol = '%';
           }
           for (int i = 0; i < ghosts_.size(); ++i) {
             if (ghosts_[i]->GetRC() == rc) {
-              static const char kGhostChars[] = {'7', '8', '9', 'a', 'b'};
+              static const char kGhostChars[] = {'0', '1', '2', '3', '4'};
               symbol = kGhostChars[i % 5];
             }
-          }
-          switch (symbol) {
-            case '#': symbol = '0'; break;
-            case ' ': symbol = '1'; break;
-            case '.': symbol = '2'; break;
-            case 'o': symbol = '3'; break;
           }
           ss << symbol;
         }

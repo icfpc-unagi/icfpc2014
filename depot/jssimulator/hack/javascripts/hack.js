@@ -25,8 +25,25 @@ function LoadMap() {
   var map = "";
   for (var y = 0; y < Math.floor(pixels.height / tile_size); y++) {
     for (var x = 0; x < Math.floor(pixels.width / tile_size); x++) {
-      var c = tile_id[GetSignature(pixels, x * tile_size, y * tile_size)];
-      map += parseInt(c).toString(36);
+      var c = parseInt(
+          tile_id[GetSignature(pixels, x * tile_size, y * tile_size)]);
+      switch (c) {
+        case 0: c = '#'; break;
+        case 1: c = ' '; break;
+        case 2: c = '.'; break;
+        case 3: c = 'o'; break;
+        case 4: c = '%'; break;
+        case 5: c = '\\'; break;
+        case 6: c = 'X'; break;
+        case 7: c = '0'; break;
+        case 8: c = '1'; break;
+        case 9: c = '2'; break;
+        case 10: c = '3'; break;
+        case 11: c = '4'; break;
+        case 12: c = ':'; break;
+        default: c = '?'; break;
+      }
+      map += c;
     }
     map += "\n";
   }
