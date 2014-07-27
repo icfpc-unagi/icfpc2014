@@ -120,7 +120,7 @@ int Game::Start() {
     // *** 0. debug print
     if (FLAGS_print_for_test > 0 && (state_changed || tick_ <= 1)) {
       if (++test_print > FLAGS_print_for_test) {
-        continue;
+        break;
       }
       std::stringstream ss;
       ss << score_ << " " << life_ << " " << tick_ << "\n";

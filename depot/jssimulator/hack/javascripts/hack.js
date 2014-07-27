@@ -83,7 +83,7 @@ function HackInit() {
 
 function HackRun() {
   Record();
-  for (var i = 0; i < 1000; i++) {
+  for (var i = 0; i < 999; i++) {
     HackStep();
     if (document.getElementById('status').innerText != 'Game running' &&
         document.getElementById('status').innerText != 'Single step') {
