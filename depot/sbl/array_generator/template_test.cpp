@@ -1,6 +1,6 @@
 #include "translator/lib.h"
 #include "sbl/list.h"
-#include "array<%=n%>.h"
+#include "sbl/array<%=n%>.h"
 
 void test_array(int n) {
   int i;

@@ -2,22 +2,28 @@
 #include "sbl/list.h"
 #include "array8.h"
 
-void test_array8() {
+void test_array(n) {
+  int i;
   P l;
   P t;
-  l = P(100, P(200, P(300, P(400, P(500, P(600, P(700, P(800, 0))))))));
+  l = top(0);
+
+  i = n;
+  while (i < n) {
+    l = P(i * 100, l);
+    i -= 1;
+  }
+
   t = list_to_array8(l);
   debug(t);
-  debug(get_array8(t, 0));
-  debug(get_array8(t, 1));
-  debug(get_array8(t, 2));
-  debug(get_array8(t, 3));
-  debug(get_array8(t, 4));
-  debug(get_array8(t, 5));
-  debug(get_array8(t, 6));
-  debug(get_array8(t, 7));
+
+  i = 0;
+  while (i < n) {
+    debug(get_array8(t, i));
+    i += 1;
+  }
 }
 
 void run() {
-  test_array8();
+  test_array(8);
 }

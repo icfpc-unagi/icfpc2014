@@ -1,6 +1,6 @@
 #include "translator/lib.h"
 #include "sbl/list.h"
-#include "array256.h"
+#include "sbl/array256.h"
 
 void test_array(int n) {
   int i;
