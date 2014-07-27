@@ -257,6 +257,7 @@ int Game::Start() {
       // pill
       Eat(pos);
       score_ += 10;
+      VLOG(2) << 10 << "pt by taking a pill";
       total_pills_--;
     } else if (symbol == 'o') {
       // check power pill
@@ -269,11 +270,13 @@ int Game::Start() {
         ghosts_[i]->SetDirection((ghosts_[i]->GetDirection() + 2) % 4);
       }
       score_ += 50;
+      VLOG(2) << 50 << "pt by taking a power pill";
     } else if (symbol == '%') {
       // check fruit
       if (fruit_appeared && fruit_location_ == pos) {
         fruit_appeared = false;
         score_ += fruit_points;
+        VLOG(2) << fruit_points << "pt by taking a fruit";
       }
     }
 
@@ -294,8 +297,9 @@ int Game::Start() {
         } else {
           // Lambda-Man eats ghost
           ghosts_[i]->ResetPositionAndDirection();
-          ghosts_[i]->SetVitality(2);
+          ghosts_[i]->SetVitality(2 /* invisible */);
           score_ += kGhostPoints[ghost_eaten];
+          VLOG(2) << kGhostPoints[ghost_eaten] << "pt by eating ghost" << i;
           if (ghost_eaten < 3) ghost_eaten++;
         }
       }
@@ -303,6 +307,7 @@ int Game::Start() {
 
     // *** 5. pills
     if (total_pills_ == 0) {
+      VLOG(2) << "Bonus factor = " << (life_ + 1);
       score_ *= (life_ + 1);
       LOG(INFO) << "Game over: You won! (utc=" << tick_ << ")";
       break;
