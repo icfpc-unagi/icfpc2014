@@ -16,6 +16,8 @@ PRESET_MAZE=(
 	'world-classic'
 	'world-1'
 	'world-2'
+	'ghostbusters'
+	'proton-pack'
 	'arena-20'
 	'arena-32'
 	'arena-50'

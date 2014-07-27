@@ -50,8 +50,8 @@ done
 
 if [ -f "/cloud/ro/dropbox/icfpc/2014/maze/${FLAGS_maze}.txt" ]; then
   maze="/cloud/ro/dropbox/icfpc/2014/maze/${FLAGS_maze}.txt"
-elif [ -f "/code/maze/${FLAGS_maze}.txt" ]; then
-  maze="${HOME}/code/maze/${FLAGS_maze}.txt"
+elif [ -f "${HOME}/code/depot/maze/${FLAGS_maze}.txt" ]; then
+  maze="${HOME}/code/depot/maze/${FLAGS_maze}.txt"
 else
   echo "no such maze: ${FLAGS_maze}" >&2
   exit 2
