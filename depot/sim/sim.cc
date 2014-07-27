@@ -93,6 +93,7 @@ int Game::Start() {
   life_ = 3;
   vitality_ = 0;  // remaining ticks
   fruit_appeared_ = false;
+  fruit_remaining_ = 0;
   int utc_lman_next_move = 127;
   vector<int> utc_ghosts_next_moves(ghosts_.size());
   bool spec_ghost_one_more_fright = false;
