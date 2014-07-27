@@ -253,7 +253,7 @@ int Game::Start() {
               CHECK(ghosts_[i]->Move());
             } else {
               for (int j = 0; j < 4; ++j) {
-                if (j != oppo_d) continue;
+                if (j == oppo_d) continue;
                 if (ghosts_[i]->CanMove(*this, j)) {
                   ghosts_[i]->SetDirection(j);
                   CHECK(ghosts_[i]->Move());
