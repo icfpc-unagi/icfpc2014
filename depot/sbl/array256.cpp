@@ -1,3 +1,7 @@
+#ifndef SBL_SBL_H_
+
+#include "sbl/array256.h"
+
 P list_to_array256_rec(P t, int size) {
   P tmp;
   if (atom(t)) {
@@ -32,3 +36,5 @@ P set_array256_rec(P t, int i, P v, int n) {
 P set_array256(P t, int i, P v) {
   return set_array256_rec(t, i, v, 128);
 }
+
+#endif  // SBL_SBL_H_
