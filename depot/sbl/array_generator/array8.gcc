@@ -1,0 +1,48 @@
+$get_array8:
+  LD 0 0
+  LDC 4
+  LD 0 1
+  CGT
+  TSEL $get_array8_0_4 $get_array8_4_8
+$get_array8_0_4:
+  CAR
+  LDC 2
+  LD 0 1
+  CGT
+  TSEL $get_array8_0_2 $get_array8_2_4
+$get_array8_0_2:
+  CAR
+  LDC 1
+  LD 0 1
+  CGT
+  TSEL $get_array8_end_car $get_array8_end_cdr
+$get_array8_2_4:
+  CDR
+  LDC 3
+  LD 0 1
+  CGT
+  TSEL $get_array8_end_car $get_array8_end_cdr
+$get_array8_4_8:
+  CDR
+  LDC 6
+  LD 0 1
+  CGT
+  TSEL $get_array8_4_6 $get_array8_6_8
+$get_array8_4_6:
+  CAR
+  LDC 5
+  LD 0 1
+  CGT
+  TSEL $get_array8_end_car $get_array8_end_cdr
+$get_array8_6_8:
+  CDR
+  LDC 7
+  LD 0 1
+  CGT
+  TSEL $get_array8_end_car $get_array8_end_cdr
+$get_array8_end_car:
+  CAR
+  RTN
+$get_array8_end_cdr:
+  CDR
+  RTN
