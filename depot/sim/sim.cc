@@ -129,7 +129,7 @@ int Game::Start() {
           if (symbol == '#') color = BLUE;
           if (symbol == 'o') color = YELLOW;
           if (lman_[0]->GetRC() == rc) {
-            symbol =  '\\';
+            symbol =  vitality_ > 0 ? 'X' : '\\';
             color = BOLDYELLOW;
           }
           if (fruit_appeared && fruit_location_ == rc) {
