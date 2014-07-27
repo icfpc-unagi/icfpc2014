@@ -66,9 +66,7 @@ void debug(const P& v) {
     if (FLAGS_print_for_test) {
       printf("trace lambdaman: %s\n", v.to_string().c_str());
     }
-    std::cerr << "Lambda-Man: " << v.to_string();
-    if (FLAGS_print_color) std::cerr << "    ";
-    std::cerr << std::endl;
+    std::cerr << "Lambda-Man: " << v.to_string() << (FLAGS_print_color ? "" : CLEARLINEAFTER) << std::endl;
   }
   return;
 }
