@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -e -u
+
+export TMPDIR="$(mktemp -d "${TMPDIR:-/tmp}/gbash.XXXXXX")"
+trap "rm -rf ${TMPDIR}" EXIT
+
+cd "$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)"/../..
+
+if [ ! -f ./build/flame-binary/depot/sim/sim_main ]; then
+  make build/flame-binary/depot/sim/sim_main
+fi
+
+TestSimulator() {
+  local lman="$1"
+  local ghosts="$2"
+  local maze="$3"
+
+  echo -n "Testing lman=${lman} ghosts=${ghosts} maze=${maze}...   "
+  ./build/flame-binary/depot/sim/sim_main --print_for_test=1000 \
+      --lman="${lman}" --ghosts="${ghosts}" --maze=depot/maze/"${maze}".txt \
+      2>/dev/null >"${TMPDIR}/simulator.txt"
+  if diff "./depot/test/simulator/${lman};${ghosts};${maze}.txt" \
+          "${TMPDIR}/simulator.txt" >"${TMPDIR}/diff"; then
+    echo 'Passed' >&2
+  else
+    echo 'Failed:' >&2
+    head -n 20 "${TMPDIR}/diff" >&2
+    echo '...' >&2
+    exit 1
+  fi
+}
+
+TestSimulator chokudai-10 chokudai world-classic
+TestSimulator migi chokudai world-classic
+TestSimulator migi fickle_debug world-classic
