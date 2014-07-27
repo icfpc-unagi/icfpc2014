@@ -373,7 +373,11 @@ public class BCompiler {
 					toGCC(((Apply) e).args[0], vars, depth, list);
 					list.add("DBUG");
 				} else {
-					throw new RuntimeException("unknown function: " + name);
+					for (Exp a : ((Apply) e).args) {
+						toGCC(a, vars, depth, list);
+					}
+					list.add(String.format("LD %d @%s", depth, ((Apply) e).name));
+					list.add(String.format("AP %d", ((Apply) e).args.length));
 				}
 			}
 		} else if (e instanceof Var) {
@@ -385,7 +389,7 @@ public class BCompiler {
 		}
 	}
 	
-	void toGCC(Block b, Map<String, int[]> vars, int depth, ArrayList<String> list, Map<String, String[]> blocks) {
+	void toGCC(Block b, Map<String, int[]> vars, int depth, ArrayList<String> list, Map<String, String[]> blocks, String id) {
 		for (Code c : b.codes) {
 			if (c instanceof Return) {
 				if (((Return) c).exp != null) {
@@ -411,26 +415,26 @@ public class BCompiler {
 				}
 			} else if (c instanceof If) {
 				toGCC(((If) c).cond, vars, depth, list);
-				list.add(String.format("SEL $$then%d $$else%d", q, q));
+				list.add(String.format("SEL $%s$then%d $%s$else%d", id, q, id, q));
 				int p = q;
 				q++;
 				ArrayList<String> list1 = new ArrayList<String>(), list2 = new ArrayList<String>();
-				toGCC(((If) c).thenBlock, vars, depth, list1, blocks);
-				toGCC(((If) c).elseBlock, vars, depth, list2, blocks);
+				toGCC(((If) c).thenBlock, vars, depth, list1, blocks, id);
+				toGCC(((If) c).elseBlock, vars, depth, list2, blocks, id);
 				list1.add("JOIN");
 				list2.add("JOIN");
-				blocks.put("$$then" + p, list1.toArray(new String[0]));
-				blocks.put("$$else" + p, list2.toArray(new String[0]));
+				blocks.put("$" + id + "$then" + p, list1.toArray(new String[0]));
+				blocks.put("$" + id + "$else" + p, list2.toArray(new String[0]));
 			} else if (c instanceof While) {
 				toGCC(((While) c).cond, vars, depth, list);
-				list.add(String.format("TSEL $$while%d $$next%d", q, q));
+				list.add(String.format("TSEL $%s$while%d $%s$next%d", id, q, id, q));
 				int p = q;
 				q++;
 				ArrayList<String> list1 = new ArrayList<String>();
-				toGCC(((While) c).block, vars, depth, list1, blocks);
+				toGCC(((While) c).block, vars, depth, list1, blocks, id);
 				toGCC(((While) c).cond, vars, depth, list1);
-				list1.add(String.format("TSEL $$while%d $$next%d_", p, p));
-				blocks.put("$$while" + p, list1.toArray(new String[0]));
+				list1.add(String.format("TSEL $%s$while%d $%s$next%d_", id, p, id, p));
+				blocks.put("$" + id + "$while" + p, list1.toArray(new String[0]));
 			}
 		}
 	}
@@ -450,7 +454,7 @@ public class BCompiler {
 				vars.put(f.block.vars[i], new int[]{depth, f.args.length + i});
 			}
 		}
-		toGCC(f.block, vars, depth, gccs, blocks);
+		toGCC(f.block, vars, depth, gccs, blocks, f.name);
 		if (blocks.containsKey("$" + f.name)) throw null;
 		if (f.isVoid) gccs.add("RTN");
 		for (int i = 0; i < gccs.size() - 1; i++) if (gccs.get(i).startsWith("RTN")) {
@@ -512,21 +516,51 @@ public class BCompiler {
 	
 	void run(String[] files) {
 		Parser p;
+		ArrayList<String> gccFuncs = new ArrayList<String>();
+		Map<String, String[]> blocks = new TreeMap<String, String[]>();
 		try {
 			StringBuilder sb = new StringBuilder();
 			ArrayList<Integer> lines = new ArrayList<Integer>();
 			for (String file : files) {
 				BufferedReader in = new BufferedReader(new FileReader(file));
-				for (int lineID = 1;; lineID++) {
-					String line = in.readLine();
-					if (line == null) break;
-					line = line.trim();
-					if (line.startsWith("#")) {
-						continue;
+				if (file.endsWith(".gcc")) {
+					String block = null;
+					ArrayList<String> ss = new ArrayList<String>();
+					for (;;) {
+						String line = in.readLine();
+						if (line == null) break;
+						line = line.trim();
+						int i = line.indexOf(';');
+						if (i >= 0) line = line.substring(0, i).trim();
+						if (line.endsWith(":")) {
+							if (block != null) {
+								blocks.put(block, ss.toArray(new String[0]));
+								ss.clear();
+							}
+							block = line.substring(0, line.length() - 1).trim();
+							if (block.startsWith("$") && !block.substring(1).contains("$")) {
+								gccFuncs.add(block.substring(1));
+							}
+						} else {
+							if (block == null) throw new RuntimeException("Each code in .gcc must be in a block");
+							ss.add(line);
+						}
 					}
-					if (line.contains("//")) line = line.substring(0, line.indexOf("//")).trim();
-					sb.append(line);
-					for (int i = 0; i < line.length(); i++) lines.add(lineID);
+					if (block != null) {
+						blocks.put(block, ss.toArray(new String[0]));
+					}
+				} else {
+					for (int lineID = 1;; lineID++) {
+						String line = in.readLine();
+						if (line == null) break;
+						line = line.trim();
+						if (line.startsWith("#")) {
+							continue;
+						}
+						if (line.contains("//")) line = line.substring(0, line.indexOf("//")).trim();
+						sb.append(line);
+						for (int i = 0; i < line.length(); i++) lines.add(lineID);
+					}
 				}
 				in.close();
 			}
@@ -547,9 +581,8 @@ public class BCompiler {
 		}
 		numVars = new TreeMap<String, Integer>();
 		for (Function f : funcs) numVars.put(f.name, f.block.vars.length);
-		q = 0;
-		Map<String, String[]> blocks = new TreeMap<String, String[]>();
 		for (Function f : funcs) {
+			q = 0;
 			toGCC(f, blocks);
 			if (f.name.equals("step")) {
 				if (f.block.vars.length > 0) {
@@ -561,7 +594,7 @@ public class BCompiler {
 			Map<String, Integer> pos = new TreeMap<String, Integer>();
 			ArrayList<String> list = new ArrayList<String>();
 			Map<String, Integer> globals = new TreeMap<String, Integer>();
-			list.add("DUM " + (globalVars.size() + funcs.length));
+			list.add("DUM " + (globalVars.size() + funcs.length + gccFuncs.size()));
 			for (int i = 0; i < globalVars.size(); i++) {
 				list.add("LDC 0");
 			}
@@ -569,8 +602,12 @@ public class BCompiler {
 				list.add("LDF $" + funcs[i].name);
 				globals.put("@" + funcs[i].name, globalVars.size() + i);
 			}
+			for (int i = 0; i < gccFuncs.size(); i++) {
+				list.add("LDF $" + gccFuncs.get(i));
+				globals.put("@" + gccFuncs.get(i), globalVars.size() + funcs.length + i);
+			}
 			list.add("LDF " + (list.size() + 3));
-			list.add("RAP " + (globalVars.size() + funcs.length));
+			list.add("RAP " + (globalVars.size() + funcs.length + gccFuncs.size()));
 			list.add("RTN");
 			if (!run) {
 				list.add("LD 1 0");
@@ -596,7 +633,7 @@ public class BCompiler {
 				String ss = list.get(i);
 				for (String s : ss.split(" ")) {
 					if (s.equals(";")) continue;
-					if (s.startsWith("$$next")) {
+					if (s.length() > 0 && s.substring(1).contains("$next")) {
 						if (!s.endsWith("_")) {
 							pos.put(s, i + 1);
 							pos.put(s + "_", i + 1);
@@ -613,9 +650,13 @@ public class BCompiler {
 					first = false;
 					if (s.startsWith("$")) {
 						t += " " + s;
+						if (!pos.containsKey(s)) throw new RuntimeException("Unknown label: " + s);
 						s = "" + pos.get(s);
 					}
-					if (s.startsWith("@")) s = "" + globals.get(s);
+					if (s.startsWith("@")) {
+						if (!globals.containsKey(s)) throw new RuntimeException("Unknown global variable: " + s);
+						s = "" + globals.get(s);
+					}
 					System.out.print(s);
 				}
 				if (t.length() > 1) System.out.print(" " + t);
@@ -624,10 +665,6 @@ public class BCompiler {
 		} else {
 			for (Map.Entry<String, String[]> b : blocks.entrySet()) {
 				String label = b.getKey();
-				String name = b.getKey().substring(1);
-				if (numVars.containsKey(name)) {
-					label += "(" + functions.get(name).args.length + "," + numVars.get(name) + ")";
-				}
 				System.out.println(label + ":");
 				for (String s : b.getValue()) {
 					System.out.println("  " + s);
