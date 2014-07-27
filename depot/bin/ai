@@ -77,6 +77,8 @@ else
   package_id="$(ipkg archive ./sim_main)"
   echo "package ID is ${package_id}" >&2
   popd
+  # Warm cache.
+  ninecluster-run "${package_id}" -- ls -lA
   stats_args.sh "${FLAGS_lman}" >"${TMPDIR}/simulator-args"
   while read line; do
     ninecluster-run "${package_id}" -- ./sim_main $line &
