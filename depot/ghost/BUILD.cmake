@@ -5,6 +5,7 @@ cc_library(
         "//base"
         "//base:string-printf"
         "//sim:ghost-interface"
+        "//util:flags"
 )
 
 cc_library(

@@ -1,7 +1,7 @@
 #include "ghost/ghost.h"
-
 #include "sim/ghost-interface.h"
 #include "util/coordinate.h"
+#include "util/flags.h"
 
 namespace ghost {
 
