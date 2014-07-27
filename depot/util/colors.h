@@ -20,6 +20,11 @@
 #define BOLDWHITE   "\033[1m\033[37m"      /* Bold White */
 
 #define RESETCURSOR "\033[1;1H"
+#define CLEARSCREENAFTER "\033[0J"
+#define CLEARSCREENBEFORE "\033[1J"
 #define CLEARSCREEN "\033[2J"
+#define CLEARLINEAFTER "\033[0J"
+#define CLEARLINEBEFORE "\033[1J"
+#define CLEARLINE "\033[2J"
 
 #endif  // UTIL_COLORS_H_
