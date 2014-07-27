@@ -2,12 +2,12 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 
-DEFINE_int32(ghosts, 4, "");
-DEFINE_int32(powerpills, 4, "");
-DEFINE_int32(width, 22, "");
-DEFINE_int32(height, 22, "");
+DEFINE_int32(ghosts, 4, "# of ghosts");
+DEFINE_int32(powerpills, 4, "# of power pills");
+DEFINE_int32(width, 22, "width size");
+DEFINE_int32(height, 22, "height size");
 DEFINE_int32(size, 0, "This value overwrites width and height if non-zero");
-DEFINE_int32(seed, 0, "");
+DEFINE_int32(seed, 0, "random seed");
 DEFINE_string(maker, "digger", "digger,grid");
 DEFINE_string(placer, "scatter", "scatter");
 
