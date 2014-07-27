@@ -372,7 +372,7 @@ int Game::Start() {
   LOG_IF(INFO, tick_ == end_of_lives) << "Game over: " BOLDMAGENTA "End of lives" RESET;
   LOG(INFO) << "Stats: utc=" << tick_ << " lives=" << life_ << " fruites=" << fruits_eaten << " kills=" << kills;
   if (FLAGS_print_stats) {
-    printf("[%s]\tscore: %d\tutc: %d\tlives: %d\tfruites: %d\tkills: %d\n",
+    printf("stats[%s]\tscore: %d\tutc: %d\tlives: %d\tfruites: %d\tkills: %d\n",
            config.c_str(), score_, tick_, life_, fruits_eaten, kills);
   }
   return score_;
