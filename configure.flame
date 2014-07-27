@@ -1,6 +1,6 @@
 flame_link_external_library(
     NAME gflags INSTALLER configure LIBRARIES gflags
-    # URL http://imoz.jp/downloads/gflags-2.0.tar.xz
+    URL http://package.imoz.jp/downloads/gflags.tar.xz
     COMMAND
         git clone -b v2.0
         https://code.google.com/p/gflags/ "${FLAME_LIBRARY_ROOT}/gflags"
@@ -8,7 +8,7 @@ flame_link_external_library(
 
 flame_link_external_library(
     NAME gtest INSTALLER cmake LIBRARIES gtest gtest_main
-    # URL http://imoz.jp/downloads/gtest-680.tar.xz
+    URL http://package.imoz.jp/downloads/gtest.tar.xz
     COMMAND
         svn checkout http://googletest.googlecode.com/svn/trunk@680
         ${FLAME_LIBRARY_ROOT}/gtest
@@ -23,7 +23,7 @@ flame_link_external_library(
 
 flame_link_external_library(
     NAME glog INSTALLER configure LIBRARIES glog
-    # URL http://imoz.jp/downloads/glog-142.tar.xz
+    URL http://package.imoz.jp/downloads/glog.tar.xz
     COMMAND
         svn checkout http://google-glog.googlecode.com/svn/trunk/@142
         ${FLAME_LIBRARY_ROOT}/glog
@@ -33,7 +33,7 @@ flame_link_external_library(
 
 flame_link_external_library(
     NAME gmock INSTALLER cmake LIBRARIES gmock
-    # URL http://imoz.jp/downloads/gmock-470.tar.xz
+    URL http://package.imoz.jp/downloads/gmock.tar.xz
     COMMAND
         svn checkout http://googlemock.googlecode.com/svn/trunk/@470
         ${FLAME_LIBRARY_ROOT}/gmock
