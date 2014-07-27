@@ -75,6 +75,11 @@ void Ghost::INT7() {
   }
 }
 
+void Ghost::INT8() {
+  printf("trace ghost%d: %d %d %d %d %d %d %d %d %d\n",
+         GetIndex(), register_pc_, register_a_, register_b_, register_c_,
+         register_d_, register_e_, register_f_, register_g_, register_h_);
+}
 
 void Ghost::ReturnCoordinate(const Coordinate& coordinate) {
   if (CoordinateUtil::IsNull(coordinate)) {

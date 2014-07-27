@@ -258,13 +258,7 @@ class Ghost : public ::GhostInterface {
   // debug/trace agent.
   //
   // INPUT: all registers
-  void INT8() {
-    printf("Registers: A (%d), B (%d), C (%d), D(%d), E(%d), F(%d), G(%d), "
-           "H(%d), PC(%d)\n",
-           register_a_, register_b_, register_c_, register_d_, register_e_,
-           register_f_, register_g_, register_h_, register_pc_);
-    printf("Current tick: %d\n", tick_);
-  }
+  void INT8();
 
  protected:
   void ReturnCoordinate(const Coordinate& coordinate);
