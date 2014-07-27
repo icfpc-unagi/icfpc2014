@@ -256,7 +256,7 @@ int Game::Start() {
           ghosts_[i]->SetVitality(0 /* standard */);
         }
         if (FLAGS_spec_one_more_fright_cycle) {
-          spec_one_more_fright_cycle.assign(ghosts_.size(), true);
+          spec_ghosts_one_more_fright.assign(ghosts_.size(), true);
         }
       }
     }
