@@ -2,6 +2,20 @@
 
 #include "sbl/array256.h"
 
+P create_array256_rec(int n) {
+  P a;
+  if (n == 1) {
+    a = top(0);
+  } else {
+    a = P(create_array256_rec(n / 2), create_array256_rec(n / 2));
+  }
+  return a;
+}
+
+P create_array256() {
+  return create_array256_rec(256);
+}
+
 P list_to_array256_rec(P t, int size) {
   P tmp;
   if (atom(t)) {
@@ -37,20 +51,6 @@ P set_array256(P t, int i, P v) {
   return set_array256_rec(t, i, v, 128);
 }
 
-P create_array256_rec(int n) {
-  P a;
-  if (n == 1) {
-    a = top(0);
-  } else {
-    a = P(create_array256_rec(n / 2), create_array256_rec(n / 2));
-  }
-  return a;
-}
-
-P create_array256() {
-  return create_array256_rec(256);
-}
-
 P create_array2d256_rec(int n) {
   P t;
   if (n == 1) {
@@ -63,6 +63,20 @@ P create_array2d256_rec(int n) {
 
 P create_array2d256() {
   return create_array2d256_rec(256);
+}
+
+P list2d_to_array2d256_rec(P l) {
+  P t;
+  if (atom(l)) {
+    t = top(0);
+  } else {
+    t = P(list_to_array256(fst(l)), list2d_to_array2d256_rec(snd(l)));
+  }
+  return t;
+}
+
+P list2d_to_array2d256(P l) {
+  return list_to_array256(list2d_to_array2d256_rec(l));
 }
 
 int set_array2d256_rec_j;
