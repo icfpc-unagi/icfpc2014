@@ -215,7 +215,6 @@ int Game::Start() {
       } else {
         LOG(WARNING) << "Lambda-Man hit a wall ('A`)";
       }
-      utc_lman_next_move += eating ? 137 : 127;
       eating = false;  // Reset eating state
       state_changed = true;
     }
@@ -270,10 +269,9 @@ int Game::Start() {
         } else {
           // surrounded on all four sides by walls
         }
-        utc_ghosts_next_moves[i] += (65 + i) * (vitality_ == 0 ? 2 : 3);
         if (FLAGS_print_ghost_move) {
-	  state_changed = true;
-	}
+	      state_changed = true;
+        }
       }
     }
 
@@ -352,6 +350,16 @@ int Game::Start() {
           VLOG(2) << kGhostPoints[ghost_eaten] << "pt by eating ghost" << i;
           if (ghost_eaten < 3) ghost_eaten++;
         }
+      }
+    }
+    
+    // *** 4.5. fixing next duration
+    if (utc_lman_next_move <= tick_) {
+      utc_lman_next_move += eating ? 137 : 127;
+    }
+    for (int i = 0; i < ghosts_.size(); ++i) {
+      if (utc_ghosts_next_moves[i] <= tick_) {
+        utc_ghosts_next_moves[i] += (65 + i % 4) * (vitality_ == 0 ? 2 : 3);
       }
     }
 
