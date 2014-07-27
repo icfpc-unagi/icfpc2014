@@ -13,6 +13,7 @@ DEFINE_int32(print_for_test, 0, "Print information for testing.");
 DEFINE_bool(print_ghost_move, false, "");
 DEFINE_int32(max_print_height, 40, "");
 DEFINE_int32(max_print_width, 80, "");
+DEFINE_bool(spec_call_redundant_ghost_step, true, "");
 
 constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
                                   1000, 1000, 2000, 2000, 3000, 3000, 5000};
@@ -235,8 +236,10 @@ int Game::Start() {
             oneway = way;
           }
         }
+        int d;
+        if (FLAGS_spec_call_redundant_ghost_step) d = ghosts_[i]->Step();
         if (ways >= 2) {  // has options
-          int d = ghosts_[i]->Step();
+          if (!FLAGS_spec_call_redundant_ghost_step) d = ghosts_[i]->Step();
           bool moved = false;
           if (d < 0 || 4 <= d) {
             LOG(WARNING) << "Ghost[" << i << "] returned invalid direction";
