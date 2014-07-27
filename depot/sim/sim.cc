@@ -189,7 +189,7 @@ int Game::Start() {
           }
           for (int i = 0; i < ghosts_.size(); ++i) {
             if (ghosts_[i]->GetRC() == rc) {
-              symbol = '=';
+              symbol = FLAGS_print_color ? '=' : '0' + i;
               static const char* kGhostColors[] = {BOLDRED, BOLDMAGENTA, BOLDCYAN, BOLDGREEN};
               color = vitality_ > 0 ? BOLDBLUE : kGhostColors[i % 4];
               break;
