@@ -9,6 +9,36 @@ cc_library(
 )
 
 cc_library(
+    NAME "chokudai-12"
+    SOURCES "chokudai-12.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
+    NAME "chokudai-13"
+    SOURCES "chokudai-13.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
+    NAME "chokudai-14"
+    SOURCES "chokudai-14.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
     NAME "chokudai-4"
     SOURCES "chokudai-4.cc"
     DEPENDENCIES
@@ -39,8 +69,58 @@ cc_library(
 )
 
 cc_library(
+    NAME "orz"
+    SOURCES "orz.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
+    NAME "piyo"
+    SOURCES "piyo.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
     NAME "rounding"
     SOURCES "rounding.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
+    NAME "tos-hungry"
+    SOURCES "tos-hungry.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
+    NAME "tos-sokushi-kaihi"
+    SOURCES "tos-sokushi-kaihi.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
+    NAME "tos-yowaki"
+    SOURCES "tos-yowaki.cc"
     DEPENDENCIES
         "//base"
         "//lman:lambda-man"
@@ -53,8 +133,16 @@ cc_library(
     SOURCES "ai.cc"
     DEPENDENCIES
         ":chokudai-10"
+        ":chokudai-12"
+        ":chokudai-13"
+        ":chokudai-14"
         ":chokudai-4"
         ":chokudai-8"
         ":migi"
+        ":orz"
+        ":piyo"
         ":rounding"
+        ":tos-hungry"
+        ":tos-sokushi-kaihi"
+        ":tos-yowaki"
 )
