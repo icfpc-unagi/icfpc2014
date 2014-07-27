@@ -25,14 +25,14 @@ PRESET_MAZE=(
 	'rect-20x40'
 	'rect-80x20'
 )
-LMAN=$1
-[ -z "${LMAN}" ] && echo "Usage: $0 <lman_name>" && exit 1
+[ -z "$1" ] && echo "Usage: $0 <lman_name>" && exit 1
+lman="$1"
 
 Arg() {
 	echo "-silent -noprint_state -print_stats -lman='$1' -ghosts='$2' -maze='$3'"
 }
 
-for maze in ${PRESET_MAZE[@]}
+for maze in ${PRESET_MAZE[@]}; do
 	for ghosts in ${PRESET_GHOSTS[@]}; do
 		Arg ${lman} ${ghosts} ${maze}
 	done
