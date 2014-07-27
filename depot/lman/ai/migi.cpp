@@ -5,5 +5,5 @@ P init(P game, P nazo) {
 }
 
 P step(P ai, P game) {
-  return P(0, 1)
+  return P(0, 1);
 }
