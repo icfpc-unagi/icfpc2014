@@ -8,8 +8,9 @@ DEFINE_int32(width, 22, "width size");
 DEFINE_int32(height, 22, "height size");
 DEFINE_int32(size, 0, "This value overwrites width and height if non-zero");
 DEFINE_int32(seed, 0, "random seed");
-DEFINE_string(maker, "digger", "digger,grid,arena");
+DEFINE_string(maker, "digger", "digger,grid,grid2,arena");
 DEFINE_string(placer, "scatter", "scatter");
+DEFINE_double(grid2_density, 0.2, "[0,1]");
 
 using namespace std;
 
@@ -134,6 +135,50 @@ public:
 	}
 };
 
+class GridMaker2 : public Maker {
+public:
+	GridMaker2(int height, int width) : Maker(height, width) {
+		LOG_IF(WARNING, height % 2 == 0 || width % 2 == 0) << "Odd height/width recommended";
+	}
+	vector<string> Gen() {
+		int a = (height() - 1) / 2;
+		int b = (width() - 1) / 2;
+		vector<int> u(a * b, -1);
+		for (int i = 0; i < a; ++i) {
+			for (int j = 0; j < b; ++j) {
+				data[i * 2 + 1][j * 2 + 1] = '.';
+			}
+		}
+		while (u[0] != -u.size()) {
+			int i = rand() % u.size();
+			int d = rand() % 2;
+			int r = i / b;
+			int c = i % b;
+			int j = d == 0 ? i + 1 : i + b;
+			if ((r == a - 1 && d == 1) || (c == b - 1 && d == 0)) continue;
+			vector<int> s;
+			while (u[i] >= 0) {
+				s.push_back(i);
+				i = u[i];
+			}
+			while (u[j] >= 0) {
+				s.push_back(j);
+				j = u[j];
+			}
+			if (i != j) {
+				if (i > j) swap(i, j);
+				u[i] += u[j];
+				u[j] = i;
+			} else if (static_cast<double>(rand()) / RAND_MAX > FLAGS_grid2_density) {
+				continue;
+			}
+			for (int t : s) u[t] = i;
+			data[r * 2 + 1 + d][c * 2 + 2 - d] = '.';
+		}
+		return data;
+	}
+};
+
 class ScatteringPlacer : public Placer {
 public:
 	bool Place(int ghosts, int powerpills, vector<string>* data) {
@@ -182,6 +227,8 @@ int main(int argc, char** argv) {
   	maker.reset(new GridMaker(height, width));
   } else if (FLAGS_maker == "arena") {
   	maker.reset(new ArenaMaker(height, width));
+  } else if (FLAGS_maker == "grid2") {
+  	maker.reset(new GridMaker2(height, width));
   } else {
   	LOG(FATAL) << "Specify --maker";
   }
