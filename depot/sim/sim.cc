@@ -9,6 +9,7 @@
 
 DEFINE_bool(print_state, true, "");
 DEFINE_bool(print_color, true, "");
+DEFINE_bool(print_ghost_move, false, "");
 DEFINE_int32(max_print_height, 40, "");
 DEFINE_int32(max_print_width, 80, "");
 
@@ -221,6 +222,9 @@ int Game::Start() {
           // surrounded on all four sides by walls
         }
         utc_ghosts_next_moves[i] += (65 + i) * (vitality_ == 0 ? 2 : 3);
+        if (FLAGS_print_ghost_move) {
+	  state_changed = true;
+	}
       }
     }
 
