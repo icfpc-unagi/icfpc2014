@@ -141,7 +141,6 @@ int Game::Start() {
             if (ghosts_[i]->GetRC() == rc) {
               static const char kGhostChars[] = {'7', '8', '9', 'a', 'b'};
               symbol = kGhostChars[i % 5];
-              break;
             }
           }
           switch (symbol) {
