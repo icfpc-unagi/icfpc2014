@@ -16,6 +16,7 @@ PRESET_MAZE=(
 	'world-classic'
 	'world-1'
 	'world-2'
+	'arena-20'
 	'test-32'
 	'test-50'
 	'test-70'
