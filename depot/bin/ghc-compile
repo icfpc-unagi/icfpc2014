@@ -55,7 +55,7 @@ function OutputCommand($lineno, $original, $command) {
     $function = strtoupper(array_shift($args));
     echo "pc" . sprintf('%03d', $pc) . ": if (Tick()) return;\n";
     echo "    register_pc_ = $pc;\n";
-    echo '    VLOG(1) << "' . addslashes($original) . '"' . ";\n";
+    echo '    VLOG(3) << "' . addslashes($original) . '"' . ";\n";
     $goto = NULL;
     $suffix = NULL;
     $id = NULL;
