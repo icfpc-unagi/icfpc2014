@@ -17,6 +17,8 @@ PRESET_MAZE=(
 	'world-1'
 	'world-2'
 	'arena-20'
+	'arena-50'
+	'arena-70'
 	'test-32'
 	'test-50'
 	'test-70'
