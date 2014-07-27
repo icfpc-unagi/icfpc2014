@@ -25,6 +25,28 @@ void test_array(int n) {
   }
 }
 
+void test_array2(int n) {
+  P a;
+  int i;
+
+  a = create_array<%=n%>();
+  debug(a);
+
+  i = 0;
+  while (i < n) {
+    a = set_array<%=n%>(a, i, (i + 1) * 10000);
+    i += 1;
+  }
+  debug(a);
+
+  i = 0;
+  while (i < n) {
+    debug(get_array<%=n%>(a, i));
+    i += 1;
+  }
+}
+
 void run() {
   test_array(<%=n%>);
+  test_array2(<%=n%>);
 }

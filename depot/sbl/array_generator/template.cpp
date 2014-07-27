@@ -37,4 +37,16 @@ P set_array<%=n%>(P t, int i, P v) {
   return set_array<%=n%>_rec(t, i, v, <%=n/2%>);
 }
 
+P create_array_rec(int n) {
+  if (n == 1) {
+    return top(0);
+  } else {
+    return P(create_array_rec(n / 2), create_array_rec(n / 2));
+  }
+}
+
+P create_array<%=n%>() {
+  return create_array_rec(<%=n%>);
+}
+
 #endif  // SBL_SBL_H_
