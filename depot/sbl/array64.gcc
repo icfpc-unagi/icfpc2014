@@ -1,0 +1,4660 @@
+$get_array64:
+  LD 0 0
+  LDC 32
+  LD 0 1
+  CGT
+  TSEL $get_array64$_0_32 $get_array64$_32_64
+$get_array64$_0_32:
+  CAR
+  LDC 16
+  LD 0 1
+  CGT
+  TSEL $get_array64$_0_16 $get_array64$_16_32
+$get_array64$_0_16:
+  CAR
+  LDC 8
+  LD 0 1
+  CGT
+  TSEL $get_array64$_0_8 $get_array64$_8_16
+$get_array64$_0_8:
+  CAR
+  LDC 4
+  LD 0 1
+  CGT
+  TSEL $get_array64$_0_4 $get_array64$_4_8
+$get_array64$_0_4:
+  CAR
+  LDC 2
+  LD 0 1
+  CGT
+  TSEL $get_array64$_0_2 $get_array64$_2_4
+$get_array64$_0_2:
+  CAR
+  LDC 1
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_2_4:
+  CDR
+  LDC 3
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_4_8:
+  CDR
+  LDC 6
+  LD 0 1
+  CGT
+  TSEL $get_array64$_4_6 $get_array64$_6_8
+$get_array64$_4_6:
+  CAR
+  LDC 5
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_6_8:
+  CDR
+  LDC 7
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_8_16:
+  CDR
+  LDC 12
+  LD 0 1
+  CGT
+  TSEL $get_array64$_8_12 $get_array64$_12_16
+$get_array64$_8_12:
+  CAR
+  LDC 10
+  LD 0 1
+  CGT
+  TSEL $get_array64$_8_10 $get_array64$_10_12
+$get_array64$_8_10:
+  CAR
+  LDC 9
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_10_12:
+  CDR
+  LDC 11
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_12_16:
+  CDR
+  LDC 14
+  LD 0 1
+  CGT
+  TSEL $get_array64$_12_14 $get_array64$_14_16
+$get_array64$_12_14:
+  CAR
+  LDC 13
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_14_16:
+  CDR
+  LDC 15
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_16_32:
+  CDR
+  LDC 24
+  LD 0 1
+  CGT
+  TSEL $get_array64$_16_24 $get_array64$_24_32
+$get_array64$_16_24:
+  CAR
+  LDC 20
+  LD 0 1
+  CGT
+  TSEL $get_array64$_16_20 $get_array64$_20_24
+$get_array64$_16_20:
+  CAR
+  LDC 18
+  LD 0 1
+  CGT
+  TSEL $get_array64$_16_18 $get_array64$_18_20
+$get_array64$_16_18:
+  CAR
+  LDC 17
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_18_20:
+  CDR
+  LDC 19
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_20_24:
+  CDR
+  LDC 22
+  LD 0 1
+  CGT
+  TSEL $get_array64$_20_22 $get_array64$_22_24
+$get_array64$_20_22:
+  CAR
+  LDC 21
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_22_24:
+  CDR
+  LDC 23
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_24_32:
+  CDR
+  LDC 28
+  LD 0 1
+  CGT
+  TSEL $get_array64$_24_28 $get_array64$_28_32
+$get_array64$_24_28:
+  CAR
+  LDC 26
+  LD 0 1
+  CGT
+  TSEL $get_array64$_24_26 $get_array64$_26_28
+$get_array64$_24_26:
+  CAR
+  LDC 25
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_26_28:
+  CDR
+  LDC 27
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_28_32:
+  CDR
+  LDC 30
+  LD 0 1
+  CGT
+  TSEL $get_array64$_28_30 $get_array64$_30_32
+$get_array64$_28_30:
+  CAR
+  LDC 29
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_30_32:
+  CDR
+  LDC 31
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_32_64:
+  CDR
+  LDC 48
+  LD 0 1
+  CGT
+  TSEL $get_array64$_32_48 $get_array64$_48_64
+$get_array64$_32_48:
+  CAR
+  LDC 40
+  LD 0 1
+  CGT
+  TSEL $get_array64$_32_40 $get_array64$_40_48
+$get_array64$_32_40:
+  CAR
+  LDC 36
+  LD 0 1
+  CGT
+  TSEL $get_array64$_32_36 $get_array64$_36_40
+$get_array64$_32_36:
+  CAR
+  LDC 34
+  LD 0 1
+  CGT
+  TSEL $get_array64$_32_34 $get_array64$_34_36
+$get_array64$_32_34:
+  CAR
+  LDC 33
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_34_36:
+  CDR
+  LDC 35
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_36_40:
+  CDR
+  LDC 38
+  LD 0 1
+  CGT
+  TSEL $get_array64$_36_38 $get_array64$_38_40
+$get_array64$_36_38:
+  CAR
+  LDC 37
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_38_40:
+  CDR
+  LDC 39
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_40_48:
+  CDR
+  LDC 44
+  LD 0 1
+  CGT
+  TSEL $get_array64$_40_44 $get_array64$_44_48
+$get_array64$_40_44:
+  CAR
+  LDC 42
+  LD 0 1
+  CGT
+  TSEL $get_array64$_40_42 $get_array64$_42_44
+$get_array64$_40_42:
+  CAR
+  LDC 41
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_42_44:
+  CDR
+  LDC 43
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_44_48:
+  CDR
+  LDC 46
+  LD 0 1
+  CGT
+  TSEL $get_array64$_44_46 $get_array64$_46_48
+$get_array64$_44_46:
+  CAR
+  LDC 45
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_46_48:
+  CDR
+  LDC 47
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_48_64:
+  CDR
+  LDC 56
+  LD 0 1
+  CGT
+  TSEL $get_array64$_48_56 $get_array64$_56_64
+$get_array64$_48_56:
+  CAR
+  LDC 52
+  LD 0 1
+  CGT
+  TSEL $get_array64$_48_52 $get_array64$_52_56
+$get_array64$_48_52:
+  CAR
+  LDC 50
+  LD 0 1
+  CGT
+  TSEL $get_array64$_48_50 $get_array64$_50_52
+$get_array64$_48_50:
+  CAR
+  LDC 49
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_50_52:
+  CDR
+  LDC 51
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_52_56:
+  CDR
+  LDC 54
+  LD 0 1
+  CGT
+  TSEL $get_array64$_52_54 $get_array64$_54_56
+$get_array64$_52_54:
+  CAR
+  LDC 53
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_54_56:
+  CDR
+  LDC 55
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_56_64:
+  CDR
+  LDC 60
+  LD 0 1
+  CGT
+  TSEL $get_array64$_56_60 $get_array64$_60_64
+$get_array64$_56_60:
+  CAR
+  LDC 58
+  LD 0 1
+  CGT
+  TSEL $get_array64$_56_58 $get_array64$_58_60
+$get_array64$_56_58:
+  CAR
+  LDC 57
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_58_60:
+  CDR
+  LDC 59
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_60_64:
+  CDR
+  LDC 62
+  LD 0 1
+  CGT
+  TSEL $get_array64$_60_62 $get_array64$_62_64
+$get_array64$_60_62:
+  CAR
+  LDC 61
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_62_64:
+  CDR
+  LDC 63
+  LD 0 1
+  CGT
+  TSEL $get_array64$_end_car $get_array64$_end_cdr
+$get_array64$_end_car:
+  CAR
+  RTN
+$get_array64$_end_cdr:
+  CDR
+  RTN
+$set_array64:
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDF $set_array64$_0_64
+  AP 6
+  RTN
+$set_array64$_0_64:
+  LD 1 0
+  LDC 32
+  LD 1 1
+  CGT
+  TSEL $set_array64$_0_32 $set_array64$_32_64
+$set_array64$_0_32:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 0
+  LD 1 0
+  CAR
+  LDC 16
+  LD 1 1
+  CGT
+  TSEL $set_array64$_0_16 $set_array64$_16_32
+$set_array64$_0_16:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 1
+  LD 1 0
+  CAR
+  LDC 8
+  LD 1 1
+  CGT
+  TSEL $set_array64$_0_8 $set_array64$_8_16
+$set_array64$_0_8:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 4
+  LD 1 1
+  CGT
+  TSEL $set_array64$_0_4 $set_array64$_4_8
+$set_array64$_0_4:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 2
+  LD 1 1
+  CGT
+  TSEL $set_array64$_0_2 $set_array64$_2_4
+$set_array64$_0_2:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 1
+  LD 1 1
+  CGT
+  TSEL $set_array64$_0_1 $set_array64$_1_2
+$set_array64$_0_1:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_1_2:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_2_4:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 3
+  LD 1 1
+  CGT
+  TSEL $set_array64$_2_3 $set_array64$_3_4
+$set_array64$_2_3:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_3_4:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_4_8:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 6
+  LD 1 1
+  CGT
+  TSEL $set_array64$_4_6 $set_array64$_6_8
+$set_array64$_4_6:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 5
+  LD 1 1
+  CGT
+  TSEL $set_array64$_4_5 $set_array64$_5_6
+$set_array64$_4_5:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 3
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_5_6:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 3
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_6_8:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 7
+  LD 1 1
+  CGT
+  TSEL $set_array64$_6_7 $set_array64$_7_8
+$set_array64$_6_7:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_7_8:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_8_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 12
+  LD 1 1
+  CGT
+  TSEL $set_array64$_8_12 $set_array64$_12_16
+$set_array64$_8_12:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 10
+  LD 1 1
+  CGT
+  TSEL $set_array64$_8_10 $set_array64$_10_12
+$set_array64$_8_10:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 9
+  LD 1 1
+  CGT
+  TSEL $set_array64$_8_9 $set_array64$_9_10
+$set_array64$_8_9:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 2
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_9_10:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 2
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_10_12:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 11
+  LD 1 1
+  CGT
+  TSEL $set_array64$_10_11 $set_array64$_11_12
+$set_array64$_10_11:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 2
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_11_12:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 2
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_12_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 14
+  LD 1 1
+  CGT
+  TSEL $set_array64$_12_14 $set_array64$_14_16
+$set_array64$_12_14:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 13
+  LD 1 1
+  CGT
+  TSEL $set_array64$_12_13 $set_array64$_13_14
+$set_array64$_12_13:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 2
+  LD 0 3
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_13_14:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 2
+  LD 0 3
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_14_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 15
+  LD 1 1
+  CGT
+  TSEL $set_array64$_14_15 $set_array64$_15_16
+$set_array64$_14_15:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_15_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_16_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 1
+  LD 1 0
+  CDR
+  LDC 24
+  LD 1 1
+  CGT
+  TSEL $set_array64$_16_24 $set_array64$_24_32
+$set_array64$_16_24:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 20
+  LD 1 1
+  CGT
+  TSEL $set_array64$_16_20 $set_array64$_20_24
+$set_array64$_16_20:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 18
+  LD 1 1
+  CGT
+  TSEL $set_array64$_16_18 $set_array64$_18_20
+$set_array64$_16_18:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 17
+  LD 1 1
+  CGT
+  TSEL $set_array64$_16_17 $set_array64$_17_18
+$set_array64$_16_17:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 1
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_17_18:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 1
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_18_20:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 19
+  LD 1 1
+  CGT
+  TSEL $set_array64$_18_19 $set_array64$_19_20
+$set_array64$_18_19:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 1
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_19_20:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 1
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_20_24:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 22
+  LD 1 1
+  CGT
+  TSEL $set_array64$_20_22 $set_array64$_22_24
+$set_array64$_20_22:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 21
+  LD 1 1
+  CGT
+  TSEL $set_array64$_20_21 $set_array64$_21_22
+$set_array64$_20_21:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 1
+  LD 0 3
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_21_22:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 1
+  LD 0 3
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_22_24:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 23
+  LD 1 1
+  CGT
+  TSEL $set_array64$_22_23 $set_array64$_23_24
+$set_array64$_22_23:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 1
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_23_24:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 1
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_24_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 28
+  LD 1 1
+  CGT
+  TSEL $set_array64$_24_28 $set_array64$_28_32
+$set_array64$_24_28:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 26
+  LD 1 1
+  CGT
+  TSEL $set_array64$_24_26 $set_array64$_26_28
+$set_array64$_24_26:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 25
+  LD 1 1
+  CGT
+  TSEL $set_array64$_24_25 $set_array64$_25_26
+$set_array64$_24_25:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 1
+  LD 0 2
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_25_26:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 1
+  LD 0 2
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_26_28:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 27
+  LD 1 1
+  CGT
+  TSEL $set_array64$_26_27 $set_array64$_27_28
+$set_array64$_26_27:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 1
+  LD 0 2
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_27_28:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 1
+  LD 0 2
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_28_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 30
+  LD 1 1
+  CGT
+  TSEL $set_array64$_28_30 $set_array64$_30_32
+$set_array64$_28_30:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 29
+  LD 1 1
+  CGT
+  TSEL $set_array64$_28_29 $set_array64$_29_30
+$set_array64$_28_29:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_29_30:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_30_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 31
+  LD 1 1
+  CGT
+  TSEL $set_array64$_30_31 $set_array64$_31_32
+$set_array64$_30_31:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_31_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array64$_32_64:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 0
+  LD 1 0
+  CDR
+  LDC 48
+  LD 1 1
+  CGT
+  TSEL $set_array64$_32_48 $set_array64$_48_64
+$set_array64$_32_48:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 1
+  LD 1 0
+  CAR
+  LDC 40
+  LD 1 1
+  CGT
+  TSEL $set_array64$_32_40 $set_array64$_40_48
+$set_array64$_32_40:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 36
+  LD 1 1
+  CGT
+  TSEL $set_array64$_32_36 $set_array64$_36_40
+$set_array64$_32_36:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 34
+  LD 1 1
+  CGT
+  TSEL $set_array64$_32_34 $set_array64$_34_36
+$set_array64$_32_34:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 33
+  LD 1 1
+  CGT
+  TSEL $set_array64$_32_33 $set_array64$_33_34
+$set_array64$_32_33:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_33_34:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_34_36:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 35
+  LD 1 1
+  CGT
+  TSEL $set_array64$_34_35 $set_array64$_35_36
+$set_array64$_34_35:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_35_36:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_36_40:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 38
+  LD 1 1
+  CGT
+  TSEL $set_array64$_36_38 $set_array64$_38_40
+$set_array64$_36_38:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 37
+  LD 1 1
+  CGT
+  TSEL $set_array64$_36_37 $set_array64$_37_38
+$set_array64$_36_37:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 3
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_37_38:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 3
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_38_40:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 39
+  LD 1 1
+  CGT
+  TSEL $set_array64$_38_39 $set_array64$_39_40
+$set_array64$_38_39:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_39_40:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_40_48:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 44
+  LD 1 1
+  CGT
+  TSEL $set_array64$_40_44 $set_array64$_44_48
+$set_array64$_40_44:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 42
+  LD 1 1
+  CGT
+  TSEL $set_array64$_40_42 $set_array64$_42_44
+$set_array64$_40_42:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 41
+  LD 1 1
+  CGT
+  TSEL $set_array64$_40_41 $set_array64$_41_42
+$set_array64$_40_41:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 2
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_41_42:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 2
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_42_44:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 43
+  LD 1 1
+  CGT
+  TSEL $set_array64$_42_43 $set_array64$_43_44
+$set_array64$_42_43:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 2
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_43_44:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 2
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_44_48:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 46
+  LD 1 1
+  CGT
+  TSEL $set_array64$_44_46 $set_array64$_46_48
+$set_array64$_44_46:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 45
+  LD 1 1
+  CGT
+  TSEL $set_array64$_44_45 $set_array64$_45_46
+$set_array64$_44_45:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 2
+  LD 0 3
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_45_46:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 2
+  LD 0 3
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_46_48:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 47
+  LD 1 1
+  CGT
+  TSEL $set_array64$_46_47 $set_array64$_47_48
+$set_array64$_46_47:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_47_48:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array64$_48_64:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 1
+  LD 1 0
+  CDR
+  LDC 56
+  LD 1 1
+  CGT
+  TSEL $set_array64$_48_56 $set_array64$_56_64
+$set_array64$_48_56:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 52
+  LD 1 1
+  CGT
+  TSEL $set_array64$_48_52 $set_array64$_52_56
+$set_array64$_48_52:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 50
+  LD 1 1
+  CGT
+  TSEL $set_array64$_48_50 $set_array64$_50_52
+$set_array64$_48_50:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 49
+  LD 1 1
+  CGT
+  TSEL $set_array64$_48_49 $set_array64$_49_50
+$set_array64$_48_49:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_49_50:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_50_52:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 51
+  LD 1 1
+  CGT
+  TSEL $set_array64$_50_51 $set_array64$_51_52
+$set_array64$_50_51:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_51_52:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_52_56:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 54
+  LD 1 1
+  CGT
+  TSEL $set_array64$_52_54 $set_array64$_54_56
+$set_array64$_52_54:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 53
+  LD 1 1
+  CGT
+  TSEL $set_array64$_52_53 $set_array64$_53_54
+$set_array64$_52_53:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 3
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_53_54:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 3
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_54_56:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 55
+  LD 1 1
+  CGT
+  TSEL $set_array64$_54_55 $set_array64$_55_56
+$set_array64$_54_55:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_55_56:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_56_64:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 60
+  LD 1 1
+  CGT
+  TSEL $set_array64$_56_60 $set_array64$_60_64
+$set_array64$_56_60:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 58
+  LD 1 1
+  CGT
+  TSEL $set_array64$_56_58 $set_array64$_58_60
+$set_array64$_56_58:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 57
+  LD 1 1
+  CGT
+  TSEL $set_array64$_56_57 $set_array64$_57_58
+$set_array64$_56_57:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_57_58:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_58_60:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 59
+  LD 1 1
+  CGT
+  TSEL $set_array64$_58_59 $set_array64$_59_60
+$set_array64$_58_59:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_59_60:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_60_64:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 62
+  LD 1 1
+  CGT
+  TSEL $set_array64$_60_62 $set_array64$_62_64
+$set_array64$_60_62:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 61
+  LD 1 1
+  CGT
+  TSEL $set_array64$_60_61 $set_array64$_61_62
+$set_array64$_60_61:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 1 2
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_61_62:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 5
+  LD 1 2
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_62_64:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 63
+  LD 1 1
+  CGT
+  TSEL $set_array64$_62_63 $set_array64$_63_64
+$set_array64$_62_63:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array64$_63_64:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 2
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64:
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDF $set_array2d64$_0_64
+  AP 6
+  RTN
+$set_array2d64$_0_64:
+  LD 1 0
+  LDC 32
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_0_32 $set_array2d64$_32_64
+$set_array2d64$_0_32:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 0
+  LD 1 0
+  CAR
+  LDC 16
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_0_16 $set_array2d64$_16_32
+$set_array2d64$_0_16:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 1
+  LD 1 0
+  CAR
+  LDC 8
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_0_8 $set_array2d64$_8_16
+$set_array2d64$_0_8:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 4
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_0_4 $set_array2d64$_4_8
+$set_array2d64$_0_4:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 2
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_0_2 $set_array2d64$_2_4
+$set_array2d64$_0_2:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 1
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_0_1 $set_array2d64$_1_2
+$set_array2d64$_0_1:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_1_2:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_2_4:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 3
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_2_3 $set_array2d64$_3_4
+$set_array2d64$_2_3:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_3_4:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_4_8:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 6
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_4_6 $set_array2d64$_6_8
+$set_array2d64$_4_6:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 5
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_4_5 $set_array2d64$_5_6
+$set_array2d64$_4_5:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 3
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_5_6:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 3
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_6_8:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 7
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_6_7 $set_array2d64$_7_8
+$set_array2d64$_6_7:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_7_8:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_8_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 12
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_8_12 $set_array2d64$_12_16
+$set_array2d64$_8_12:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 10
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_8_10 $set_array2d64$_10_12
+$set_array2d64$_8_10:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 9
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_8_9 $set_array2d64$_9_10
+$set_array2d64$_8_9:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 2
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_9_10:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 2
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_10_12:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 11
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_10_11 $set_array2d64$_11_12
+$set_array2d64$_10_11:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 2
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_11_12:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 2
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_12_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 14
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_12_14 $set_array2d64$_14_16
+$set_array2d64$_12_14:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 13
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_12_13 $set_array2d64$_13_14
+$set_array2d64$_12_13:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 2
+  LD 0 3
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_13_14:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 2
+  LD 0 3
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_14_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 15
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_14_15 $set_array2d64$_15_16
+$set_array2d64$_14_15:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_15_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_16_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 1
+  LD 1 0
+  CDR
+  LDC 24
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_16_24 $set_array2d64$_24_32
+$set_array2d64$_16_24:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 20
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_16_20 $set_array2d64$_20_24
+$set_array2d64$_16_20:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 18
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_16_18 $set_array2d64$_18_20
+$set_array2d64$_16_18:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 17
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_16_17 $set_array2d64$_17_18
+$set_array2d64$_16_17:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_17_18:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_18_20:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 19
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_18_19 $set_array2d64$_19_20
+$set_array2d64$_18_19:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_19_20:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_20_24:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 22
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_20_22 $set_array2d64$_22_24
+$set_array2d64$_20_22:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 21
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_20_21 $set_array2d64$_21_22
+$set_array2d64$_20_21:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 3
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_21_22:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 3
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_22_24:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 23
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_22_23 $set_array2d64$_23_24
+$set_array2d64$_22_23:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_23_24:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_24_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 28
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_24_28 $set_array2d64$_28_32
+$set_array2d64$_24_28:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 26
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_24_26 $set_array2d64$_26_28
+$set_array2d64$_24_26:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 25
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_24_25 $set_array2d64$_25_26
+$set_array2d64$_24_25:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 2
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_25_26:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 2
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_26_28:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 27
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_26_27 $set_array2d64$_27_28
+$set_array2d64$_26_27:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 2
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_27_28:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 2
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_28_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 30
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_28_30 $set_array2d64$_30_32
+$set_array2d64$_28_30:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 29
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_28_29 $set_array2d64$_29_30
+$set_array2d64$_28_29:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_29_30:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_30_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 31
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_30_31 $set_array2d64$_31_32
+$set_array2d64$_30_31:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_31_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d64$_32_64:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 0
+  LD 1 0
+  CDR
+  LDC 48
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_32_48 $set_array2d64$_48_64
+$set_array2d64$_32_48:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 1
+  LD 1 0
+  CAR
+  LDC 40
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_32_40 $set_array2d64$_40_48
+$set_array2d64$_32_40:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 36
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_32_36 $set_array2d64$_36_40
+$set_array2d64$_32_36:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 34
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_32_34 $set_array2d64$_34_36
+$set_array2d64$_32_34:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 33
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_32_33 $set_array2d64$_33_34
+$set_array2d64$_32_33:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_33_34:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_34_36:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 35
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_34_35 $set_array2d64$_35_36
+$set_array2d64$_34_35:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_35_36:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_36_40:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 38
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_36_38 $set_array2d64$_38_40
+$set_array2d64$_36_38:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 37
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_36_37 $set_array2d64$_37_38
+$set_array2d64$_36_37:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 3
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_37_38:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 3
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_38_40:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 39
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_38_39 $set_array2d64$_39_40
+$set_array2d64$_38_39:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_39_40:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_40_48:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 44
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_40_44 $set_array2d64$_44_48
+$set_array2d64$_40_44:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 42
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_40_42 $set_array2d64$_42_44
+$set_array2d64$_40_42:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 41
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_40_41 $set_array2d64$_41_42
+$set_array2d64$_40_41:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 2
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_41_42:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 2
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_42_44:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 43
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_42_43 $set_array2d64$_43_44
+$set_array2d64$_42_43:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 2
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_43_44:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 2
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_44_48:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 46
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_44_46 $set_array2d64$_46_48
+$set_array2d64$_44_46:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 45
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_44_45 $set_array2d64$_45_46
+$set_array2d64$_44_45:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 2
+  LD 0 3
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_45_46:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 2
+  LD 0 3
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_46_48:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 47
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_46_47 $set_array2d64$_47_48
+$set_array2d64$_46_47:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_47_48:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d64$_48_64:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 1
+  LD 1 0
+  CDR
+  LDC 56
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_48_56 $set_array2d64$_56_64
+$set_array2d64$_48_56:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 52
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_48_52 $set_array2d64$_52_56
+$set_array2d64$_48_52:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 50
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_48_50 $set_array2d64$_50_52
+$set_array2d64$_48_50:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 49
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_48_49 $set_array2d64$_49_50
+$set_array2d64$_48_49:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_49_50:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_50_52:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 51
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_50_51 $set_array2d64$_51_52
+$set_array2d64$_50_51:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_51_52:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_52_56:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 54
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_52_54 $set_array2d64$_54_56
+$set_array2d64$_52_54:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 53
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_52_53 $set_array2d64$_53_54
+$set_array2d64$_52_53:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 3
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_53_54:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 3
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_54_56:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 55
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_54_55 $set_array2d64$_55_56
+$set_array2d64$_54_55:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_55_56:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_56_64:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 60
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_56_60 $set_array2d64$_60_64
+$set_array2d64$_56_60:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 58
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_56_58 $set_array2d64$_58_60
+$set_array2d64$_56_58:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 57
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_56_57 $set_array2d64$_57_58
+$set_array2d64$_56_57:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_57_58:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_58_60:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 59
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_58_59 $set_array2d64$_59_60
+$set_array2d64$_58_59:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_59_60:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_60_64:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 62
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_60_62 $set_array2d64$_62_64
+$set_array2d64$_60_62:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LDC 61
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_60_61 $set_array2d64$_61_62
+$set_array2d64$_60_61:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 1 0
+  LD 0 5
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_61_62:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 5
+  LD 1 0
+  CONS
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_62_64:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LDC 63
+  LD 1 1
+  CGT
+  TSEL $set_array2d64$_62_63 $set_array2d64$_63_64
+$set_array2d64$_62_63:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 5
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  LD 0 5
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d64$_63_64:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 5
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array64
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 0 5
+  LD 1 0
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
