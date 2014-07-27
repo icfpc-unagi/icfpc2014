@@ -8,7 +8,7 @@ DEFINE_int32(width, 22, "width size");
 DEFINE_int32(height, 22, "height size");
 DEFINE_int32(size, 0, "This value overwrites width and height if non-zero");
 DEFINE_int32(seed, 0, "random seed");
-DEFINE_string(maker, "digger", "digger,grid");
+DEFINE_string(maker, "digger", "digger,grid,arena");
 DEFINE_string(placer, "scatter", "scatter");
 
 using namespace std;
@@ -18,7 +18,12 @@ const int dc[4] = {0,1,0,-1};
 
 class Maker {
 public:
+	Maker(int height, int width) : data(height, string(width, '#')) {}
 	virtual vector<string> Gen() = 0;
+protected:
+	int width() { return data[0].size(); }
+	int height() { return data.size();}
+	vector<string> data;
 };
 
 class Placer {
@@ -28,8 +33,7 @@ public:
 
 class DFSDigger : public Maker {
 public:
-	DFSDigger(int height, int width) :
-	   data(height, string(width, '#')) {}
+	DFSDigger(int height, int width) : Maker(height, width) {}
 	vector<string> Gen() {
 	  int r = rand() % (height() - 2) + 1;
 	  int c = rand() % (width() - 2) + 1;
@@ -55,14 +59,11 @@ private:
 	}
 	int width() { return data[0].size(); }
 	int height() { return data.size();}
-
-	vector<string> data;
 };
 
 class GridMaker : public Maker {
 public:
-	GridMaker(int height, int width) :
-	   data(height, string(width, '#')) {}
+	GridMaker(int height, int width) : Maker(height, width) {}
 	vector<string> Gen() {
 	  int r = rand() % (height() - 2) + 1;
 	  int c = rand() % (width() - 2) + 1;
@@ -118,10 +119,19 @@ private:
       // if (data[r + dr[d] + dr[e]][c + dr[d] + dc[e]] == 'x' ||
   	  //    data[r + dr[d] - dr[e]][c + dr[d] - dc[e]] == 'x') return false;
 	}
-	int width() { return data[0].size(); }
-	int height() { return data.size();}
+};
 
-	vector<string> data;
+class ArenaMaker : public Maker {
+public:
+	ArenaMaker(int height, int width) : Maker(height, width) {}
+	vector<string> Gen() {
+	  for (int r = 1; r < height() - 1; ++r) {
+	  	for (int c = 1; c < width() - 1; ++c) {
+  	 		data[r][c] = '.';
+	  	}
+	  }
+	  return std::move(data);
+	}
 };
 
 class ScatteringPlacer : public Placer {
@@ -170,6 +180,8 @@ int main(int argc, char** argv) {
   	maker.reset(new DFSDigger(height, width));
   } else if (FLAGS_maker == "grid") {
   	maker.reset(new GridMaker(height, width));
+  } else if (FLAGS_maker == "arena") {
+  	maker.reset(new ArenaMaker(height, width));
   } else {
   	LOG(FATAL) << "Specify --maker";
   }
