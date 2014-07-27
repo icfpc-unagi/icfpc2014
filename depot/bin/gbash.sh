@@ -34,6 +34,7 @@ DEFINE_int() { DEFINE_integer "$@"; }
 DEFINE_double() { DEFINE_float "$@"; }
 
 Finalize() {
+  set +e
   if [ -f "${TMPDIR}/on_exit.sh" ]; then
     source "${TMPDIR}/on_exit.sh"
   fi
