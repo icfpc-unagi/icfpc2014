@@ -74,7 +74,6 @@ else
   for file in *; do
     if [ "${file}" != 'sim_main' ]; then rm -rf "${file}"; fi
   done
-  rm ./build/flame-binary/depot/sim/sim_test
   package_id="$(ipkg archive ./sim_main)"
   echo "package ID is ${package_id}" >&2
   popd
