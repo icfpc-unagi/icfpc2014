@@ -85,8 +85,9 @@ function HackRun() {
   Record();
   for (var i = 0; i < 999; i++) {
     HackStep();
-    if (document.getElementById('status').innerText != 'Game running' &&
-        document.getElementById('status').innerText != 'Single step') {
+    if (!(document.getElementById('status').innerText == 'Program Loaded' ||
+          document.getElementById('status').innerText == 'Single step') ||
+        (document.getElementById('lives').innerText - 0) <= 0) {
       break;
     }
   }
