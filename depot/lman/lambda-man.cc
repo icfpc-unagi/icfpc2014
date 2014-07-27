@@ -67,7 +67,7 @@ P LambdaMan::EncodeWorld() const {
 
 P LambdaMan::EncodeGhost(int ghost_index) const {
   auto rc = game_->GetGhostRC(ghost_index);
-  return P(game_->GetGhostVitality(ghost_index), P(P(rc.first, rc.second), game_->GetGhostDirection(ghost_index)));
+  return P(game_->GetGhostVitality(ghost_index), P(P(rc.second, rc.first), game_->GetGhostDirection(ghost_index)));
 }
 
 }  // namespace lman
