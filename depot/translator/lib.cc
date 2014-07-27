@@ -59,7 +59,7 @@ std::string Pair::to_string() const {
 }
 
 void debug(const P& v) {
-  std::cerr << v.to_string() << std::endl;
+  std::cerr << "Lambda-Man: " << v.to_string() << std::endl;
   return;
 }
 
