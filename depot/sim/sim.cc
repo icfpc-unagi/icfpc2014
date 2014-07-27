@@ -96,6 +96,7 @@ int Game::Start() {
   // AI init
   for (int i = 0; i < lman_.size(); ++i) {
     lman_[i]->Init(this);
+    lman_[i]->Main();
   }
   for (int i = 0; i < ghosts_.size(); ++i) {
     ghosts_[i]->Init(this, i);
