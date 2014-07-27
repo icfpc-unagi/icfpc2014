@@ -88,7 +88,7 @@ int Game::Start() {
   const int level = (width * height - 1) / 100 + 1;
   const int fruit_points = kFruitPoints[level <= 12 ? level : 13];
   
-  string config = StringPrintf("%s-%s@%s", lman_[0]->Name(), FLAGS_ghosts.c_str(), maze_name_.c_str());
+  string config = StringPrintf("%s+%s@%s", lman_[0]->Name(), FLAGS_ghosts.c_str(), maze_name_.c_str());
 
   // initlal status
   tick_ = 0;
