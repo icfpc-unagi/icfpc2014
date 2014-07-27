@@ -5,5 +5,5 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-ai --evaluate=lman --lman="$1" 2>/dev/null | grep '^stats' | \
-    tee /dropbox/results/lman/"$1-$(date +%Y%m%d-%H%M%S).txt"
+nohup ai --evaluate=lman --lman="$1" 2>/dev/null | grep '^stats' | sort >
+    /dropbox/results/lman/"$1-$(date +%Y%m%d-%H%M%S).txt" &
