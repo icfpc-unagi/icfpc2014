@@ -39,7 +39,7 @@ function LoadMap() {
         case 8: c = '1'; break;
         case 9: c = '2'; break;
         case 10: c = '3'; break;
-        case 11: c = '4'; break;
+        case 11: c = '@'; break;
         case 12: c = ':'; break;
         default: c = '?'; break;
       }

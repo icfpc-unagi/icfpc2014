@@ -384,8 +384,16 @@ bool Game::PrintForTest() const {
       }
       for (int i = 0; i < ghosts_.size(); ++i) {
         if (ghosts_[i]->GetRC() == rc) {
-          static const char kGhostChars[] = {'0', '1', '2', '3', '4'};
-          symbol = kGhostChars[i % 5];
+          if (vitality_ > 0) {
+            if (ghosts_[i]->GetVitality() == 2 /* invisible */) {
+              symbol = ':';
+            } else {
+              symbol = '@';
+            }
+          } else {
+            static const char kGhostChars[] = {'0', '1', '2', '3', '4'};
+            symbol = kGhostChars[i % 5];
+          }
         }
       }
       ss << symbol;
