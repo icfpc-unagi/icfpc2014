@@ -251,9 +251,8 @@ int Game::Start() {
           }
           if (!moved) {  // auto move instead
             for (int j = 0; j < 4; ++j) {
-              d = (prev_d + j) % 4;
-              if (ghosts_[i]->CanMove(*this, d)) {
-                ghosts_[i]->SetDirection(d);
+              if (ghosts_[i]->CanMove(*this, j)) {
+                ghosts_[i]->SetDirection(j);
                 CHECK(ghosts_[i]->Move());
                 break;
               }
