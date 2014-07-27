@@ -119,39 +119,7 @@ int Game::Start() {
   while (tick_ < end_of_lives) {
     // *** 0. debug print
     if (FLAGS_print_for_test > 0 && (state_changed || tick_ <= 1)) {
-      if (++test_print > FLAGS_print_for_test) {
-        break;
-      }
-      std::stringstream ss;
-      ss << score_ << " " << life_ << " " << tick_ << "\n";
-      for (int r = 0; r < height; r++) {
-        for (int c = 0; c < width; ++c) {
-          Coordinate rc(r, c);
-          const char* color = "";
-          char symbol = GetSymbol(rc);
-          if (symbol == '=' || symbol == '\\' || symbol == '%') symbol = ' ';
-          if (lman_[0]->GetRC() == rc) {
-            if (vitality_ > 0) {
-              symbol =  'X';
-            } else {
-              symbol =  '\\';
-            }
-          }
-          if (fruit_appeared_ && fruit_location_ == rc) {
-            symbol = '%';
-          }
-          for (int i = 0; i < ghosts_.size(); ++i) {
-            if (ghosts_[i]->GetRC() == rc) {
-              static const char kGhostChars[] = {'0', '1', '2', '3', '4'};
-              symbol = kGhostChars[i % 5];
-            }
-          }
-          ss << symbol;
-        }
-        ss << '\n';
-      }
-      ss << '\n';
-      std::cout << ss.str();
+      if (PrintForTest()) break;
       state_changed = false;
     } else if (FLAGS_print_state && state_changed) {
       std::stringstream ss;
@@ -390,4 +358,42 @@ int Game::Start() {
   LOG_IF(INFO, tick_ == end_of_lives) << "Game over: End of lives";
   LOG(INFO) << "Stats: utc=" << tick_ << " lives=" << life_ << " fruites=" << fruits_eaten << " kills=" << kills;
   return score_;
+}
+
+bool Game::PrintForTest() const {
+  const int height = maze_.size();
+  const int width = maze_[0].size();
+
+  if (++test_print > FLAGS_print_for_test) return true;
+  std::stringstream ss;
+  ss << score_ << " " << life_ << " " << tick_ << "\n";
+  for (int r = 0; r < height; r++) {
+    for (int c = 0; c < width; ++c) {
+      Coordinate rc(r, c);
+      const char* color = "";
+      char symbol = GetSymbol(rc);
+      if (symbol == '=' || symbol == '\\' || symbol == '%') symbol = ' ';
+      if (lman_[0]->GetRC() == rc) {
+        if (vitality_ > 0) {
+          symbol =  'X';
+        } else {
+          symbol =  '\\';
+        }
+      }
+      if (fruit_appeared_ && fruit_location_ == rc) {
+        symbol = '%';
+      }
+      for (int i = 0; i < ghosts_.size(); ++i) {
+        if (ghosts_[i]->GetRC() == rc) {
+          static const char kGhostChars[] = {'0', '1', '2', '3', '4'};
+          symbol = kGhostChars[i % 5];
+        }
+      }
+      ss << symbol;
+    }
+    ss << '\n';
+  }
+  ss << '\n';
+  std::cout << ss.str();
+  return false;
 }

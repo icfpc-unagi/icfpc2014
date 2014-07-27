@@ -114,6 +114,8 @@ class Game : public GameInterface {
  private:
   void Eat(const Coordinate& rc) { maze_[rc.first][rc.second] = ' '; }
 
+  bool PrintForTest() const;
+
   vector<GhostFactory*> ghost_factories_;
   vector<std::unique_ptr<GhostInterface>> ghosts_;
   vector<LambdaManFactory*> lambda_man_factories_;
