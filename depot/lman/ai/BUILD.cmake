@@ -29,6 +29,16 @@ cc_library(
 )
 
 cc_library(
+    NAME "migi"
+    SOURCES "migi.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
     NAME "rounding"
     SOURCES "rounding.cc"
     DEPENDENCIES
@@ -45,5 +55,6 @@ cc_library(
         ":chokudai-10"
         ":chokudai-4"
         ":chokudai-8"
+        ":migi"
         ":rounding"
 )
