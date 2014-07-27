@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source gbash.sh || exit 1
+
+DEFINE_int time_limit 180 'CPU limit.'
+
+gbash::init_google "$@"
+set -- "${GBASH_ARGV[@]}"
+set -e -u -m
+
+"$@" &
+pid="$!"
+trap "kill -TERM $pid 2>/dev/null >/dev/null; exit 0" SIGCHLD
+sleep "${FLAGS_time_limit}"
+kill -TERM $pid
