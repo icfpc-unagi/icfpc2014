@@ -70,8 +70,11 @@ if [ "${FLAGS_evaluate}" == '' ]; then
       --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" --maze="${maze}" "$@"
   return
 else
+  rm ./build/flame-binary/depot/sim_test
   pushd ./build/flame-binary/depot/sim
   package_id="$(ipkg archive ./sim_main)"
   echo "package ID is ${package_id}" >&2
   popd
+  ninecluster-run "${package_id}" -- \
+      ./sim_main --maze=/code/depot/maze/world-classic.txt
 fi
