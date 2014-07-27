@@ -78,8 +78,9 @@ else
   echo "package ID is ${package_id}" >&2
   popd
   # Warm cache.
-  echo 'Warning cache...' >&2
-  ninecluster-run "${package_id}" -- ls -lA
+  echo 'Warming cache...' >&2
+  ninecluster-run "${package_id}" -- ls -lA &
+  wait
   echo 'Generating args...' >&2
   stats_args.sh "${FLAGS_lman}" >"${TMPDIR}/simulator-args"
   echo 'Candidate args:' >&2
