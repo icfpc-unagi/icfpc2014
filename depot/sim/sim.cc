@@ -9,7 +9,6 @@
 #include "util/flags.h"
 
 DEFINE_bool(print_state, true, "Print the field state to stderr for each step");
-DEFINE_bool(print_color, true, "Prettify the field state");
 DEFINE_bool(print_ghost_move, false, "");
 DEFINE_int32(max_print_height, 40, "");
 DEFINE_int32(max_print_width, 80, "");

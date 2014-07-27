@@ -6,5 +6,6 @@
 DECLARE_int32(print_for_test);
 DECLARE_bool(silent);
 DECLARE_bool(print_stats);
+DECLARE_bool(print_color);
 
 #endif  // UTIL_FLAGS_H_
