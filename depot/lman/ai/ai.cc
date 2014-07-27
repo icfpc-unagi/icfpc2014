@@ -13,6 +13,7 @@
 #include "lman/ai/tos-sokushi-kaihi.h"
 #include "lman/ai/tos-yowaki.h"
 #include "lman/ai/wata-10.h"
+#include "lman/ai/wata_cpp.h"
 
 namespace lman {
 
@@ -47,6 +48,8 @@ void RegisterAi(
       new tos_yowakiLambdaManFactory);
   (*lambda_man_factories)["wata-10"].reset(
       new wata_10LambdaManFactory);
+  (*lambda_man_factories)["wata_cpp"].reset(
+      new wata_cppLambdaManFactory);
 }
 
 }  // namespace lman
