@@ -455,7 +455,7 @@ public class BCompiler {
 			}
 		}
 		toGCC(f.block, vars, depth, gccs, blocks, f.name);
-		if (blocks.containsKey("$" + f.name)) throw null;
+		if (blocks.containsKey("$" + f.name)) throw new RuntimeException("Deplicated function: " + f.name);
 		if (f.isVoid) gccs.add("RTN");
 		for (int i = 0; i < gccs.size() - 1; i++) if (gccs.get(i).startsWith("RTN")) {
 			throw new RuntimeException("return can be appeared only at the end of functions");
