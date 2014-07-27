@@ -1,0 +1,2194 @@
+$get_array32:
+  LD 0 0
+  LDC 16
+  LD 0 1
+  CGT
+  TSEL $get_array32$_0_16 $get_array32$_16_32
+$get_array32$_0_16:
+  CAR
+  LDC 8
+  LD 0 1
+  CGT
+  TSEL $get_array32$_0_8 $get_array32$_8_16
+$get_array32$_0_8:
+  CAR
+  LDC 4
+  LD 0 1
+  CGT
+  TSEL $get_array32$_0_4 $get_array32$_4_8
+$get_array32$_0_4:
+  CAR
+  LDC 2
+  LD 0 1
+  CGT
+  TSEL $get_array32$_0_2 $get_array32$_2_4
+$get_array32$_0_2:
+  CAR
+  LDC 1
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_2_4:
+  CDR
+  LDC 3
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_4_8:
+  CDR
+  LDC 6
+  LD 0 1
+  CGT
+  TSEL $get_array32$_4_6 $get_array32$_6_8
+$get_array32$_4_6:
+  CAR
+  LDC 5
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_6_8:
+  CDR
+  LDC 7
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_8_16:
+  CDR
+  LDC 12
+  LD 0 1
+  CGT
+  TSEL $get_array32$_8_12 $get_array32$_12_16
+$get_array32$_8_12:
+  CAR
+  LDC 10
+  LD 0 1
+  CGT
+  TSEL $get_array32$_8_10 $get_array32$_10_12
+$get_array32$_8_10:
+  CAR
+  LDC 9
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_10_12:
+  CDR
+  LDC 11
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_12_16:
+  CDR
+  LDC 14
+  LD 0 1
+  CGT
+  TSEL $get_array32$_12_14 $get_array32$_14_16
+$get_array32$_12_14:
+  CAR
+  LDC 13
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_14_16:
+  CDR
+  LDC 15
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_16_32:
+  CDR
+  LDC 24
+  LD 0 1
+  CGT
+  TSEL $get_array32$_16_24 $get_array32$_24_32
+$get_array32$_16_24:
+  CAR
+  LDC 20
+  LD 0 1
+  CGT
+  TSEL $get_array32$_16_20 $get_array32$_20_24
+$get_array32$_16_20:
+  CAR
+  LDC 18
+  LD 0 1
+  CGT
+  TSEL $get_array32$_16_18 $get_array32$_18_20
+$get_array32$_16_18:
+  CAR
+  LDC 17
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_18_20:
+  CDR
+  LDC 19
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_20_24:
+  CDR
+  LDC 22
+  LD 0 1
+  CGT
+  TSEL $get_array32$_20_22 $get_array32$_22_24
+$get_array32$_20_22:
+  CAR
+  LDC 21
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_22_24:
+  CDR
+  LDC 23
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_24_32:
+  CDR
+  LDC 28
+  LD 0 1
+  CGT
+  TSEL $get_array32$_24_28 $get_array32$_28_32
+$get_array32$_24_28:
+  CAR
+  LDC 26
+  LD 0 1
+  CGT
+  TSEL $get_array32$_24_26 $get_array32$_26_28
+$get_array32$_24_26:
+  CAR
+  LDC 25
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_26_28:
+  CDR
+  LDC 27
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_28_32:
+  CDR
+  LDC 30
+  LD 0 1
+  CGT
+  TSEL $get_array32$_28_30 $get_array32$_30_32
+$get_array32$_28_30:
+  CAR
+  LDC 29
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_30_32:
+  CDR
+  LDC 31
+  LD 0 1
+  CGT
+  TSEL $get_array32$_end_car $get_array32$_end_cdr
+$get_array32$_end_car:
+  CAR
+  RTN
+$get_array32$_end_cdr:
+  CDR
+  RTN
+$set_array32:
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDF $set_array32$_0_32
+  AP 5
+  RTN
+$set_array32$_0_32:
+  LD 1 0
+  LDC 16
+  LD 1 1
+  CGT
+  TSEL $set_array32$_0_16 $set_array32$_16_32
+$set_array32$_0_16:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 0
+  LD 1 0
+  CAR
+  LDC 8
+  LD 1 1
+  CGT
+  TSEL $set_array32$_0_8 $set_array32$_8_16
+$set_array32$_0_8:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 1
+  LD 1 0
+  CAR
+  LDC 4
+  LD 1 1
+  CGT
+  TSEL $set_array32$_0_4 $set_array32$_4_8
+$set_array32$_0_4:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 2
+  LD 1 1
+  CGT
+  TSEL $set_array32$_0_2 $set_array32$_2_4
+$set_array32$_0_2:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 1
+  LD 1 1
+  CGT
+  TSEL $set_array32$_0_1 $set_array32$_1_2
+$set_array32$_0_1:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 2
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_1_2:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 4
+  LD 1 2
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_2_4:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 3
+  LD 1 1
+  CGT
+  TSEL $set_array32$_2_3 $set_array32$_3_4
+$set_array32$_2_3:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 3
+  LD 1 2
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_3_4:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_4_8:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 6
+  LD 1 1
+  CGT
+  TSEL $set_array32$_4_6 $set_array32$_6_8
+$set_array32$_4_6:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 5
+  LD 1 1
+  CGT
+  TSEL $set_array32$_4_5 $set_array32$_5_6
+$set_array32$_4_5:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 2
+  LD 1 2
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_5_6:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 2
+  LD 0 4
+  LD 1 2
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_6_8:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 7
+  LD 1 1
+  CGT
+  TSEL $set_array32$_6_7 $set_array32$_7_8
+$set_array32$_6_7:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 2
+  LD 0 3
+  LD 1 2
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_7_8:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_8_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 1
+  LD 1 0
+  CDR
+  LDC 12
+  LD 1 1
+  CGT
+  TSEL $set_array32$_8_12 $set_array32$_12_16
+$set_array32$_8_12:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 10
+  LD 1 1
+  CGT
+  TSEL $set_array32$_8_10 $set_array32$_10_12
+$set_array32$_8_10:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 9
+  LD 1 1
+  CGT
+  TSEL $set_array32$_8_9 $set_array32$_9_10
+$set_array32$_8_9:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 1
+  LD 1 2
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_9_10:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 1
+  LD 0 4
+  LD 1 2
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_10_12:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 11
+  LD 1 1
+  CGT
+  TSEL $set_array32$_10_11 $set_array32$_11_12
+$set_array32$_10_11:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 1
+  LD 0 3
+  LD 1 2
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_11_12:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 1
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_12_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 14
+  LD 1 1
+  CGT
+  TSEL $set_array32$_12_14 $set_array32$_14_16
+$set_array32$_12_14:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 13
+  LD 1 1
+  CGT
+  TSEL $set_array32$_12_13 $set_array32$_13_14
+$set_array32$_12_13:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 1
+  LD 0 2
+  LD 1 2
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_13_14:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 1
+  LD 0 2
+  LD 0 4
+  LD 1 2
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_14_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 15
+  LD 1 1
+  CGT
+  TSEL $set_array32$_14_15 $set_array32$_15_16
+$set_array32$_14_15:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 1 2
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_15_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array32$_16_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 0
+  LD 1 0
+  CDR
+  LDC 24
+  LD 1 1
+  CGT
+  TSEL $set_array32$_16_24 $set_array32$_24_32
+$set_array32$_16_24:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 1
+  LD 1 0
+  CAR
+  LDC 20
+  LD 1 1
+  CGT
+  TSEL $set_array32$_16_20 $set_array32$_20_24
+$set_array32$_16_20:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 18
+  LD 1 1
+  CGT
+  TSEL $set_array32$_16_18 $set_array32$_18_20
+$set_array32$_16_18:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 17
+  LD 1 1
+  CGT
+  TSEL $set_array32$_16_17 $set_array32$_17_18
+$set_array32$_16_17:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 0
+  LD 1 2
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array32$_17_18:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 0
+  LD 0 4
+  LD 1 2
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array32$_18_20:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 19
+  LD 1 1
+  CGT
+  TSEL $set_array32$_18_19 $set_array32$_19_20
+$set_array32$_18_19:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 0
+  LD 0 3
+  LD 1 2
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array32$_19_20:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 0
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array32$_20_24:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 22
+  LD 1 1
+  CGT
+  TSEL $set_array32$_20_22 $set_array32$_22_24
+$set_array32$_20_22:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 21
+  LD 1 1
+  CGT
+  TSEL $set_array32$_20_21 $set_array32$_21_22
+$set_array32$_20_21:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 0
+  LD 0 2
+  LD 1 2
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array32$_21_22:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 0
+  LD 0 2
+  LD 0 4
+  LD 1 2
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array32$_22_24:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 23
+  LD 1 1
+  CGT
+  TSEL $set_array32$_22_23 $set_array32$_23_24
+$set_array32$_22_23:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 0
+  LD 0 2
+  LD 0 3
+  LD 1 2
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array32$_23_24:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 0
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array32$_24_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 1
+  LD 1 0
+  CDR
+  LDC 28
+  LD 1 1
+  CGT
+  TSEL $set_array32$_24_28 $set_array32$_28_32
+$set_array32$_24_28:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 26
+  LD 1 1
+  CGT
+  TSEL $set_array32$_24_26 $set_array32$_26_28
+$set_array32$_24_26:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 25
+  LD 1 1
+  CGT
+  TSEL $set_array32$_24_25 $set_array32$_25_26
+$set_array32$_24_25:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 0
+  LD 0 1
+  LD 1 2
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array32$_25_26:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 0
+  LD 0 1
+  LD 0 4
+  LD 1 2
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array32$_26_28:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 27
+  LD 1 1
+  CGT
+  TSEL $set_array32$_26_27 $set_array32$_27_28
+$set_array32$_26_27:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 0
+  LD 0 1
+  LD 0 3
+  LD 1 2
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array32$_27_28:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 0
+  LD 0 1
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array32$_28_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 30
+  LD 1 1
+  CGT
+  TSEL $set_array32$_28_30 $set_array32$_30_32
+$set_array32$_28_30:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 29
+  LD 1 1
+  CGT
+  TSEL $set_array32$_28_29 $set_array32$_29_30
+$set_array32$_28_29:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 1 2
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array32$_29_30:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 4
+  LD 1 2
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array32$_30_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 31
+  LD 1 1
+  CGT
+  TSEL $set_array32$_30_31 $set_array32$_31_32
+$set_array32$_30_31:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 1 2
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array32$_31_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 2
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d32:
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDC 0
+  LDF $set_array2d32$_0_32
+  AP 5
+  RTN
+$set_array2d32$_0_32:
+  LD 1 0
+  LDC 16
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_0_16 $set_array2d32$_16_32
+$set_array2d32$_0_16:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 0
+  LD 1 0
+  CAR
+  LDC 8
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_0_8 $set_array2d32$_8_16
+$set_array2d32$_0_8:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 1
+  LD 1 0
+  CAR
+  LDC 4
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_0_4 $set_array2d32$_4_8
+$set_array2d32$_0_4:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 2
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_0_2 $set_array2d32$_2_4
+$set_array2d32$_0_2:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 1
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_0_1 $set_array2d32$_1_2
+$set_array2d32$_0_1:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 1 0
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_1_2:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 4
+  LD 1 0
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_2_4:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 3
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_2_3 $set_array2d32$_3_4
+$set_array2d32$_2_3:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 3
+  LD 1 0
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_3_4:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_4_8:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 6
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_4_6 $set_array2d32$_6_8
+$set_array2d32$_4_6:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 5
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_4_5 $set_array2d32$_5_6
+$set_array2d32$_4_5:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 2
+  LD 1 0
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_5_6:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 2
+  LD 0 4
+  LD 1 0
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_6_8:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 7
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_6_7 $set_array2d32$_7_8
+$set_array2d32$_6_7:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 2
+  LD 0 3
+  LD 1 0
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_7_8:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_8_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 1
+  LD 1 0
+  CDR
+  LDC 12
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_8_12 $set_array2d32$_12_16
+$set_array2d32$_8_12:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 10
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_8_10 $set_array2d32$_10_12
+$set_array2d32$_8_10:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 9
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_8_9 $set_array2d32$_9_10
+$set_array2d32$_8_9:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 1 0
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_9_10:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 4
+  LD 1 0
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_10_12:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 11
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_10_11 $set_array2d32$_11_12
+$set_array2d32$_10_11:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 3
+  LD 1 0
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_11_12:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_12_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 14
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_12_14 $set_array2d32$_14_16
+$set_array2d32$_12_14:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 13
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_12_13 $set_array2d32$_13_14
+$set_array2d32$_12_13:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 2
+  LD 1 0
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_13_14:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 2
+  LD 0 4
+  LD 1 0
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_14_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 15
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_14_15 $set_array2d32$_15_16
+$set_array2d32$_14_15:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 1 0
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_15_16:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  CONS
+  CONS
+  CONS
+  CONS
+  LD 0 0
+  CONS
+  RTN
+$set_array2d32$_16_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 0
+  LD 1 0
+  CDR
+  LDC 24
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_16_24 $set_array2d32$_24_32
+$set_array2d32$_16_24:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 1
+  LD 1 0
+  CAR
+  LDC 20
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_16_20 $set_array2d32$_20_24
+$set_array2d32$_16_20:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 18
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_16_18 $set_array2d32$_18_20
+$set_array2d32$_16_18:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 17
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_16_17 $set_array2d32$_17_18
+$set_array2d32$_16_17:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 1 0
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d32$_17_18:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 4
+  LD 1 0
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d32$_18_20:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 19
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_18_19 $set_array2d32$_19_20
+$set_array2d32$_18_19:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 3
+  LD 1 0
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d32$_19_20:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d32$_20_24:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 22
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_20_22 $set_array2d32$_22_24
+$set_array2d32$_20_22:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 21
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_20_21 $set_array2d32$_21_22
+$set_array2d32$_20_21:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 2
+  LD 1 0
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d32$_21_22:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 2
+  LD 0 4
+  LD 1 0
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d32$_22_24:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 23
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_22_23 $set_array2d32$_23_24
+$set_array2d32$_22_23:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 2
+  LD 0 3
+  LD 1 0
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d32$_23_24:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  CONS
+  CONS
+  CONS
+  LD 0 1
+  CONS
+  CONS
+  RTN
+$set_array2d32$_24_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 1
+  LD 1 0
+  CDR
+  LDC 28
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_24_28 $set_array2d32$_28_32
+$set_array2d32$_24_28:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 2
+  LD 1 0
+  CAR
+  LDC 26
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_24_26 $set_array2d32$_26_28
+$set_array2d32$_24_26:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 25
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_24_25 $set_array2d32$_25_26
+$set_array2d32$_24_25:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 1 0
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d32$_25_26:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 4
+  LD 1 0
+  CONS
+  LD 0 3
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d32$_26_28:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 27
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_26_27 $set_array2d32$_27_28
+$set_array2d32$_26_27:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 3
+  LD 1 0
+  LD 0 4
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d32$_27_28:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  CONS
+  CONS
+  LD 0 2
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d32$_28_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 2
+  LD 1 0
+  CDR
+  LDC 30
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_28_30 $set_array2d32$_30_32
+$set_array2d32$_28_30:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 3
+  LD 1 0
+  CAR
+  LDC 29
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_28_29 $set_array2d32$_29_30
+$set_array2d32$_28_29:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 1 0
+  LD 0 4
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d32$_29_30:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 4
+  LD 1 0
+  CONS
+  LD 0 3
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d32$_30_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 3
+  LD 1 0
+  CDR
+  LDC 31
+  LD 1 1
+  CGT
+  TSEL $set_array2d32$_30_31 $set_array2d32$_31_32
+$set_array2d32$_30_31:
+  ST 1 0
+  LD 1 0
+  CDR
+  ST 0 4
+  LD 1 0
+  CAR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 1 0
+  LD 0 4
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
+$set_array2d32$_31_32:
+  ST 1 0
+  LD 1 0
+  CAR
+  ST 0 4
+  LD 1 0
+  CDR
+  LD 1 2
+  LD 1 3
+  LDF $set_array32
+  AP 3
+  ST 1 0
+  LD 0 0
+  LD 0 1
+  LD 0 2
+  LD 0 3
+  LD 0 4
+  LD 1 0
+  CONS
+  CONS
+  CONS
+  CONS
+  CONS
+  RTN
