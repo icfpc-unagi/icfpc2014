@@ -18,6 +18,8 @@ class chokudai_4LambdaMan : public LambdaMan {
   chokudai_4LambdaMan() {}
   virtual ~chokudai_4LambdaMan() {}
 
+  const char* Name() override { return "chokudai-4"; }
+
   P BInit(P game, P nazo) override {
     return chokudai_4::init(game, nazo);
   }

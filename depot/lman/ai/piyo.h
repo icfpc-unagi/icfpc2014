@@ -18,6 +18,8 @@ class piyoLambdaMan : public LambdaMan {
   piyoLambdaMan() {}
   virtual ~piyoLambdaMan() {}
 
+  const char* Name() override { return "piyo"; }
+
   P BInit(P game, P nazo) override {
     return piyo::init(game, nazo);
   }

@@ -22,8 +22,9 @@ constexpr int kGhostPoints[4] = {200, 400, 800, 1600};
 constexpr int dr[4] = {-1, 0, 1, 0};
 constexpr int dc[4] = {0, 1, 0, -1};
 
-void Game::ParseMaze(std::istream& is) {
+void Game::ParseMaze(const string& name, std::istream& is) {
   CHECK(is.good());
+  maze_name_ = name;
   string line;
   int ghost_index = 0;
   int lambda_man_index = 0;
@@ -126,7 +127,8 @@ int Game::Start() {
     } else if (FLAGS_print_state && state_changed) {
       std::stringstream ss;
       if (FLAGS_print_color) ss << RESETCURSOR;
-      ss << "The world state (utc=" << tick_
+      ss << CYAN "[" << lman_[0]->Name() << "@" << maze_name_ << "]\n" RESET
+         << "The world state (utc=" << tick_
          << ",lives=" << life_ << ",score=" << score_ << "):\n";
       auto lmanrc = lman_[0]->GetRC();
       int min_r = max(0, lmanrc.first - FLAGS_max_print_height / 2);
@@ -155,7 +157,7 @@ int Game::Start() {
             if (ghosts_[i]->GetRC() == rc) {
               symbol = FLAGS_print_color ? '=' : '0' + i;
               static const char* kGhostColors[] = {BOLDRED, BOLDMAGENTA, BOLDCYAN, BOLDGREEN};
-              color = vitality_ > 0 ? BOLDBLUE : kGhostColors[i % 4];
+              color = kGhostColors[i % 4];
               break;
             }
           }
@@ -351,20 +353,20 @@ int Game::Start() {
     if (total_pills_ == 0) {
       VLOG(2) << "Bonus factor = " << (life_ + 1);
       score_ *= (life_ + 1);
-      LOG(INFO) << "Game over: You won!";
+      LOG(INFO) << "Game over: " BOLDGREEN "CLEAR" RESET;
       break;
     }
 
     // *** 6. game over
     if (life_ == 0) {
-      LOG(INFO) << "Game over: Lambda-Man has died";
+      LOG(INFO) << "Game over: " BOLDRED "Lambda-Man has died" RESET;
       break;
     }
 
     // *** 7. tick end
     tick_++;
   }
-  LOG_IF(INFO, tick_ == end_of_lives) << "Game over: End of lives";
+  LOG_IF(INFO, tick_ == end_of_lives) << "Game over: " BOLDMAGENTA "End of lives" RESET;
   LOG(INFO) << "Stats: utc=" << tick_ << " lives=" << life_ << " fruites=" << fruits_eaten << " kills=" << kills;
   return score_;
 }

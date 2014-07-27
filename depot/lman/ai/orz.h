@@ -18,6 +18,8 @@ class orzLambdaMan : public LambdaMan {
   orzLambdaMan() {}
   virtual ~orzLambdaMan() {}
 
+  const char* Name() override { return "orz"; }
+
   P BInit(P game, P nazo) override {
     return orz::init(game, nazo);
   }

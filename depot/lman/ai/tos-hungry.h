@@ -18,6 +18,8 @@ class tos_hungryLambdaMan : public LambdaMan {
   tos_hungryLambdaMan() {}
   virtual ~tos_hungryLambdaMan() {}
 
+  const char* Name() override { return "tos-hungry"; }
+
   P BInit(P game, P nazo) override {
     return tos_hungry::init(game, nazo);
   }

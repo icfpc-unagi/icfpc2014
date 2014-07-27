@@ -18,6 +18,8 @@ class tos_yowakiLambdaMan : public LambdaMan {
   tos_yowakiLambdaMan() {}
   virtual ~tos_yowakiLambdaMan() {}
 
+  const char* Name() override { return "tos-yowaki"; }
+
   P BInit(P game, P nazo) override {
     return tos_yowaki::init(game, nazo);
   }

@@ -18,6 +18,8 @@ class roundingLambdaMan : public LambdaMan {
   roundingLambdaMan() {}
   virtual ~roundingLambdaMan() {}
 
+  const char* Name() override { return "rounding"; }
+
   P BInit(P game, P nazo) override {
     return rounding::init(game, nazo);
   }

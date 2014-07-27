@@ -18,6 +18,8 @@ class tos_sokushi_kaihiLambdaMan : public LambdaMan {
   tos_sokushi_kaihiLambdaMan() {}
   virtual ~tos_sokushi_kaihiLambdaMan() {}
 
+  const char* Name() override { return "tos-sokushi-kaihi"; }
+
   P BInit(P game, P nazo) override {
     return tos_sokushi_kaihi::init(game, nazo);
   }

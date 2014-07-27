@@ -30,7 +30,8 @@ class Game : public GameInterface {
     lambda_man_factories_.clear();
     lambda_man_factories_.push_back(lambda_man_factory);
   }
-  void ParseMaze(std::istream& is);
+  void ParseMaze(const string& name, std::istream& is);
+  void ParseMaze(std::istream& is) { ParseMaze("(noname)", is); }
   // Returns the final score
   int Start();
   
@@ -133,6 +134,7 @@ class Game : public GameInterface {
   int vitality_;
   int score_;
   int tick_;
+  string maze_name_;
 };
 
 #endif  // SIM_SIM_H_
