@@ -1,6 +1,6 @@
 #include "translator/lib.h"
 #include "sbl/list.h"
-#include "array8.cpp"
+#include "array8.h"
 
 void test_array8() {
   P l;

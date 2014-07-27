@@ -1,3 +1,7 @@
+#ifndef SBL_SBL_H_
+
+#include "sbl/array<%=n%>.h"
+
 P list_to_array<%=n%>_rec(P t, int size) {
   P tmp;
   if (atom(t)) {
@@ -32,3 +36,5 @@ P set_array<%=n%>_rec(P t, int i, P v, int n) {
 P set_array<%=n%>(P t, int i, P v) {
   return set_array<%=n%>_rec(t, i, v, <%=n/2%>);
 }
+
+#endif  // SBL_SBL_H_

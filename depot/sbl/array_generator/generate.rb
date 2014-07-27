@@ -48,4 +48,8 @@ if __FILE__ == $0
   # Generate array#{n}.h
   erb = ERB.new(open(File.join(File.dirname($0), 'template.h')).read)
   open("array#{$n}.h", "w").puts(erb.result(binding))
+
+  # Generate array#{n}_translator.cpp
+  erb = ERB.new(open(File.join(File.dirname($0), 'template_translator.cpp')).read)
+  open("array#{$n}_translator.cpp", "w").puts(erb.result(binding))
 end
