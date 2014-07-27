@@ -1,5 +1,7 @@
+#include "sbl/sbl.h"
+
 //#include<iostream>
-void debug_tree2d(P t){
+void debug_tree2d(P t, int imax, int jmax){
   //std::cout << "----" << std::endl;
   printf("vvvv debug_tree2d vvvv\n");
   for(int i=0; i<imax; i++){
