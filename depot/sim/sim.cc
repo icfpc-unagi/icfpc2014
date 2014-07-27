@@ -6,10 +6,10 @@
 #include <gflags/gflags.h>
 #include <glog/logging.h>
 #include "util/colors.h"
+#include "util/flags.h"
 
 DEFINE_bool(print_state, true, "");
 DEFINE_bool(print_color, true, "");
-DEFINE_int32(print_for_test, 0, "Print information for testing.");
 DEFINE_bool(print_ghost_move, false, "");
 DEFINE_int32(max_print_height, 40, "");
 DEFINE_int32(max_print_width, 80, "");
@@ -249,6 +249,7 @@ int Game::Start() {
     // flight mode deactivating
     if (vitality_ > 0) {
       if (--vitality_ == 0) {
+        VLOG(2) << "fright mode ends in tick " << tick_;
         for (int i = 0; i < ghosts_.size(); ++i) {
           ghosts_[i]->SetVitality(0 /* standard */);
         }
