@@ -91,7 +91,7 @@ int Game::Start() {
   score_ = 0;
   life_ = 3;
   vitality_ = 0;  // remaining ticks
-  bool fruit_appeared = false;
+  fruit_appeared_ = false;
   int utc_lman_next_move = 127;
   vector<int> utc_ghosts_next_moves(ghosts_.size());
   for (int i = 0; i < ghosts_.size(); ++i) {
@@ -137,7 +137,7 @@ int Game::Start() {
               symbol =  '\\';
             }
           }
-          if (fruit_appeared && fruit_location_ == rc) {
+          if (fruit_appeared_ && fruit_location_ == rc) {
             symbol = '%';
           }
           for (int i = 0; i < ghosts_.size(); ++i) {
@@ -177,7 +177,7 @@ int Game::Start() {
             symbol =  vitality_ > 0 ? 'X' : '\\';
             color = BOLDYELLOW;
           }
-          if (fruit_appeared && fruit_location_ == rc) {
+          if (fruit_appeared_ && fruit_location_ == rc) {
             symbol = '%';
             color = BOLDRED;
           }
@@ -290,11 +290,11 @@ int Game::Start() {
     // fruit appearing/expiring
     for (int i = 0; i < 2; ++i) {
       if (tick_ == fruit_appears[i]) {
-        fruit_appeared = true;
+        fruit_appeared_ = true;
         fruit_remaining_ = fruit_expires[i] - tick_;
         state_changed = true;
       } else if (tick_ == fruit_expires[i]) {
-        fruit_appeared = false;
+        fruit_appeared_ = false;
         state_changed = true;
       }
     }
@@ -324,9 +324,9 @@ int Game::Start() {
       }
       score_ += 50;
       VLOG(2) << "50pt by taking a power pill";
-    } else if (symbol == '%' && fruit_appeared && fruit_location_ == pos) {
+    } else if (symbol == '%' && fruit_appeared_ && fruit_location_ == pos) {
       // check fruit
-      fruit_appeared = false;
+      fruit_appeared_ = false;
       eating = true;
       score_ += fruit_points;
       fruits_eaten++;

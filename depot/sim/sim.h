@@ -125,6 +125,7 @@ class Game : public GameInterface {
   Maze maze_;
   Coordinate fruit_location_;
   int fruit_remaining_;
+  bool fruit_appeared_;
   int total_pills_;
   int life_;
   int vitality_;
