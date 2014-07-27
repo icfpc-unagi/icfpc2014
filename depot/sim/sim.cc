@@ -9,6 +9,7 @@
 
 DEFINE_bool(print_state, true, "");
 DEFINE_bool(print_color, true, "");
+DEFINE_int32(print_for_test, 0, "Print information for testing.");
 DEFINE_bool(print_ghost_move, false, "");
 DEFINE_int32(max_print_height, 40, "");
 DEFINE_int32(max_print_width, 80, "");
@@ -67,8 +68,13 @@ void Game::ParseMaze(std::istream& is) {
 }
 
 int Game::Start() {
+  if (FLAGS_print_for_test > 0) {
+    FLAGS_print_ghost_move = true;
+    FLAGS_print_state = false;
+    FLAGS_print_color = false;
+  }
   if (FLAGS_print_state && FLAGS_print_color) std::cout << CLEARSCREEN;
-  
+
   // constants
   const int height = maze_.size();
   const int width = maze_[0].size();
@@ -106,9 +112,52 @@ int Game::Start() {
 
   // main loop
   bool state_changed = true;
+  int test_print = 0;
   while (tick_ < end_of_lives) {
     // *** 0. debug print
-    if (FLAGS_print_state && state_changed) {
+    if (FLAGS_print_for_test > 0 && (state_changed || tick_ <= 1)) {
+      if (++test_print > FLAGS_print_for_test) {
+        continue;
+      }
+      std::stringstream ss;
+      ss << score_ << " " << life_ << " " << tick_ << "\n";
+      for (int r = 0; r < height; r++) {
+        for (int c = 0; c < width; ++c) {
+          Coordinate rc(r, c);
+          const char* color = "";
+          char symbol = GetSymbol(rc);
+          if (symbol == '=' || symbol == '\\' || symbol == '%') symbol = '1';
+          if (lman_[0]->GetRC() == rc) {
+            if (vitality_ > 0) {
+              symbol =  '6';
+            } else {
+              symbol =  '5';
+            }
+          }
+          if (fruit_appeared && fruit_location_ == rc) {
+            symbol = '4';
+          }
+          for (int i = 0; i < ghosts_.size(); ++i) {
+            if (ghosts_[i]->GetRC() == rc) {
+              static const char kGhostChars[] = {'7', '8', '9', 'a', 'b'};
+              symbol = kGhostChars[i % 5];
+              break;
+            }
+          }
+          switch (symbol) {
+            case '#': symbol = '0'; break;
+            case ' ': symbol = '1'; break;
+            case '.': symbol = '2'; break;
+            case 'o': symbol = '3'; break;
+          }
+          ss << symbol;
+        }
+        ss << '\n';
+      }
+      ss << '\n';
+      std::cout << ss.str();
+      state_changed = false;
+    } else if (FLAGS_print_state && state_changed) {
       std::stringstream ss;
       if (FLAGS_print_color) ss << RESETCURSOR;
       ss << "The world state (utc=" << tick_
