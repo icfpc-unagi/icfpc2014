@@ -335,6 +335,7 @@ int Game::Start() {
     // *** 4.5. fixing next duration
     if (utc_lman_next_move <= tick_) {
       utc_lman_next_move += eating ? 137 : 127;
+      spec_ghost_one_more_fright = false;
     }
     for (int i = 0; i < ghosts_.size(); ++i) {
       if (utc_ghosts_next_moves[i] <= tick_) {
