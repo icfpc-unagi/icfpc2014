@@ -14,6 +14,7 @@ DEFINE_bool(print_ghost_move, false, "");
 DEFINE_int32(max_print_height, 40, "");
 DEFINE_int32(max_print_width, 80, "");
 DEFINE_bool(spec_call_redundant_ghost_step, true, "");
+DEFINE_bool(spec_one_more_fright_cycle, true, "");
 
 constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
                                   1000, 1000, 2000, 2000, 3000, 3000, 5000};
@@ -82,7 +83,7 @@ int Game::Start() {
   const int end_of_lives = 127 * width * height * 16;
   const int fruit_appears[2] = {127 * 200, 127 * 400};
   const int fruit_expires[2] = {127 * 280, 127 * 480};
-  const int flight_mode_duration = 127 * 20;
+  const int fright_mode_duration = 127 * 20;
   const int level = (width * height - 1) / 100 + 1;
   const int fruit_points = kFruitPoints[level <= 12 ? level : 13];
 
@@ -94,6 +95,7 @@ int Game::Start() {
   fruit_appeared_ = false;
   int utc_lman_next_move = 127;
   vector<int> utc_ghosts_next_moves(ghosts_.size());
+  vector<bool> spec_ghosts_one_more_fright(ghosts_.size());
   for (int i = 0; i < ghosts_.size(); ++i) {
     utc_ghosts_next_moves[i] = 130 + 2 * i;
   }
@@ -246,12 +248,15 @@ int Game::Start() {
     }
 
     // *** 2. actions
-    // flight mode deactivating
+    // fright mode deactivating
     if (vitality_ > 0) {
       if (--vitality_ == 0) {
         VLOG(2) << "fright mode ends in tick " << tick_;
         for (int i = 0; i < ghosts_.size(); ++i) {
           ghosts_[i]->SetVitality(0 /* standard */);
+        }
+        if (FLAGS_spec_one_more_fright_cycle) {
+          spec_one_more_fright_cycle.assign(ghosts_.size(), true);
         }
       }
     }
@@ -282,8 +287,8 @@ int Game::Start() {
       // check power pill
       Eat(pos);
       eating = true;
-      // Activates flight mode
-      vitality_ = flight_mode_duration;
+      // Activates fright mode
+      vitality_ = fright_mode_duration;
       ghost_eaten = 0;
       // Gets all ghosts to turn around
       for (int i = 0; i < ghosts_.size(); ++i) {
@@ -333,7 +338,9 @@ int Game::Start() {
     }
     for (int i = 0; i < ghosts_.size(); ++i) {
       if (utc_ghosts_next_moves[i] <= tick_) {
-        utc_ghosts_next_moves[i] += (65 + i % 4) * (vitality_ == 0 ? 2 : 3);
+        bool slow = vitality_ != 0 || spec_ghosts_one_more_fright[i];
+        utc_ghosts_next_moves[i] += (65 + i % 4) * (slow ? 3 : 2);
+        spec_ghosts_one_more_fright[i] = false;
       }
     }
 
