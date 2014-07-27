@@ -48,6 +48,14 @@ ${GEN} -size=99  -ghosts=10 -powerpills=8  -maker=grid2 -grid2_density=0.2 > dep
 ${GEN} -size=111 -ghosts=12 -powerpills=9  -maker=grid2 -grid2_density=0.2 > depot/maze/grid2-0.2-111.txt
 ${GEN} -size=155 -ghosts=30 -powerpills=9  -maker=grid2 -grid2_density=0.2 > depot/maze/grid2-0.2-155.txt
 ${GEN} -size=255 -ghosts=30 -powerpills=10 -maker=grid2 -grid2_density=0.2 > depot/maze/grid2-0.2-255.txt
+${GEN} -size=15  -ghosts=2  -powerpills=5  -maker=grid2 -grid2_density=0.2 > depot/maze/grid2-0.5-15.txt
+${GEN} -size=33  -ghosts=5  -powerpills=6  -maker=grid2 -grid2_density=0.2 > depot/maze/grid2-0.5-33.txt
+${GEN} -size=55  -ghosts=6  -powerpills=7  -maker=grid2 -grid2_density=0.2 > depot/maze/grid2-0.5-55.txt
+${GEN} -size=77  -ghosts=8  -powerpills=7  -maker=grid2 -grid2_density=0.2 > depot/maze/grid2-0.5-77.txt
+${GEN} -size=99  -ghosts=10 -powerpills=8  -maker=grid2 -grid2_density=0.2 > depot/maze/grid2-0.5-99.txt
+${GEN} -size=111 -ghosts=12 -powerpills=9  -maker=grid2 -grid2_density=0.2 > depot/maze/grid2-0.5-111.txt
+${GEN} -size=155 -ghosts=30 -powerpills=9  -maker=grid2 -grid2_density=0.2 > depot/maze/grid2-0.5-155.txt
+${GEN} -size=255 -ghosts=30 -powerpills=10 -maker=grid2 -grid2_density=0.2 > depot/maze/grid2-0.5-255.txt
 ${GEN} -size=15  -ghosts=2  -powerpills=5  -maker=grid2 -grid2_density=0.8 > depot/maze/grid2-0.8-15.txt
 ${GEN} -size=33  -ghosts=5  -powerpills=6  -maker=grid2 -grid2_density=0.8 > depot/maze/grid2-0.8-33.txt
 ${GEN} -size=55  -ghosts=6  -powerpills=7  -maker=grid2 -grid2_density=0.8 > depot/maze/grid2-0.8-55.txt
