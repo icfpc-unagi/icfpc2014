@@ -6,6 +6,7 @@ DEFINE_string lman 'chokudai-10' 'LambaMan AIs.'
 DEFINE_string ghosts 'chokudai' 'Ghost AIs.'
 DEFINE_string maze 'world-classic' 'Maze.'
 DEFINE_bool build true 'Build files.'
+DEFINE_string evaluate '' 'Target to evaluate.'
 
 gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
@@ -64,5 +65,13 @@ if (( FLAGS_build )); then
   make build/flame-binary/depot/sim/sim_main
 fi
 
-./build/flame-binary/depot/sim/sim_main \
-    --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" --maze="${maze}" "$@"
+if [ "${FLAGS_evaluate}" == '' ]; then
+  ./build/flame-binary/depot/sim/sim_main \
+      --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" --maze="${maze}" "$@"
+  return
+else
+  pushd ./build/flame-binary/depot/sim
+  package_id="$(ipkg archive ./sim_main)"
+  echo "package ID is ${package_id}" >&2
+  popd
+fi
