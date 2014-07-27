@@ -95,7 +95,7 @@ int Game::Start() {
   fruit_appeared_ = false;
   int utc_lman_next_move = 127;
   vector<int> utc_ghosts_next_moves(ghosts_.size());
-  vector<bool> spec_ghosts_one_more_fright(ghosts_.size());
+  bool spec_ghost_one_more_fright = false;
   for (int i = 0; i < ghosts_.size(); ++i) {
     utc_ghosts_next_moves[i] = 130 + 2 * i;
   }
@@ -256,7 +256,7 @@ int Game::Start() {
           ghosts_[i]->SetVitality(0 /* standard */);
         }
         if (FLAGS_spec_one_more_fright_cycle) {
-          spec_ghosts_one_more_fright.assign(ghosts_.size(), true);
+          spec_ghost_one_more_fright = true;
         }
       }
     }
@@ -338,9 +338,9 @@ int Game::Start() {
     }
     for (int i = 0; i < ghosts_.size(); ++i) {
       if (utc_ghosts_next_moves[i] <= tick_) {
-        bool slow = vitality_ != 0 || spec_ghosts_one_more_fright[i];
+        bool slow = vitality_ != 0 || spec_ghost_one_more_fright;
         utc_ghosts_next_moves[i] += (65 + i % 4) * (slow ? 3 : 2);
-        spec_ghosts_one_more_fright[i] = false;
+        spec_ghost_one_more_fright = false;
       }
     }
 
