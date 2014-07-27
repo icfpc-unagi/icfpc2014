@@ -25,6 +25,7 @@ ${GEN} -size=150 -ghosts=15 -powerpills=8  -maker=grid > depot/maze/test2-150.tx
 ${GEN} -size=200 -ghosts=20 -powerpills=9  -maker=grid > depot/maze/test2-200.txt
 ${GEN} -size=256 -ghosts=30 -powerpills=10 -maker=grid > depot/maze/test2-256.txt
 
+${GEN} -size=32  -ghosts=7  -powerpills=5  -maker=arena > depot/maze/arena-32.txt
 ${GEN} -size=50  -ghosts=8  -powerpills=6  -maker=arena > depot/maze/arena-50.txt
 ${GEN} -size=70  -ghosts=10 -powerpills=7  -maker=arena > depot/maze/arena-70.txt
 ${GEN} -size=100 -ghosts=15 -powerpills=7  -maker=arena > depot/maze/arena-100.txt

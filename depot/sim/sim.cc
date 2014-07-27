@@ -191,7 +191,7 @@ int Game::Start() {
     }
     for (int i = 0; i < ghosts_.size(); ++i) {
       if (tick_ == utc_ghosts_next_moves[i]) {
-        LOG(INFO) << "ghost" << i << " moves";
+        VLOG(5) << "ghost" << i << " moves";
         // Check if the ghost has options
         int prev_d = ghosts_[i]->GetDirection();
         DCHECK(0 <= prev_d && prev_d < 4);
