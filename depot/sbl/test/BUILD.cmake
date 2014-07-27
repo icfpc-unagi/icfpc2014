@@ -5,7 +5,7 @@ cc_binary (
     DEPENDENCIES
         "//base"
         "//translator:lib"
-	"//sbl:array256"
+	"//sbl:array"
 )
 
 cc_binary (
