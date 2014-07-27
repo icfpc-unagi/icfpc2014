@@ -90,10 +90,8 @@ function HackRun() {
       break;
     }
   }
-  var element = document.createElement('textarea');
-  var body = document.getElementsByTagName("body").item(0);
-  body.appendChild(element);
-  element.value = debug;
+  document.write("<pre style=\"font-family: 'Andale Mono', monospace\";>" +
+                 debug + "\n</pre>");
 }
 
 function HackStep() {
