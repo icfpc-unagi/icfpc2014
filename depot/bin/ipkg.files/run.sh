@@ -33,4 +33,5 @@ RunPackage() {
   fi
 }
 
+ulimit -t "${FLAGS_cpu_limit}"
 RunPackage "$@"

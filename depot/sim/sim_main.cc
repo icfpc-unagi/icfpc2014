@@ -7,17 +7,13 @@
 #include "sim/sim.h"
 
 DEFINE_string(maze, "depot/maze/world-classic.txt", "Text file that contains maze map");
-DEFINE_bool(silent, false, "Suppress status messages.");
-DECLARE_bool(logtostderr);
+DECLARE_bool(silent);
+DEFINE_bool(log, false, "delegate to logtostderr");
 
 int main(int argc, char** argv) {
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::InitGoogleLogging(argv[0]);
-  if (FLAGS_silent) {
-    FLAGS_logtostderr = false;
-  } else {
-    FLAGS_logtostderr = true;
-  }
+  FLAGS_logtostderr = FLAGS_log;
 
   if (FLAGS_maze.empty()) {
     std::cerr << "Usage: simulate_foobar --maze=<filename> --ghosts=<ghost>[,<ghost>]" << std::endl;

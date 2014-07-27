@@ -3,8 +3,7 @@
 #include <gflags/gflags.h>
 
 #include "base/split.h"
-
-DEFINE_string(ghosts, "fickle", "Comma-separated list of ghosts to use.");
+#include "util/flags.h"
 
 namespace ghost {
 

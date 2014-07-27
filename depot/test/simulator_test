@@ -16,21 +16,39 @@ TestSimulator() {
   local ghosts="$2"
   local maze="$3"
 
-  echo -n "Testing lman=${lman} ghosts=${ghosts} maze=${maze}...   "
+  local TMPDIR="$(mktemp -d "${TMPDIR}/simulator.XXXXXX")"
   ./build/flame-binary/depot/sim/sim_main --print_for_test=1000 \
       --lman="${lman}" --ghosts="${ghosts}" --maze=depot/maze/"${maze}".txt \
       2>/dev/null >"${TMPDIR}/simulator.txt"
   if diff "./depot/test/simulator/${lman};${ghosts};${maze}.txt" \
           "${TMPDIR}/simulator.txt" >"${TMPDIR}/diff"; then
-    echo 'Passed' >&2
+    echo "Passed: lman=${lman} ghosts=${ghosts} maze=${maze}" >&2
   else
-    echo 'Failed:' >&2
+    echo "Failed: lman=${lman} ghosts=${ghosts} maze=${maze}" >&2
     head -n 20 "${TMPDIR}/diff" >&2
     echo '...' >&2
     exit 1
   fi
 }
 
-TestSimulator chokudai-10 chokudai world-classic
-TestSimulator migi chokudai world-classic
-TestSimulator migi fickle_debug world-classic
+StdoutTest() {
+  local TMPDIR="$(mktemp -d "${TMPDIR}/simulator.XXXXXX")"
+
+  ./build/flame-binary/depot/sim/sim_main \
+      --lman=chokudai-14 --ghosts=chokudai --silent \
+      --noprint_state --maze=./depot/maze/rect-20x40.txt \
+      >"${TMPDIR}/stdout" 2>/dev/null
+  if [ "$(echo $(cat "${TMPDIR}/stdout" | wc -l))" == "0" ]; then
+    echo 'Passed: stdout test.' >&2
+  else
+    echo 'Failed: stdout test. stdout should not be used in silent mode.' >&2
+  fi
+}
+
+TestSimulator chokudai-10 chokudai world-classic &
+TestSimulator migi chokudai world-classic &
+TestSimulator migi fickle_debug world-classic &
+
+StdoutTest &
+
+wait
