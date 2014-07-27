@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+  echo "Usage: evaluate-lman <lman AI name>" >&2
+  exit 1
+fi
+
+ai --evaluate=lman --lman="$1" 2>/dev/null | grep '^stats' | \
+    tee /dropbox/results/lman/"$1-$(date +%Y%m%d-%H%M%S).txt"

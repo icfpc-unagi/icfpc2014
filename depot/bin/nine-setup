@@ -62,7 +62,7 @@ EOM
 
 mkdir -p /home/ninelet/.ssh
 NINELET_COMMAND=(
-    sudo ninelet-run --user=ninelet '$SSH_ORIGINAL_COMMAND')
+    sudo ninelet-run --cpu=1 --user=ninelet '$SSH_ORIGINAL_COMMAND')
 NINELET_AUTHORIZED_KEY='command="'"${NINELET_COMMAND[*]}"'",'
 NINELET_AUTHORIZED_KEY+='no-port-forwarding,no-x11-forwarding,'
 NINELET_AUTHORIZED_KEY+='no-agent-forwarding '
