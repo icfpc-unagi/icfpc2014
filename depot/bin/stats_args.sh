@@ -29,7 +29,7 @@ PRESET_MAZE=(
 lman="$1"
 
 Arg() {
-	echo "-silent -noprint_state -print_stats -lman='$1' -ghosts='$2' -maze='$3'"
+	echo "-silent -noprint_state -print_stats -lman='$1' -ghosts='$2' -maze='/code/depot/maze/${3}.txt'"
 }
 
 for maze in ${PRESET_MAZE[@]}; do
