@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require 'erb'
+require 'fileutils'
 
 $o
 
@@ -52,4 +53,9 @@ if __FILE__ == $0
   # Generate array#{n}_translator.cpp
   erb = ERB.new(open(File.join(File.dirname($0), 'template_translator.cpp')).read)
   open("array#{$n}_translator.cpp", "w").puts(erb.result(binding))
+
+  # Generate array#{n}_translator.cpp
+  FileUtils.mkdir_p('test')
+  erb = ERB.new(open(File.join(File.dirname($0), 'template_test.cpp')).read)
+  open("test/array#{$n}_test.cpp", "w").puts(erb.result(binding))
 end
