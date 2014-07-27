@@ -60,20 +60,23 @@ function HackInit() {
       }
       tile_id[signature] = i;
     }
-    load();
-    Record();
-    for (var i = 0; i < 1000; i++) {
-      HackStep();
-      if (document.getElementById('ticks').innerText != 'Game running') {
-        break;
-      }
-    }
-    var element = document.createElement('textarea');
-    var body = document.getElementsByTagName("body").item(0);
-    body.appendChild(element);
-    element.value = debug;
   });
   image.src = 'images/alltiles.png';
+}
+
+function HackRun() {
+  Record();
+  for (var i = 0; i < 1000; i++) {
+    HackStep();
+    if (document.getElementById('status').innerText != 'Game running' &&
+        document.getElementById('status').innerText != 'Single step') {
+      break;
+    }
+  }
+  var element = document.createElement('textarea');
+  var body = document.getElementsByTagName("body").item(0);
+  body.appendChild(element);
+  element.value = debug;
 }
 
 function HackStep() {
