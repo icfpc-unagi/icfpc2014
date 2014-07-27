@@ -17,6 +17,7 @@ configure: build/Makefile
 
 test: build build/Makefile
 	cd build && make test
+	bash depot/test/simulator_test
 .PHONY: test
 
 clean:
