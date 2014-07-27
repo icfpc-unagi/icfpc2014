@@ -17,16 +17,17 @@ PRESET_MAZE=(
 	'world-1'
 	'world-2'
 	'arena-20'
+	'arena-32'
 	'arena-50'
-	'arena-70'
 	'test-32'
 	'test-50'
-	'test-70'
 	'test2-32'
 	'test2-50'
-	'test2-70'
 	'rect-20x40'
+	'rect-40x20'
 	'rect-80x20'
+	'rect-20x80'
+	'snake-20'
 )
 [ -z "$1" ] && echo "Usage: $0 <lman_name>" && exit 1
 lman="$1"
