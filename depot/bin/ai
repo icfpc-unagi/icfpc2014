@@ -5,6 +5,7 @@ source gbash.sh || exit 1
 DEFINE_string lman 'chokudai-10' 'LambaMan AIs.'
 DEFINE_string ghosts 'chokudai' 'Ghost AIs.'
 DEFINE_string maze 'world-classic' 'Maze.'
+DEFINE_bool build true 'Build files.'
 
 gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
@@ -59,7 +60,9 @@ cd ~/code
 ./depot/lman/ai/generator
 ./depot/ghost/ai/generator
 
-make build/flame-binary/depot/sim/sim_main
+if (( FLAGS_build )); then
+  make build/flame-binary/depot/sim/sim_main
+fi
 
 ./build/flame-binary/depot/sim/sim_main \
     --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" --maze="${maze}" "$@"
