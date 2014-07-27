@@ -251,11 +251,16 @@ int Game::Start() {
                          << "] chose a bad direction to a wall";
           }
           if (!moved) {  // auto move instead
-            for (int j = 0; j < 4; ++j) {
-              if (ghosts_[i]->CanMove(*this, j)) {
-                ghosts_[i]->SetDirection(j);
-                CHECK(ghosts_[i]->Move());
-                break;
+            if (ghosts_[i]->CanMove(*this, prev_d)) {
+              ghosts_[i]->SetDirection(prev_d);
+              CHECK(ghosts_[i]->Move());
+            } else {
+              for (int j = 0; j < 4; ++j) {
+                if (ghosts_[i]->CanMove(*this, j)) {
+                  ghosts_[i]->SetDirection(j);
+                  CHECK(ghosts_[i]->Move());
+                  break;
+                }
               }
             }
           }
