@@ -6,6 +6,15 @@ cc_library(
         ":list"
         ":stack"
         ":queue"
+        ":array256"
+)
+
+cc_library(
+    NAME "array256"
+    SOURCES "array256.cpp" "array256_translator.cpp"
+    DEPENDENCIES
+        "//translator:lib"
+	":list"
 )
 
 cc_library(
