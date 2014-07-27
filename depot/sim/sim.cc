@@ -115,7 +115,6 @@ int Game::Start() {
 
   // main loop
   bool state_changed = true;
-  int test_print = 0;
   while (tick_ < end_of_lives) {
     // *** 0. debug print
     if (FLAGS_print_for_test > 0 && (state_changed || tick_ <= 1)) {
@@ -361,10 +360,10 @@ int Game::Start() {
 }
 
 bool Game::PrintForTest() const {
+  static int test_print = 0;
   const int height = maze_.size();
   const int width = maze_[0].size();
 
-  if (++test_print > FLAGS_print_for_test) return true;
   std::stringstream ss;
   ss << score_ << " " << life_ << " " << tick_ << "\n";
   for (int r = 0; r < height; r++) {
@@ -395,5 +394,7 @@ bool Game::PrintForTest() const {
   }
   ss << '\n';
   std::cout << ss.str();
-  return false;
+
+  test_print++;
+  return test_print >= FLAGS_print_for_test;
 }

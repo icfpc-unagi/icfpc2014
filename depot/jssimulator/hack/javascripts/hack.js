@@ -84,18 +84,14 @@ function HackInit() {
 function HackRun() {
   Record();
   for (var i = 0; i < 999; i++) {
-    HackStep();
+    step();
     if (!(document.getElementById('status').innerText == 'Program Loaded' ||
           document.getElementById('status').innerText == 'Single step') ||
         (document.getElementById('lives').innerText - 0) <= 0) {
       break;
     }
+    Record();
   }
   document.write("<pre style=\"font-family: 'Andale Mono', monospace\";>" +
                  debug + "\n</pre>");
-}
-
-function HackStep() {
-  step();
-  Record();
 }
