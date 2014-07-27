@@ -82,6 +82,7 @@ else
   stats_args.sh "${FLAGS_lman}" >"${TMPDIR}/simulator-args"
   while read line; do
     ninecluster-run "${package_id}" -- ./sim_main $line &
+    OnExit "kill $!"
   done <"${TMPDIR}/simulator-args"
 fi
 

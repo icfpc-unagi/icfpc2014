@@ -33,6 +33,17 @@ DEFINE_bool() {
 DEFINE_int() { DEFINE_integer "$@"; }
 DEFINE_double() { DEFINE_float "$@"; }
 
+Finalize() {
+  if [ -f "${TMPDIR}/on_exit.sh" ]; then
+    source "${TMPDIR}/on_exit.sh"
+  fi
+  rm -rf "${TMPDIR}"
+}
+
+OnExit() {
+  echo "$@" >>"${TMPDIR}/on_exit.sh"
+}
+
 gbash::init_google() {
   FLAGS "$@" || exit $?;
   eval GBASH_ARGV=("${FLAGS_ARGV}")
@@ -46,7 +57,7 @@ gbash::init_google() {
   done
 
   export TMPDIR="$(mktemp -d "${TMPDIR:-/tmp}/gbash.XXXXXX")"
-  trap "rm -rf ${TMPDIR}" EXIT
+  trap Finalize EXIT
 }
 
 AssertCommandsExist() {
