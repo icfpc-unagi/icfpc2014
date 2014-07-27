@@ -18,10 +18,10 @@ PRESET_MAZE=(
 	'world-2'
 	'test-32'
 	'test-50'
-	'test-100'
+	'test-70'
 	'test2-32'
 	'test2-50'
-	'test2-100'
+	'test2-70'
 	'rect-20x40'
 	'rect-80x20'
 )
