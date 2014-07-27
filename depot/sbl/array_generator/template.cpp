@@ -30,5 +30,5 @@ P set_array<%=n%>_rec(P t, int i, P v, int n) {
 }
 
 P set_array<%=n%>(P t, int i, P v) {
-  return set_array<%=n%>_rec(t, i, v, <%=n/2%>});
+  return set_array<%=n%>_rec(t, i, v, <%=n/2%>);
 }
