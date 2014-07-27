@@ -87,7 +87,7 @@ else
   cat "${TMPDIR}/simulator-args" >&2
   while read line; do
     echo "Running $line..." >&2
-    ninecluster-run "${package_id}" -- ./sim_main $line </dev/null &
+    ninecluster-run "${package_id}" -- "./sim_main $line" </dev/null &
     OnExit "kill -INT $! 2>/dev/null || true"
   done <"${TMPDIR}/simulator-args"
 fi
