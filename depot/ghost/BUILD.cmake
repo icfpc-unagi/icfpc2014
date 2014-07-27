@@ -14,6 +14,7 @@ cc_library(
     DEPENDENCIES
         "//ghost/ai"
         "//sim:ghost-interface"
+        "//util:flags"
 )
 
 cc_binary(

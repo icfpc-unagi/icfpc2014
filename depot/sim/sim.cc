@@ -7,6 +7,7 @@
 #include <glog/logging.h>
 #include "util/colors.h"
 #include "util/flags.h"
+#include "base/string-printf.h"
 
 DEFINE_bool(print_state, true, "Print the field state to stderr for each step");
 DEFINE_bool(print_ghost_move, false, "");
@@ -86,6 +87,8 @@ int Game::Start() {
   const int fright_mode_duration = 127 * 20;
   const int level = (width * height - 1) / 100 + 1;
   const int fruit_points = kFruitPoints[level <= 12 ? level : 13];
+  
+  string config = StringPrintf("%s-%s@%s", lman_[0]->Name(), FLAGS_ghosts.c_str(), maze_name_.c_str());
 
   // initlal status
   tick_ = 0;
@@ -125,9 +128,10 @@ int Game::Start() {
       state_changed = false;
     } else if (FLAGS_print_state && state_changed) {
       std::stringstream ss;
-      if (FLAGS_print_color) ss << RESETCURSOR;
-      ss << CYAN "[" << lman_[0]->Name() << "@" << maze_name_ << "]\n" RESET
-         << "The world state (utc=" << tick_
+      if (FLAGS_print_color) ss << RESETCURSOR CYAN;
+      ss << "[" << config << "]\n";
+      if (FLAGS_print_color) ss << RESET;
+      ss << "The world state (utc=" << tick_
          << ",lives=" << life_ << ",score=" << score_ << "):\n";
       auto lmanrc = lman_[0]->GetRC();
       int min_r = max(0, lmanrc.first - FLAGS_max_print_height / 2);
@@ -368,8 +372,8 @@ int Game::Start() {
   LOG_IF(INFO, tick_ == end_of_lives) << "Game over: " BOLDMAGENTA "End of lives" RESET;
   LOG(INFO) << "Stats: utc=" << tick_ << " lives=" << life_ << " fruites=" << fruits_eaten << " kills=" << kills;
   if (FLAGS_print_stats) {
-    printf("score: %d\tutc: %d\tlives: %d\tfruites: %d\tkills: %d\n",
-           score_, tick_, life_, fruits_eaten, kills);
+    printf("[%s]\tscore: %d\tutc: %d\tlives: %d\tfruites: %d\tkills: %d\n",
+           config.c_str(), score_, tick_, life_, fruits_eaten, kills);
   }
   return score_;
 }

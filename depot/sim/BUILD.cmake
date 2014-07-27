@@ -53,6 +53,7 @@ cc_test(
     SOURCES "sim_test.cc"
     DEPENDENCIES
         ":sim"
+        "//base"
         "//gtest:gtest_main"
 )
 
@@ -61,7 +62,6 @@ cc_binary(
     SOURCES "sim_main.cc"
     DEPENDENCIES
         ":sim"
-        "//ghost/ai:fickle"
 )
 
 cc_library(
@@ -69,5 +69,4 @@ cc_library(
     SOURCES "sim_main.cc"
     DEPENDENCIES
         ":sim"
-        "//ghost/ai:fickle"
 )
