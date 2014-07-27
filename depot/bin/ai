@@ -68,7 +68,7 @@ fi
 if [ "${FLAGS_evaluate}" == '' ]; then
   ./build/flame-binary/depot/sim/sim_main \
       --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" --maze="${maze}" "$@"
-  return
+  exit
 else
   rm ./build/flame-binary/depot/sim_test
   pushd ./build/flame-binary/depot/sim
