@@ -23,10 +23,19 @@ cc_library(
 )
 
 cc_library(
+    NAME "sakichokudai"
+    SOURCES "sakichokudai.cc"
+    DEPENDENCIES
+        "//base"
+        "//ghost"
+)
+
+cc_library(
     NAME "ai"
     SOURCES "ai.cc"
     DEPENDENCIES
         ":chokudai"
         ":fickle"
         ":fickle_debug"
+        ":sakichokudai"
 )
