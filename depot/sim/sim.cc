@@ -134,7 +134,7 @@ int Game::Start() {
       ss << "[" << config << "]\n";
       if (FLAGS_print_color) ss << RESET;
       ss << "The world state (utc=" << tick_
-         << ",lives=" << life_ << ",score=" << score_ << "):\n";
+         << ",lives=" << life_ << ",score=" << score_ << ",kills=" << kills << "):\n";
       auto lmanrc = lman_[0]->GetRC();
       int min_r = max(0, lmanrc.first - FLAGS_max_print_height / 2);
       int max_r = min(height, min_r + FLAGS_max_print_height);

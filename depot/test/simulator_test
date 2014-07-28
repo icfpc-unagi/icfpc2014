@@ -17,7 +17,7 @@ TestSimulator() {
   local maze="$3"
 
   local TMPDIR="$(mktemp -d "${TMPDIR}/simulator.XXXXXX")"
-  ./build/flame-binary/depot/sim/sim_main --print_for_test=1000 \
+  ./build/flame-binary/depot/sim/sim_main --print_for_test=1000 --noprint_stats \
       --lman="${lman}" --ghosts="${ghosts}" --maze=depot/maze/"${maze}".txt \
       2>/dev/null >"${TMPDIR}/simulator.txt"
   if diff "./depot/test/simulator/${lman};${ghosts};${maze}.txt" \
