@@ -7,7 +7,7 @@ DEFINE_string ghosts 'chokudai' 'Ghost AIs.'
 DEFINE_string maze 'world-classic' 'Maze.'
 DEFINE_bool build true 'Build files.'
 DEFINE_string evaluate '' 'Target to evaluate.'
-DEFINE_stirng preset 'regular' ''
+DEFINE_string preset 'regular' ''
 
 gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
