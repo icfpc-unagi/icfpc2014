@@ -1,0 +1,132 @@
+# -*- coding: utf-8 -*-
+  INT 1
+  ; 現在位置の取得
+  MOV <enemy_x>,a
+  MOV <enemy_y>,b
+  INT 3
+  MOV [0],a
+  INT 5
+  MOV <my_x>,a
+  MOV <my_y>,b
+  INT 3
+  INT 6
+;  INT 8
+  MOV [3],b
+  ADD [3],2
+  JLT init3,[3],4
+  SUB [3],4
+
+  ; [6] --- My ID
+  INT 3
+  MOV [6],a
+
+init3:
+  ; [1] --- Best Direction
+  ; [4] --- Best Score (larger, better)
+  ; [5] --- Best Distance (larger, better)
+  MOV [1],[3] ; 最高値の初期化
+  MOV [4],0
+  MOV [5],0
+
+DIRECTIONS {
+  ; [99] --- My Score
+  ; [100] -- My Distance
+  ; dir に行くときの処理
+  MOV [99],100 ;
+
+  ; 壁だったら dir 評価を0にする
+  MOV a,<my_x>
+  MOV b,<my_y>
+  <%= d(['SUB b,1', 'ADD a,1', 'ADD b,1', 'SUB a,1']) %>
+  ; (a, b) is now the new coordinate
+  MOV [101],a
+  MOV [102],b
+  INT 7
+  JEQ <dir_name>last,a,0
+  JEQ <dir_name>last,[3],<dir_num>
+
+  ; dir にいるなら評価 100 アップ
+  MOV [100],0
+  <%= d(['JGT <dir_name>1,<enemy_y>,<my_y>',
+         'JLT <dir_name>1,<enemy_x>,<my_x>',
+         'JLT <dir_name>1,<enemy_y>,<my_y>',
+         'JGT <dir_name>1,<enemy_x>,<my_x>']) %>
+  ADD [99],100
+  MOV [100],<%= d(['<my_y>',    '<enemy_x>', '<enemy_y>', '<my_x>'])    %>
+  SUB [100],<%= d(['<enemy_y>', '<my_x>',    '<my_y>',    '<enemy_x>']) %>
+<dir_name>1:
+
+;  MOV d,<dir_num>
+;  INT 8
+;  INT 8
+;  INT 8
+
+  MOV c,[6]
+  JLT <dir_name>break,c,1
+<dir_name>loop:
+  DEC c
+  MOV a,c
+  INT 4
+
+;  MOV d,a
+;  INT8
+;  MOV d,[101]
+;  INT8
+  MOV [104],[101]
+  SUB [104],a
+  JGT <dir_name>loop1,[101],a
+  MOV [104],a
+  SUB [104],[101]
+<dir_name>loop1:
+  JGT <dir_name>continue,[104],100  ; too distant
+  MOV [103],[104]
+;  MOV d,[104]
+;  INT 8
+
+;  MOV d,b
+;  INT8
+;  MOV d,[102]
+;  INT8
+  MOV [104],[102]
+  SUB [104],b
+  JGT <dir_name>loop2,[102],b
+  MOV [104],b
+  SUB [104],[102]
+<dir_name>loop2:
+  JGT <dir_name>continue,[104],100  ; too distant
+  ADD [103],[104]
+;  MOV d,[104]
+;  INT 8
+
+;  MOV d,[103]
+;  INT 8
+  INC [103]
+  MOV [105],20
+  DIV [105],[103]
+;  MOV d,[105]
+;  INT 8
+  SUB [99],[105]
+
+<dir_name>continue:
+  JGT <dir_name>loop,c,0
+<dir_name>break:
+
+;  MOV d,[99]
+;  INT 8
+
+  ; 上が最高値になっていたら更新
+  JLT <dir_name>last,[99],[4]
+  JGT <dir_name>accept,[99],[4]
+  JLT <dir_name>last,[100],[5]
+<dir_name>accept:
+  MOV [1],<dir_num>
+  MOV [4],[99]
+  MOV [5],[100]
+<dir_name>last:
+}
+
+  ; 最後に最高記録を採用
+  MOV a,[1]
+  INT 0
+  MOV d,[1]
+  HLT
