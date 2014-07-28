@@ -312,6 +312,7 @@ int Game::Start() {
       eating = true;
       score_ += fruit_points;
       fruits_eaten++;
+      fruit_remaining_ = 0;
       VLOG(2) << fruit_points << "pt by taking a fruit";
     }
 
