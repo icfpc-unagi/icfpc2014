@@ -106,8 +106,12 @@ elif [ "${FLAGS_preset}" == 'grid2-set' ]; then
 		'grid2-0.8-33---8'
 		'grid2-0.8-33---9'
 	)
-elif [ "${FLAGS_preset}" == 'iwi' ]; then
+elif [ "${FLAGS_preset}" == 'all' ]; then
 	PRESET_GHOSTS+=(
+		'fickle'
+		'chokudai'
+		'chokudai,sakichokudai'
+		'iwi6'
 		'iwi_escape1'
 	)
 	PRESET_MAZE+=(
