@@ -39,6 +39,66 @@ cc_library(
 )
 
 cc_library(
+    NAME "chokudai-28"
+    SOURCES "chokudai-28.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
+    NAME "chokudai-29"
+    SOURCES "chokudai-29.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
+    NAME "chokudai-30"
+    SOURCES "chokudai-30.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
+    NAME "chokudai-32"
+    SOURCES "chokudai-32.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
+    NAME "chokudai-33"
+    SOURCES "chokudai-33.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
+    NAME "chokudai-34"
+    SOURCES "chokudai-34.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
     NAME "chokudai-4"
     SOURCES "chokudai-4.cc"
     DEPENDENCIES
@@ -166,6 +226,12 @@ cc_library(
         ":chokudai-12"
         ":chokudai-13"
         ":chokudai-14"
+        ":chokudai-28"
+        ":chokudai-29"
+        ":chokudai-30"
+        ":chokudai-32"
+        ":chokudai-33"
+        ":chokudai-34"
         ":chokudai-4"
         ":chokudai-8"
         ":migi"

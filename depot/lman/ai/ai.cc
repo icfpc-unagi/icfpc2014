@@ -3,6 +3,12 @@
 #include "lman/ai/chokudai-12.h"
 #include "lman/ai/chokudai-13.h"
 #include "lman/ai/chokudai-14.h"
+#include "lman/ai/chokudai-28.h"
+#include "lman/ai/chokudai-29.h"
+#include "lman/ai/chokudai-30.h"
+#include "lman/ai/chokudai-32.h"
+#include "lman/ai/chokudai-33.h"
+#include "lman/ai/chokudai-34.h"
 #include "lman/ai/chokudai-4.h"
 #include "lman/ai/chokudai-8.h"
 #include "lman/ai/migi.h"
@@ -29,6 +35,18 @@ void RegisterAi(
       new chokudai_13LambdaManFactory);
   (*lambda_man_factories)["chokudai-14"].reset(
       new chokudai_14LambdaManFactory);
+  (*lambda_man_factories)["chokudai-28"].reset(
+      new chokudai_28LambdaManFactory);
+  (*lambda_man_factories)["chokudai-29"].reset(
+      new chokudai_29LambdaManFactory);
+  (*lambda_man_factories)["chokudai-30"].reset(
+      new chokudai_30LambdaManFactory);
+  (*lambda_man_factories)["chokudai-32"].reset(
+      new chokudai_32LambdaManFactory);
+  (*lambda_man_factories)["chokudai-33"].reset(
+      new chokudai_33LambdaManFactory);
+  (*lambda_man_factories)["chokudai-34"].reset(
+      new chokudai_34LambdaManFactory);
   (*lambda_man_factories)["chokudai-4"].reset(
       new chokudai_4LambdaManFactory);
   (*lambda_man_factories)["chokudai-8"].reset(
