@@ -56,16 +56,6 @@ elif [ "${FLAGS_preset}" == 'regular' ]; then
 		'grid2-0.8-15'
 		'grid2-0.8-33'
 		'grid2-0.8-55'
-		'new-world-0'
-		'new-world-1'
-		'new-world-2'
-		'new-world-3'
-		'new-world-4'
-		'new-world-5'
-		'new-world-6'
-		'new-world-7'
-		'new-world-8'
-		'new-world-9'
 	)
 else
 	echo "no such preset: ${FLAGS_preset}" >&2
