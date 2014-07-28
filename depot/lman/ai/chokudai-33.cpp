@@ -112,7 +112,7 @@ int mymod(int a, int b) {
 }
 
 
-int myrand(int m) {
+int myrand_wata(int m) {
 	randx = mymod(randx * 163 + 43751, 1000033);
 	return mymod(randx, m);
 }
