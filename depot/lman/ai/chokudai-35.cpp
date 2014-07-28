@@ -1217,6 +1217,8 @@ void bfs2(){
 
 }
 
+int countnotpoint;
+
 // step
 P step2(P ai, P game) {
 	P map;
@@ -1237,6 +1239,9 @@ P step2(P ai, P game) {
 
 	P fruits;
 
+
+
+
 	int maxpoint;
 
 	int retdirection;
@@ -1251,20 +1256,6 @@ P step2(P ai, P game) {
 	P wata_result = step_(ai,game);
 	P ret;
 
-	nowpos = toi(get_array2d256(boardtree, lambday, lambdax));
-	if(nowpos == 2){
-		boardtree = set_array2d256(boardtree, lambday, lambdax, 1);
-	}
-	if(nowpos == 3){
-		boardtree = set_array2d256(boardtree, lambday, lambdax, 1);
-	}
-
-	turn = turn + 1;
-	if(turn > 100){
-		ret = wata_result;
-		//dfsdepth = 20;
-	}
-	else{
 	distghosttree = allmaxtree;
 	distlmantree = allmaxtree;
 
@@ -1311,6 +1302,28 @@ P step2(P ai, P game) {
 
 	lx = lambdax;
 	ly = lambday;
+
+	nowpos = toi(get_array2d256(boardtree, lambday, lambdax));
+	if(nowpos == 2){
+		countnotpoint = 0;
+		boardtree = set_array2d256(boardtree, lambday, lambdax, 1);
+	}
+	if(nowpos == 3){
+		countnotpoint = 0;
+		boardtree = set_array2d256(boardtree, lambday, lambdax, 1);
+	}
+	countnotpoint += 1;
+
+	turn = turn + 1;
+	if(turn > h * w * 9){
+		ret = wata_result;
+		//dfsdepth = 20;
+	}
+	else{
+		if(countnotpoint > 100){
+			ret = wata_result;
+		}
+		else{
 
 	//debug(1245);
 
@@ -1416,6 +1429,7 @@ P step2(P ai, P game) {
 	debug(88888888);
 
 		ret = P(P(retdirection, 0), retdirection);
+		}
 	}
 	return ret;
 }
