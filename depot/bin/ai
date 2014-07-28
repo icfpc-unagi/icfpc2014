@@ -67,6 +67,7 @@ if (( FLAGS_build )); then
   make build/flame-binary/depot/sim/sim_main
 fi
 
+IFS=$' \n\t'
 if [ "${FLAGS_evaluate}" == '' ]; then
   ./build/flame-binary/depot/sim/sim_main \
       --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" \
