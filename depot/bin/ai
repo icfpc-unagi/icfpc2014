@@ -41,11 +41,11 @@ FindAi() {
   fi
 }
 
-IFS=, lman=($FLAGS_lman)
+IFS=, eval lman=($FLAGS_lman)
 for lambda_man in "${lman[@]}"; do
   FindAi lman "${lambda_man}"
 done
-IFS=, ghosts=($FLAGS_ghosts)
+IFS=, eval ghosts=($FLAGS_ghosts)
 for ghost in "${ghosts[@]}"; do
   FindAi ghost "${ghost}"
 done
