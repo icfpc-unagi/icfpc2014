@@ -19,6 +19,7 @@ if [ "${FLAGS_preset}" == 'new-world' ]; then
 		'iwi1,chokudai,sakichokudai,fickle'
 		'iwi1'
 		'iwi5'
+		'iwi6'
 	)
 	PRESET_MAZE+=(
 		'new-world---0'
