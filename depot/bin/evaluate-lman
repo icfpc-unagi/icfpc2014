@@ -1,11 +1,24 @@
 #!/bin/bash
 
+source gbash.sh || exit 1
+
+DEFINE_int max_tick 100000 'Number of ticks'
+
+gbash::init_google "$@"
+set -- "${GBASH_ARGV[@]}"
+set -e -u -m
+
 if [ $# -ne 2 ]; then
   echo "Usage: evaluate-lman <lman AI name> <preset>" >&2
   echo "preset is 'regular' or 'new-world'" >&2
   exit 1
 fi
 
-    ai --preset="$2" --evaluate=lman --lman="$1" --max_tick=100000 \
-        2>/dev/null | grep '^stats' | \
-        tee /dropbox/results/lman/"$1-$(date +%Y%m%d-%H%M%S).txt"
+prefix=""
+if [ "${FLAGS_max_tick}" != '100000' ]; then
+  prefix="${FLAGS_max_tick}-"
+fi
+
+ai --preset="$2" --evaluate=lman --lman="$1" --max_tick="${FLAGS_max_tick}" \
+    | grep '^stats' | \
+    tee /dropbox/results/lman/"$prefix$1-$(date +%Y%m%d-%H%M%S).txt"

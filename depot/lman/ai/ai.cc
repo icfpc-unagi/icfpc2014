@@ -12,6 +12,7 @@
 #include "lman/ai/tos-hungry.h"
 #include "lman/ai/tos-sokushi-kaihi.h"
 #include "lman/ai/tos-yowaki.h"
+#include "lman/ai/wata-07.h"
 #include "lman/ai/wata-10.h"
 #include "lman/ai/wata_cpp.h"
 
@@ -46,6 +47,8 @@ void RegisterAi(
       new tos_sokushi_kaihiLambdaManFactory);
   (*lambda_man_factories)["tos-yowaki"].reset(
       new tos_yowakiLambdaManFactory);
+  (*lambda_man_factories)["wata-07"].reset(
+      new wata_07LambdaManFactory);
   (*lambda_man_factories)["wata-10"].reset(
       new wata_10LambdaManFactory);
   (*lambda_man_factories)["wata_cpp"].reset(

@@ -129,6 +129,16 @@ cc_library(
 )
 
 cc_library(
+    NAME "wata-07"
+    SOURCES "wata-07.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
     NAME "wata-10"
     SOURCES "wata-10.cc"
     DEPENDENCIES
@@ -165,6 +175,7 @@ cc_library(
         ":tos-hungry"
         ":tos-sokushi-kaihi"
         ":tos-yowaki"
+        ":wata-07"
         ":wata-10"
         ":wata_cpp"
 )
