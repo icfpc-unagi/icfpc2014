@@ -91,8 +91,10 @@ else
   cat "${TMPDIR}/simulator-args" >&2
   while read line; do
     echo "Running $line..." >&2
-    ninecluster-run "${package_id}" -- \
-        "./sim_main --max_tick=${FLAGS_max_tick} $line" </dev/null &
+    # ninecluster-run "${package_id}" -- \
+    #    "./sim_main --max_tick=${FLAGS_max_tick} $line" </dev/null &
+    ./build/flame-binary/depot/sim/sim_main \
+        --max_tick=${FLAGS_max_tick} $line </dev/null &
     OnExit "kill -INT $! 2>/dev/null || true"
   done <"${TMPDIR}/simulator-args"
 fi
