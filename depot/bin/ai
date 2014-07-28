@@ -41,11 +41,11 @@ FindAi() {
   fi
 }
 
-IFS=, lman=($FLAGS_lman)
+IFS=, eval lman=($FLAGS_lman)
 for lambda_man in "${lman[@]}"; do
   FindAi lman "${lambda_man}"
 done
-IFS=, ghosts=($FLAGS_ghosts)
+IFS=, eval ghosts=($FLAGS_ghosts)
 for ghost in "${ghosts[@]}"; do
   FindAi ghost "${ghost}"
 done
@@ -67,6 +67,7 @@ if (( FLAGS_build )); then
   make build/flame-binary/depot/sim/sim_main
 fi
 
+IFS=$' \n\t'
 if [ "${FLAGS_evaluate}" == '' ]; then
   ./build/flame-binary/depot/sim/sim_main \
       --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" \
@@ -91,8 +92,13 @@ else
   cat "${TMPDIR}/simulator-args" >&2
   while read line; do
     echo "Running $line..." >&2
-    ninecluster-run "${package_id}" -- \
-        "./sim_main --max_tick=${FLAGS_max_tick} $line" </dev/null &
+    # ninecluster-run "${package_id}" -- \
+    #    "./sim_main --max_tick=${FLAGS_max_tick} $line" </dev/null &
+    # eval args=(./build/flame-binary/depot/sim/sim_main
+    #            --max_tick=${FLAGS_max_tick} $line)
+    # ninecluster-run "${package_id}" -- ${args[@]} </dev/null &
+    eval ./build/flame-binary/depot/sim/sim_main \
+        --max_tick=${FLAGS_max_tick} $line </dev/null &
     OnExit "kill -INT $! 2>/dev/null || true"
   done <"${TMPDIR}/simulator-args"
 fi
