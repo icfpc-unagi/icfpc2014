@@ -10,6 +10,7 @@
 #include "lman/ai/chokudai-33.h"
 #include "lman/ai/chokudai-34.h"
 #include "lman/ai/chokudai-35.h"
+#include "lman/ai/chokudai-36.h"
 #include "lman/ai/chokudai-4.h"
 #include "lman/ai/chokudai-8.h"
 #include "lman/ai/migi.h"
@@ -50,6 +51,8 @@ void RegisterAi(
       new chokudai_34LambdaManFactory);
   (*lambda_man_factories)["chokudai-35"].reset(
       new chokudai_35LambdaManFactory);
+  (*lambda_man_factories)["chokudai-36"].reset(
+      new chokudai_36LambdaManFactory);
   (*lambda_man_factories)["chokudai-4"].reset(
       new chokudai_4LambdaManFactory);
   (*lambda_man_factories)["chokudai-8"].reset(
