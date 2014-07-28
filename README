@@ -1,0 +1,34 @@
+depot/base:
+	Generic C++ utilities.
+depot/bcompiler:
+	B14 compiler.
+depot/bin:
+	Shared command line scripts
+depot/ghost:
+	Ghost implementation.
+depot/ghost/ai:
+	Ghost AI implementation.
+depot/gtest:
+	Test library.
+depot/jssimulator:
+	Game simulator for tests using the given web siumlator.
+depot/lman:
+	Lambda-Man implementation.
+depot/lman/ai:
+	Lambda-Man AI implementation.
+depot/maze:
+	Maze input files and automated maze generators.
+depot/sample:
+	A sample program for build system of this repository.
+depot/sbl:
+	Standard B14 Library.
+depot/sim:
+	Fast game simulator implementation and interfaces.
+depot/test:
+	Integration test based on the given web simulator.
+depot/translator:
+	B14-to-C++ translator implementation for fast simulator.
+depot/translator/ai:
+	Moved to lman/ai.
+depot/util:
+	Shared C++ utilities.
