@@ -7,5 +7,5 @@ if [ $# -ne 2 ]; then
 fi
 
     ai --preset="$2" --evaluate=lman --lman="$1" --max_tick=100000 \
-        2>/dev/null | grep '^stats' | \
+        | grep '^stats' | \
         tee /dropbox/results/lman/"$1-$(date +%Y%m%d-%H%M%S).txt"
