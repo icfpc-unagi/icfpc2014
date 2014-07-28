@@ -18,6 +18,6 @@ for seed in {0..9}; do
 done
 
 for seed in {0..9}; do
-  ${GEN} --maker=new-world --ghosts=8 --powerpills=12 --seed=$seed \
+  ${GEN} --maker=new-world --ghosts=4 --powerpills=12 --seed=$seed \
       > depot/maze/new-world-$seed.txt
 done
