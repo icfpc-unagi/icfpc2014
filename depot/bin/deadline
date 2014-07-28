@@ -8,6 +8,8 @@ gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
 set -e -u -m
 
+stty raw
+
 "$@" &
 pid="$!"
 trap "kill -TERM $pid 2>/dev/null >/dev/null; exit 0" SIGCHLD
