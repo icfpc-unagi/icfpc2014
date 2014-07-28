@@ -1,10 +1,12 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]; then
-  echo "Usage: evaluate-lman <lman AI name>" >&2
+if [ $# -ne 2 ]; then
+  echo "Usage: evaluate-lman <lman AI name> <preset>" >&2
+  echo "preset is 'regular' or 'new-world'" >&2
   exit 1
 fi
 
 nohup deadline --time_limit=300 -- \
-      ai --evaluate=lman --lman="$1" 2>/dev/null | grep '^stats' | sort \
+      ai --preset="$2" --evaluate=lman --lman="$1" 2>/dev/null | \
+      grep '^stats' | sort \
     >/dropbox/results/lman/"$1-$(date +%Y%m%d-%H%M%S).txt" &
