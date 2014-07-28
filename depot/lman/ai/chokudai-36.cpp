@@ -29,6 +29,7 @@ int MAXNUM;
 P q1;
 P gghosts;
 
+int nowata;
 
 int i;
 int j;
@@ -308,6 +309,8 @@ int eval(int x, int y) {
 P step_(P ai, P game) {
 	P manStatus;
 	int ret, dir, maxScore, score, x, y;
+
+	if(nowata==0){
 	board2DList_wata = fst(game);
 	manStatus = fst(snd(game));
 	ghostStatus_wata = fst(snd(snd(game)));
@@ -338,6 +341,10 @@ P step_(P ai, P game) {
 		dir += 1;
 	}
 //	debugList2D(dist2D);
+	}
+	else{
+		ret = 0;
+	}
 	return P(ai, ret);
 }
 
@@ -1315,12 +1322,12 @@ P step2(P ai, P game) {
 	countnotpoint += 1;
 
 	turn = turn + 1;
-	if(turn > h * w * 9){
+	if((turn > h * w * 9) * (1 - nowata)){
 		ret = wata_result;
 		//dfsdepth = 20;
 	}
 	else{
-		if(countnotpoint > 100){
+		if((countnotpoint > 100) * (1 - nowata)){
 			debug(9999999);
 			ret = wata_result;
 		}
@@ -1458,6 +1465,12 @@ P init(P game, P nazo) {
 	w = getLength(fst(fst(game)));
 	boardtree = list2d_to_array2d256(fst(game));
 	allmaxtree = boardtree;
+	if(h * w > 10000){
+		nowata = 1;
+	}
+	else{
+		nowata = 0;
+	}
 
 	nearghostlength = 3;
 	dfsdepth = 10;
@@ -1498,17 +1511,20 @@ P init(P game, P nazo) {
 	board2DList_wata = fst(game);
 	sizeY_wata = lengthList(board2DList_wata);
 	sizeX_wata = lengthList(fst(board2DList_wata));
-	dist2D = initDist2D(board2DList_wata);
-	dist2D = updateDist2D(dist2D);
-	dist2D = updateDist2D(dist2D);
-	dist2D = updateDist2D(dist2D);
-	dist2D = updateDist2D(dist2D);
-	dist2D = updateDist2D(dist2D);
-	dist2D = updateDist2D(dist2D);
-	dist2D = updateDist2D(dist2D);
-	dist2D = updateDist2D(dist2D);
-	dist2D = updateDist2D(dist2D);
-	dist2D = updateDist2D(dist2D);
+
+	if(nowata == 0){
+		dist2D = initDist2D(board2DList_wata);
+		dist2D = updateDist2D(dist2D);
+		dist2D = updateDist2D(dist2D);
+		dist2D = updateDist2D(dist2D);
+		dist2D = updateDist2D(dist2D);
+		dist2D = updateDist2D(dist2D);
+		dist2D = updateDist2D(dist2D);
+		dist2D = updateDist2D(dist2D);
+		dist2D = updateDist2D(dist2D);
+		dist2D = updateDist2D(dist2D);
+		dist2D = updateDist2D(dist2D);
+	}
 
 	return P(0, 0);
 }
