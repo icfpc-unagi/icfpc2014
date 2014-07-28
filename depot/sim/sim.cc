@@ -15,6 +15,7 @@ DEFINE_int32(max_print_height, 40, "");
 DEFINE_int32(max_print_width, 80, "");
 DEFINE_bool(spec_call_redundant_ghost_step, true, "");
 DEFINE_bool(spec_one_more_fright_cycle, true, "");
+DEFINE_int32(max_tick, -1, "The maximum tick");
 
 constexpr int kFruitPoints[14] = {0,    100,  300,  500,  500,  700,  700,
                                   1000, 1000, 2000, 2000, 3000, 3000, 5000};
@@ -81,7 +82,8 @@ int Game::Start() {
   // constants
   const int height = maze_.size();
   const int width = maze_[0].size();
-  const int end_of_lives = 127 * width * height * 16;
+  const int end_of_lives =
+      (0 < FLAGS_max_tick) ? FLAGS_max_tick : 127 * width * height * 16;
   const int fruit_appears[2] = {127 * 200, 127 * 400};
   const int fruit_expires[2] = {127 * 280, 127 * 480};
   const int fright_mode_duration = 127 * 20;
