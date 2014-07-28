@@ -8,17 +8,34 @@ gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
 set -e -u
 
-PRESET_GHOSTS=(
-	'fickle'
-	'chokudai'
-	'chokudai,sakichokudai'
-	'iwi1,chokudai,sakichokudai,fickle'
-	'iwi1'
-	'iwi5'
-)
 
+PRESET_GHOSTS=()
 PRESET_MAZE=()
 if [ "${FLAGS_preset}" == 'new-world' ]; then
+	PRESET_GHOSTS+=(
+		'fickle'
+		'chokudai'
+		'chokudai,sakichokudai'
+		'iwi1,chokudai,sakichokudai,fickle'
+		'iwi1'
+		'iwi5'
+	)
+	PRESET_MAZE+=(
+		'new-world---0'
+		'new-world---1'
+		'new-world---2'
+		'new-world---3'
+		'new-world---4'
+		'new-world---5'
+		'new-world---6'
+		'new-world---7'
+		'new-world---8'
+		'new-world---9'
+	)
+elif [ "${FLAGS_preset}" == 'new-world-patch' ]; then
+	PRESET_GHOSTS+=(
+		'iwi6'
+	)
 	PRESET_MAZE+=(
 		'new-world---0'
 		'new-world---1'
@@ -32,6 +49,14 @@ if [ "${FLAGS_preset}" == 'new-world' ]; then
 		'new-world---9'
 	)
 elif [ "${FLAGS_preset}" == 'regular' ]; then
+	PRESET_GHOSTS+=(
+		'fickle'
+		'chokudai'
+		'chokudai,sakichokudai'
+		'iwi1,chokudai,sakichokudai,fickle'
+		'iwi1'
+		'iwi5'
+	)
 	PRESET_MAZE+=(
 		'world-classic'
 		'world-1'
