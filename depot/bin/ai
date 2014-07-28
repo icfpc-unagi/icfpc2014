@@ -8,6 +8,7 @@ DEFINE_string maze 'world-classic' 'Maze.'
 DEFINE_bool build true 'Build files.'
 DEFINE_string evaluate '' 'Target to evaluate.'
 DEFINE_string preset 'regular' ''
+DEFINE_int max_tick -1 'Number of ticks'
 
 gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
@@ -68,7 +69,8 @@ fi
 
 if [ "${FLAGS_evaluate}" == '' ]; then
   ./build/flame-binary/depot/sim/sim_main \
-      --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" --maze="${maze}" "$@"
+      --lman="${FLAGS_lman}" --ghosts="${FLAGS_ghosts}" \
+      --maze="${maze}" --max_tick="${FLAGS_max_tick}" "$@"
   exit
 else
   pushd ./build/flame-binary/depot/sim
@@ -89,7 +91,8 @@ else
   cat "${TMPDIR}/simulator-args" >&2
   while read line; do
     echo "Running $line..." >&2
-    ninecluster-run "${package_id}" -- "./sim_main $line" </dev/null &
+    ninecluster-run "${package_id}" -- \
+        "./sim_main --max_tick=${FLAGS_max_tick} $line" </dev/null &
     OnExit "kill -INT $! 2>/dev/null || true"
   done <"${TMPDIR}/simulator-args"
 fi
