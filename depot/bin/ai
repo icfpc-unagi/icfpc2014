@@ -7,6 +7,7 @@ DEFINE_string ghosts 'chokudai' 'Ghost AIs.'
 DEFINE_string maze 'world-classic' 'Maze.'
 DEFINE_bool build true 'Build files.'
 DEFINE_string evaluate '' 'Target to evaluate.'
+DEFINE_string preset 'regular' ''
 
 gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
@@ -82,7 +83,8 @@ else
   ninecluster-run "${package_id}" -- ls -lA </dev/null &
   wait
   echo 'Generating args...' >&2
-  stats_args.sh "${FLAGS_lman}" >"${TMPDIR}/simulator-args"
+  stats_args.sh --preset="${FLAGS_preset}" "${FLAGS_lman}" \
+      >"${TMPDIR}/simulator-args"
   echo 'Candidate args:' >&2
   cat "${TMPDIR}/simulator-args" >&2
   while read line; do
