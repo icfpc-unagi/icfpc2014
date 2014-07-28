@@ -99,6 +99,16 @@ cc_library(
 )
 
 cc_library(
+    NAME "chokudai-35"
+    SOURCES "chokudai-35.cc"
+    DEPENDENCIES
+        "//base"
+        "//lman:lambda-man"
+        "//sbl"
+        "//translator:lib"
+)
+
+cc_library(
     NAME "chokudai-4"
     SOURCES "chokudai-4.cc"
     DEPENDENCIES
@@ -232,6 +242,7 @@ cc_library(
         ":chokudai-32"
         ":chokudai-33"
         ":chokudai-34"
+        ":chokudai-35"
         ":chokudai-4"
         ":chokudai-8"
         ":migi"
