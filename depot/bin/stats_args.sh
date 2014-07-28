@@ -8,30 +8,110 @@ gbash::init_google "$@"
 set -- "${GBASH_ARGV[@]}"
 set -e -u
 
-PRESET_GHOSTS=(
-	'fickle'
-	'chokudai'
-	'chokudai,sakichokudai'
-	'iwi1,chokudai,sakichokudai,fickle'
-	'iwi1'
-	'iwi5'
-)
 
+PRESET_GHOSTS=()
 PRESET_MAZE=()
 if [ "${FLAGS_preset}" == 'new-world' ]; then
+	PRESET_GHOSTS+=(
+		'fickle'
+		'chokudai'
+		'chokudai,sakichokudai'
+		'iwi1,chokudai,sakichokudai,fickle'
+		'iwi1'
+		'iwi5'
+		'iwi6'
+	)
 	PRESET_MAZE+=(
-		'new-world-0'
-		'new-world-1'
-		'new-world-2'
-		'new-world-3'
-		'new-world-4'
-		'new-world-5'
-		'new-world-6'
-		'new-world-7'
-		'new-world-8'
-		'new-world-9'
+		'new-world---0'
+		'new-world---1'
+		'new-world---2'
+		'new-world---3'
+		'new-world---4'
+		'new-world---5'
+		'new-world---6'
+		'new-world---7'
+		'new-world---8'
+		'new-world---9'
+	)
+elif [ "${FLAGS_preset}" == 'new-world-patch' ]; then
+	PRESET_GHOSTS+=(
+		'iwi6'
+	)
+	PRESET_MAZE+=(
+		'new-world---0'
+		'new-world---1'
+		'new-world---2'
+		'new-world---3'
+		'new-world---4'
+		'new-world---5'
+		'new-world---6'
+		'new-world---7'
+		'new-world---8'
+		'new-world---9'
+	)
+elif [ "${FLAGS_preset}" == 'regular-set' ]; then
+	PRESET_GHOSTS+=(
+		'fickle'
+		'iwi6'
+	)
+	PRESET_MAZE+=(
+		'test-32---0'
+		'test-32---1'
+		'test-32---2'
+		'test-32---3'
+		'test-32---4'
+		'test-32---5'
+		'test-32---6'
+		'test-32---7'
+		'test-32---8'
+		'test-32---9'
+		'grid-32---0'
+		'grid-32---1'
+		'grid-32---2'
+		'grid-32---3'
+		'grid-32---4'
+		'grid-32---5'
+		'grid-32---6'
+		'grid-32---7'
+		'grid-32---8'
+		'grid-32---9'
+	)
+elif [ "${FLAGS_preset}" == 'grid2-set' ]; then
+	PRESET_GHOSTS+=(
+		'fickle'
+		'iwi6'
+	)
+	PRESET_MAZE+=(
+		'grid2-0.2-33---0'
+		'grid2-0.2-33---1'
+		'grid2-0.2-33---2'
+		'grid2-0.2-33---3'
+		'grid2-0.2-33---4'
+		'grid2-0.2-33---5'
+		'grid2-0.2-33---6'
+		'grid2-0.2-33---7'
+		'grid2-0.2-33---8'
+		'grid2-0.2-33---9'
+		'grid2-0.8-33---0'
+		'grid2-0.8-33---1'
+		'grid2-0.8-33---2'
+		'grid2-0.8-33---3'
+		'grid2-0.8-33---4'
+		'grid2-0.8-33---5'
+		'grid2-0.8-33---6'
+		'grid2-0.8-33---7'
+		'grid2-0.8-33---8'
+		'grid2-0.8-33---9'
 	)
 elif [ "${FLAGS_preset}" == 'regular' ]; then
+	PRESET_GHOSTS+=(
+		'fickle'
+		'chokudai'
+		'chokudai,sakichokudai'
+		'iwi1,chokudai,sakichokudai,fickle'
+		'iwi1'
+		'iwi5'
+	)
 	PRESET_MAZE+=(
 		'world-classic'
 		'world-1'
