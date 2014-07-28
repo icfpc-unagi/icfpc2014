@@ -1,0 +1,40 @@
+#!/bin/bash
+
+source gbash.sh || exit 1
+
+gbash::init_google "$@"
+set -- "${GBASH_ARGV[@]}"
+set -e -u
+
+git pull
+./depot/lman/ai/generator
+./depot/ghost/ai/generator
+make >/dev/null
+SIM=./build/flame-binary/depot/sim/sim_main
+
+while :; do
+	LMAN_LIST=($(for i in ${HOME}/code/depot/lman/ai/*.cpp; do
+		echo $(basename ${i%.cpp})
+	done))
+	GHOST_LIST=($(for i in ${HOME}/code/depot/ghost/ai/*.ghc; do
+		G=$(basename ${i%.ghc})
+		[ "$G" != "fickle_debug" -a "$G" != "fickle" ] && echo $G
+	done))
+	MAZE_LIST=(${HOME}/code/depot/maze/*.txt)
+
+	LMAN="${LMAN_LIST[$[${RANDOM}%${#LMAN_LIST[*]}]]}"
+	GHOST1="${GHOST_LIST[$[${RANDOM}%${#GHOST_LIST[*]}]]}"
+	GHOST2="${GHOST_LIST[$[${RANDOM}%${#GHOST_LIST[*]}]]}"
+	if [ "${GHOST1}" = "${GHOST2}" ]; then
+		GHOSTS="${GHOST1}"
+	else
+		GHOSTS="${GHOST1},${GHOST2}"
+	fi
+	MAZE="${MAZE_LIST[$[${RANDOM}%${#MAZE_LIST[@]}]]}"
+
+	${SIM} -lman="${LMAN}" -ghosts="${GHOSTS}" -maze="${MAZE}" -silent -print_stats "$@"
+
+	sleep 5
+
+	git pull | grep -q 'up-to-date' && make >/dev/null 2>/dev/null
+done
