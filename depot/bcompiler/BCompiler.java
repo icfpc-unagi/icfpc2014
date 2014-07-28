@@ -442,12 +442,12 @@ public class BCompiler {
 	void toGCC(Function f, Map<String, String[]> blocks) {
 		ArrayList<String> gccs = new ArrayList<String>();
 		Map<String, int[]> vars = new TreeMap<String, int[]>();
-		for (int i = 0; i < f.args.length; i++) {
-			vars.put(f.args[i], new int[]{1, i});
-		}
 		int depth = 1;
 		for (int i = 0; i < globalVars.size(); i++) {
 			vars.put(globalVars.get(i), new int[]{0, i});
+		}
+		for (int i = 0; i < f.args.length; i++) {
+			vars.put(f.args[i], new int[]{1, i});
 		}
 		if (f.block.vars.length > 0) {
 			for (int i = 0; i < f.block.vars.length; i++) {
