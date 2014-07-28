@@ -9,9 +9,12 @@ set -- "${GBASH_ARGV[@]}"
 set -e -u
 
 PRESET_GHOSTS=(
-	'iwi1,fickle'
+	'fickle'
 	'chokudai'
+	'chokudai,sakichokudai'
 	'iwi1,chokudai,sakichokudai,fickle'
+	'iwi1'
+	'iwi5'
 )
 
 PRESET_MAZE=()
